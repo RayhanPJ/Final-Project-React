@@ -1,0 +1,254 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* navbar main */
+.list_nav_main{
+  padding-left: 25px !important;
+}
+
+/* Header */
+.bgHeader {
+  background-image: url(../../img/bgHeader.png);
+}
+
+/* .bgHeader .headerC h3{
+  width: 400px !important;
+  margin-left: 720px;
+}
+.bgHeader .headerC p{
+  width: 350px;
+  margin-left: 770px;
+} */
+
+header {
+  height: 646px;
+}
+
+.btn-me b:hover {
+  color: rgb(99, 99, 99);
+}
+
+/* Footer */
+footer {
+  background-color: #5e5e5e;
+}
+
+.nav_footer a {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  line-height: 10px;
+}
+
+.nav_footer a:hover {
+  color: black;
+}
+.sosmed p {
+  color: white;
+  font-weight: bold;
+}
+.sosmed a {
+  padding-left: 8px;
+}
+
+.addres {
+  color: #ffffff !important;
+}
+
+/* end footer */
+/* mobile 360px */
+@media (max-width: 600px) {
+  /* navbar main */
+  .list_nav_main{
+    padding-left: 0px !important;
+  }
+
+  .contain_navbar nav {
+    margin-left: 30px;
+  }
+
+  .title-prodak h1 {
+    width: 248px;
+    height: 200px;
+    margin-top: 0;
+  }
+
+  .title-prodak p {
+    font-family: Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    width: 328px;
+    height: 60px;
+    align-self: stretch;
+  }
+
+  .title-prodak .button-order {
+    margin: 30px 0 20px 0;
+  }
+
+  .container .title-image {
+    width: 344px;
+    height: 199px;
+  }
+
+  /* layanan */
+  .layanan .img-service {
+    width: 252px;
+    margin: 10px 0 0 30px;
+    padding-bottom: 20px;
+  }
+
+  /* pesan tiket */
+  .nama_lengkap input{
+    width: 240px !important;
+  }
+  /* bayar tiket */
+  .bayarTiket .tbayar{
+    width: 250px !important;
+    margin-left: 100px !important;
+  }
+  .bayarTiket .btn_bayar{
+    margin-left: 100px !important;
+  }
+
+  /* pesan tiket */
+  #nama_lengkap{
+    width: "10px" !important;
+  }
+  /* footer */
+  .nav_footer{
+    margin-top: 10px;
+  }
+}
+
+/* Login */
+.bgLogin {
+  background-image: url(../../img/bgLogin.png);
+  height: 795px;
+}
+
+/* Form Tiket */
+.bgForm {
+  background-image: url(../../img/bluecloud.png);
+}
+
+/* Form Info Tiket */
+.bgFormInfo {
+  background-color: #dfe0e2;
+}
+
+/* About Us */
+.bgAboutUs {
+  background-image: url(../../img/bgAboutUs.png);
+  height: 552px;
+}
+
+/* Grid Custom Form Booking */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(6, 0.3fr);
+  grid-template-rows: 0.3fr 0.2fr 0.5fr 0.6fr;
+  grid-column-gap: 16px;
+  border-radius: 17px;
+  background-color: #d9d9d9;
+  box-shadow: 2px 16px 40px -6px rgba(0,0,0,0.61);
+}
+
+.div1 {
+  grid-area: 1 / 1 / 2 / 7;
+  background-color: #1d1d1d;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+}
+.div2 {
+  grid-area: 2 / 1 / 3 / 7;
+  padding-left: 12px;
+}
+
+.div2 a {
+  text-decoration: none;
+  color: black;
+}
+
+.div2 a:hover {
+  color: rgb(121, 121, 121);
+}
+
+.div3 {
+  grid-area: 3 / 1 / 4 / 3;
+  padding-left: 12px;
+}
+.div4 {
+  grid-area: 3 / 3 / 4 / 5;
+}
+.div5 {
+  grid-area: 3 / 5 / 4 / 7;
+  padding-right: 12px;
+}
+.div6 {
+  grid-area: 4 / 1 / 5 / 3;
+  padding-left: 12px;
+}
+.div7 {
+  grid-area: 4 / 3 / 5 / 5;
+}
+.div8 {
+  grid-area: 4 / 5 / 5 / 7;
+  padding-right: 12px;
+}
+
+/* Custom Grid Form Info Tiket */
+.parentInfo {
+  display: grid;
+  grid-template-columns: repeat(8, 0.3fr);
+  grid-template-rows: 0.3fr 0.5fr;
+  grid-column-gap: 16px;
+  border-radius: 17px;
+  background-color: #d9d9d9;
+  box-shadow: 2px 16px 40px -6px rgba(0,0,0,0.61);
+}
+
+.divInfo1 {
+  grid-area: 1 / 1 / 2 / 9;
+  background-color: #1d1d1d;
+  border-top-left-radius: 17px;
+  border-top-right-radius: 17px;
+}
+.divInfo2 {
+  grid-area: 2 / 1 / 3 / 3;
+  border-bottom-left-radius: 17px;
+  padding-left: 12px;
+}
+.divInfo3 {
+  grid-area: 2 / 3 / 3 / 5;
+}
+.divInfo4 {
+  grid-area: 2 / 5 / 3 / 7;
+}
+.divInfo5 {
+  grid-area: 2 / 7 / 3 / 9;
+  border-bottom-right-radius: 17px;
+  padding-right: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+}
