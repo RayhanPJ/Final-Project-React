@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getListPenerbangan } from "../../../actions/ListPenerbangan";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 
 const FormInfoTiket = () => {
   const [show, setShow] = useState(true);
-  const {
-    getListPenerbanganResult,
-  } = useSelector((state) => state.Penerbangan);
-  const dispatch = useDispatch();
+  const [airports, setAirports] = useState();
+
+  // Function to collect data
+  const getApiData = async () => {
+    const response = await fetch(
+      "https://gotravel-production.up.railway.app/api/v1/airport"
+    ).then((response) => response.json());
+      console.log(response.data.airports);
+    setAirports(response.data.airports);
+  };
 
   useEffect(() => {
-    dispatch(getListPenerbangan());
-  }, [dispatch]);
+    getApiData();
+  }, []);
 
   return (
     <div className="bgFormInfo" id="infoTiket">
@@ -25,18 +29,20 @@ const FormInfoTiket = () => {
             </div>
             <div className="divInfo2 ">
               <label className="form-label">Dari</label>
-              {console.log(getListPenerbanganResult)}
-
-              <div className="input-group mb-3">
+              
+              {airports &&
+              airports.map((airport) => (
+                <div className="input-group mb-3" key={airport.id}>
                 <select
                   id="Penerbangan"
-                  
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih</option>
+                  <option value="">{airport.name}</option>
                 </select>
               </div>
+              ))}
+              
             </div>
             <div className="divInfo3">
               <label className="form-label">
