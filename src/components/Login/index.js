@@ -28,7 +28,7 @@ async function doLogin({ username, password }) {
 async function doLoginGoogle(res, email) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://challenge-8-be-fsw-production.up.railway.app/api/v1/google",
+    "https://gotravel-production.up.railway.app/api/v1/google",
     {
       method: "POST",
       headers: {
@@ -47,12 +47,11 @@ async function doLoginGoogle(res, email) {
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
-
-  const GOOGLECLIENTID =
-    "1075166577960-qiqbp7khn8e0e50mrgf01hcci3kognqf.apps.googleusercontent.com";
+  const GOOGLECLIENTID = "1075166577960-t9j4kguud7mo2dkaij6k3o5qu9rfna1b.apps.googleusercontent.com";
 
   useEffect(() => {
     setIsLoggedIn(!!token);
@@ -62,7 +61,13 @@ function Login() {
     setIsLoading(true);
     e.preventDefault();
     doLogin({ username, password })
-      .then((token) => localStorage.setItem("token", token))
+      .then((user) => {
+        if (!user) {
+        setError(user.message);
+      } else {
+        localStorage.setItem("token", user);
+      }
+})
       .catch((err) => err.message)
       .finally(() => setIsLoading(false));
   }

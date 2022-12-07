@@ -11,7 +11,6 @@ const FormTiket = () => {
     const response = await fetch(
       "https://gist.githubusercontent.com/romi-ari/71f3256a894b72849fbe017b28b86a20/raw/ec10f42e2df547ea1dc944184f5ace2412436b30/indonesia-international-airport.json"
     ).then((response) => response.json());
-    console.log(response);
     setAirports(response);
   };
 
@@ -38,7 +37,7 @@ const FormTiket = () => {
                 <select
                   
                   id="Penerbangan"
-                  name="Penerbangan"
+                  name="PenerbanganDari"
                   className="form-select bg-transparent border-dark"
                 >
                   {airports &&
@@ -53,7 +52,7 @@ const FormTiket = () => {
               <div className="input-group mb-3">
                 <select
                   id="Penerbangan"
-                  name="Penerbangan"
+                  name="PenerbanganKe"
                   className="form-select bg-transparent border-dark"
                 >
                   {airports &&
