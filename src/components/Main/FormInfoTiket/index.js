@@ -9,10 +9,10 @@ const FormInfoTiket = () => {
   // Function to collect data
   const getApiData = async () => {
     const response = await fetch(
-      "https://gotravel-production.up.railway.app/api/v1/airport"
+      "https://gist.githubusercontent.com/romi-ari/71f3256a894b72849fbe017b28b86a20/raw/ec10f42e2df547ea1dc944184f5ace2412436b30/indonesia-international-airport.json"
     ).then((response) => response.json());
-      console.log(response.data.airports);
-    setAirports(response.data.airports);
+    console.log(response);
+    setAirports(response);
   };
 
   useEffect(() => {
@@ -29,34 +29,32 @@ const FormInfoTiket = () => {
             </div>
             <div className="divInfo2 ">
               <label className="form-label">Dari</label>
-              
-              {airports &&
-              airports.map((airport) => (
-                <div className="input-group mb-3" key={airport.id}>
+              <div className="input-group mb-3">
                 <select
+                  
                   id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">{airport.name}</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
-              ))}
-              
             </div>
             <div className="divInfo3">
-              <label className="form-label">
-                Ke
-              </label>
+              <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
                   id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih Tipe Driver</option>
-                  <option value="true">Dengan Sopir</option>
-                  <option value="false">Tanpa Sopir (Lepas Tangan)</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -126,7 +124,6 @@ const FormInfoTiket = () => {
               </div>
             </div>
           </div>
-          
         </Container>
       </main>
     </div>
