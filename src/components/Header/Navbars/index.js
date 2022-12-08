@@ -12,11 +12,19 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import {Link, Navigate} from "react-router-dom";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile","Wishlist", "Logout"];
+
 
 function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
+}
+
+function handleLogout(e) {
+  e.preventDefault();
+  localStorage.removeItem("token");
+  Navigate('http://localhost:3000/#Booking')
 }
 
 function NavbarHeader() {
@@ -71,17 +79,17 @@ function NavbarHeader() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
-                  <Nav.Link href="#" className="text-dark">
+                  <Nav.Link href="http://localhost:3000/" className="text-dark">
                     Beranda
                   </Nav.Link>
-                  <Nav.Link href="#Booking" className="text-dark list_nav_main">
+                  <Nav.Link href="http://localhost:3000/#Booking" className="text-dark list_nav_main">
                     Books
                   </Nav.Link>
-                  <Nav.Link href="#aboutUs" className="text-dark list_nav_main">
+                  <Nav.Link href="http://localhost:3000/#aboutUs" className="text-dark list_nav_main">
                     About Us
                   </Nav.Link>
                   <Nav.Link
-                    href="#Testimonial"
+                    href="http://localhost:3000/#Testimonial"
                     className="text-dark list_nav_main"
                   >
                     Testimonial
@@ -126,7 +134,8 @@ function NavbarHeader() {
                         {settings.map((setting) => (
                           <MenuItem key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">
-                              {setting}
+                              <Link style={{textDecoration: "none",color: "black"}} to={`/${setting}`}>{setting}</Link>
+                              
                             </Typography>
                           </MenuItem>
                         ))}

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import thunk from "redux-thunk";
 import reportWebVitals from './reportWebVitals';
-import { LandingPage, Login, Register } from './components';
+import { LandingPage, Login, PesanTiket, Register, PemilihanTiket, Wishlist, Profile, LogOut } from './components';
 import reducers from "./reducers";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
@@ -21,6 +21,11 @@ root.render(
         <LandingPage />
       </Provider>
     } />
+    <Route path="/pesanTiket" element={<PesanTiket />} />
+    <Route path="/pemilihanTiket" element={<PemilihanTiket />} />
+    <Route path="/wishlist" element={<Wishlist />} />
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/logout" element={<LogOut />} />
   </Routes>
   </BrowserRouter>
 );

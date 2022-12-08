@@ -139,6 +139,10 @@ footer {
   height: 795px;
 }
 
+/* logOut */
+.btn_logout_y{
+  margin-left: 20px !important;
+}
 /* Form Tiket */
 .bgForm {
   background-image: url(../../img/bluecloud.png);
