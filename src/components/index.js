@@ -6,5 +6,7 @@ import Wishlist from "./Wishlist"
 import PesanTiket from "./PesanTiket"
 import PemilihanTiket from "./PemilihanTiket"
 import LogOut from './LogOut';
+import Protected from './Protected';
+import BayarTiket from './BayarTiket';
 
-export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut};
+export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket};

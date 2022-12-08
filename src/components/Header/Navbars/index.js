@@ -12,7 +12,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import {Link, Navigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const settings = ["Profile","Wishlist", "Logout"];
 
@@ -21,11 +21,11 @@ function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
 }
 
-function handleLogout(e) {
-  e.preventDefault();
-  localStorage.removeItem("token");
-  Navigate('http://localhost:3000/#Booking')
-}
+// function handleLogout(e) {
+//   e.preventDefault();
+//   localStorage.removeItem("token");
+//   Navigate('http://localhost:3000/#Booking')
+// }
 
 function NavbarHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
