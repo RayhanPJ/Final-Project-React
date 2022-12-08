@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 
 const FormTiket = () => {
   const [show, setShow] = useState(true);
+  const [airports, setAirports] = useState();
+
+  // Function to collect data
+  const getApiData = async () => {
+    const response = await fetch(
+      "https://gist.githubusercontent.com/romi-ari/71f3256a894b72849fbe017b28b86a20/raw/ec10f42e2df547ea1dc944184f5ace2412436b30/indonesia-international-airport.json"
+    ).then((response) => response.json());
+    setAirports(response);
+  };
+
+  useEffect(() => {
+    getApiData();
+  }, []);
 
   return (
     <div className="bgForm" id="Booking">
@@ -19,34 +32,33 @@ const FormTiket = () => {
               </a>
             </div>
             <div className="div3 ">
-              <label className="form-label" >
-                Dari
-              </label>
+              <label className="form-label">Dari</label>
               <div className="input-group mb-3">
                 <select
-                  id="supir"
-                  name="supir"
+                  
+                  id="Penerbangan"
+                  name="PenerbanganDari"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih Tipe Driver</option>
-                  <option value="true">Dengan Sopir</option>
-                  <option value="false">Tanpa Sopir (Lepas Tangan)</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
             </div>
             <div className="div4">
-              <label className="form-label" >
-                Dari
-              </label>
+              <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
-                  id="supir"
-                  name="supir"
+                  id="Penerbangan"
+                  name="PenerbanganKe"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih Tipe Driver</option>
-                  <option value="true">Dengan Sopir</option>
-                  <option value="false">Tanpa Sopir (Lepas Tangan)</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
             </div>

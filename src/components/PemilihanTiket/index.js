@@ -50,7 +50,7 @@ const PemilihanTiket = () => {
                     <div className="card-body p-0 row justify-content-between">
                       <div className="col-auto">
                         <a
-                          href="#"
+                          href="#/"
                           title="Jakarta (JKT) - Bali (DPS)"
                           className="link-dark-card"
                         >

@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
-import { Container, Navbar, NavbarBrand } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const PesanTiket = () => {
   return (
@@ -10,23 +10,23 @@ const PesanTiket = () => {
       <Header />
       <Container>
         <nav
-          class="navbar navbar-expand-lg"
+          className="navbar navbar-expand-lg"
           style={{ backgroundColor: "#4E4E4E" }}
         >
-          <div class="container-fluid row">
+          <div className="container-fluid row">
             <div className="col-lg-7">
-              <a class="navbar-brand" href="#" style={{ color: "#FFFFFF" }}>
+              <a className="navbar-brand" href="#/" style={{ color: "#FFFFFF" }}>
                 Booking
               </a>
             </div>
             <div className="col-lg-2">
-              <a href="#" className="nav-link" style={{ color: "#FFFFFF" }}>Pilih Tiket</a>
+              <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pilih Tiket</a>
             </div>
             <div className="col-lg-2">
-              <a href="#" className="nav-link" style={{ color: "#FFFFFF" }}>Pesanan Tiket</a>
+              <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pesanan Tiket</a>
             </div>
             <div className="col-lg-2">
-              <a href="#" className="nav-link active" style={{ color: "#FFFFFF" }}>Bayar</a>
+              <a href="#/" className="nav-link active" style={{ color: "#FFFFFF" }}>Bayar</a>
             </div>
           </div>
         </nav>
@@ -34,7 +34,7 @@ const PesanTiket = () => {
         <div className="row" style={{margin: "50px 0 230px 0"}}>
           <div className="col-lg-8">
             <h3 style={{ borderStyle: "solid", backgroundColor: "#ffffff", borderRadius: "6px", width: "240px" }}>
-              <img src="assets/img/icon _User.png"/>Pemesan
+              <img src="assets/img/icon _User.png" alt="icon user" />Pemesan
             </h3>
             <form style={{ borderStyle: "solid", backgroundColor: "#ffffff", borderRadius: "6px",padding: "50px" }}>
               <h3>Data Diri</h3>
@@ -48,7 +48,7 @@ const PesanTiket = () => {
                   <label>Kursi</label>
                   <br />
                   <select className="form-select" id="pilih-driver">
-                    <option selected>Pilih Nomer Kursi</option>
+                    <option value="">Pilih Nomer Kursi</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                   </select>
@@ -57,7 +57,7 @@ const PesanTiket = () => {
                   <label>Makanan</label>
                   <br />
                   <select className="form-select" id="pilih-makanan">
-                    <option selected>Pilih Tipe Makanan</option>
+                    <option value="">Pilih Tipe Makanan</option>
                     <option value="anak">Anak</option>
                     <option value="dewasa_anak">Dewasa + Anak</option>
                   </select>
@@ -70,7 +70,7 @@ const PesanTiket = () => {
                     style={{ width: "140px", backgroundColor: "#ffff" }}
                   ></input> */}
                   <select className="form-select" id="kapasitas-bagasi">
-                    <option selected>Kapasitas bagasi</option>
+                    <option value="">Kapasitas bagasi</option>
                     <option value="5kg">5 KG</option>
                     <option value="10kg">10 KG</option>
                   </select>

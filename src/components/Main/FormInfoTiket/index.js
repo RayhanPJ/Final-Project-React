@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getListPenerbangan } from "../../../actions/ListPenerbangan";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 
 const FormInfoTiket = () => {
   const [show, setShow] = useState(true);
-  const {
-    getListPenerbanganResult,
-  } = useSelector((state) => state.Penerbangan);
-  const dispatch = useDispatch();
+  const [airports, setAirports] = useState();
+
+  // Function to collect data
+  const getApiData = async () => {
+    const response = await fetch(
+      "https://gist.githubusercontent.com/romi-ari/71f3256a894b72849fbe017b28b86a20/raw/ec10f42e2df547ea1dc944184f5ace2412436b30/indonesia-international-airport.json"
+    ).then((response) => response.json());
+    setAirports(response);
+  };
 
   useEffect(() => {
-    dispatch(getListPenerbangan());
-  }, [dispatch]);
+    getApiData();
+  }, []);
 
   return (
     <div className="bgFormInfo" id="infoTiket">
@@ -25,32 +28,32 @@ const FormInfoTiket = () => {
             </div>
             <div className="divInfo2 ">
               <label className="form-label">Dari</label>
-              {console.log(getListPenerbanganResult)}
-
               <div className="input-group mb-3">
                 <select
-                  id="Penerbangan"
                   
+                  id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
             </div>
             <div className="divInfo3">
-              <label className="form-label">
-                Ke
-              </label>
+              <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
                   id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
                 >
-                  <option value="">Pilih Tipe Driver</option>
-                  <option value="true">Dengan Sopir</option>
-                  <option value="false">Tanpa Sopir (Lepas Tangan)</option>
+                  {airports &&
+                    airports.map((airport) => (
+                      <option key={airport.id} value="">{airport.City}</option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -120,7 +123,6 @@ const FormInfoTiket = () => {
               </div>
             </div>
           </div>
-          
         </Container>
       </main>
     </div>

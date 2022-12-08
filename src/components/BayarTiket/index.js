@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
-import { Container, Navbar, NavbarBrand } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const BayarTiket = () => {
   return (
@@ -12,23 +12,23 @@ const BayarTiket = () => {
         <div className="row" style={{ paddingTop: "10px" }}>
           <div className="col-lg-12">
             <nav
-              class="navbar navbar-expand-lg"
+              className="navbar navbar-expand-lg"
               style={{ backgroundColor: "#4E4E4E" }}
             >
-              <div class="container-fluid row">
+              <div className="container-fluid row">
                 <div className="col-lg-7">
-                  <a class="navbar-brand" href="#" style={{ color: "#FFFFFF" }}>
+                  <a className="navbar-brand" href="#/" style={{ color: "#FFFFFF" }}>
                     Booking
                   </a>
                 </div>
                 <div className="col-lg-2">
-                <a href="#" className="nav-link" style={{ color: "#FFFFFF" }}>Pilih Tiket</a>
+                <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pilih Tiket</a>
                 </div>
                 <div className="col-lg-2">
-                  <a href="#" className="nav-link" style={{ color: "#FFFFFF" }}>Pesanan Tiket</a>
+                  <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pesanan Tiket</a>
                 </div>
                 <div className="col-lg-2">
-                  <a href="#" className="nav-link active" style={{ color: "#FFFFFF" }}>Bayar</a>
+                  <a href="#/" className="nav-link active" style={{ color: "#FFFFFF" }}>Bayar</a>
                 </div>
               </div>
             </nav>

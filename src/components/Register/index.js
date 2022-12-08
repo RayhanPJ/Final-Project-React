@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 async function doRegister({ username, email, password }) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://final-project-be-production.up.railway.app/api/v1/register",
+    "https://gotravel-production.up.railway.app/api/v1/register",
     {
       method: "POST",
       headers: {
@@ -23,7 +23,7 @@ async function doRegister({ username, email, password }) {
     }
   );
   const data = await response.json();
-  return data.token;
+  return data;
 }
 
 async function doLoginGoogle(res, email) {
@@ -62,7 +62,7 @@ function Register() {
     setIsLoading(true);
     e.preventDefault();
     doRegister({ username, email, password })
-      .then((token) => localStorage.setItem("token", token))
+      .then(() => console.log("Akun sudah dibuat"))
       .catch((err) => err.message)
       .finally(() => setIsLoading(false));
   }
