@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
+import axios from "axios";
 
 const FormInfoTiket = () => {
   const [show, setShow] = useState(true);
   const [airports, setAirports] = useState();
+  const [flights, setFlight] = useState();
 
-  // Function to collect data
-  const getApiData = async () => {
+  // Function to get data airport
+  const getApiDataAirports = async () => {
     const response = await fetch(
-      "https://gist.githubusercontent.com/romi-ari/71f3256a894b72849fbe017b28b86a20/raw/ec10f42e2df547ea1dc944184f5ace2412436b30/indonesia-international-airport.json"
+      "https://gotravel-production.up.railway.app/api/v1/airport"
     ).then((response) => response.json());
-    setAirports(response);
+    console.log(response.data);
+    setAirports(response.data.airports);
+  };
+
+  // Function to get data airport
+  const getApiDataFlight = async () => {
+    const response = await fetch(
+      "https://gotravel-production.up.railway.app/api/v1/flight"
+    ).then((response) => response.json());
+    console.log(response);
+    setFlight(response.data);
   };
 
   useEffect(() => {
-    getApiData();
+    getApiDataAirports();
+    getApiDataFlight();
   }, []);
 
   return (
@@ -37,7 +50,7 @@ const FormInfoTiket = () => {
                 >
                   {airports &&
                     airports.map((airport) => (
-                      <option key={airport.id} value="">{airport.City}</option>
+                      <option key={airport.id} value="">{airport.city}</option>
                     ))}
                 </select>
               </div>
@@ -52,7 +65,7 @@ const FormInfoTiket = () => {
                 >
                   {airports &&
                     airports.map((airport) => (
-                      <option key={airport.id} value="">{airport.City}</option>
+                      <option key={airport.id} value="">{airport.city}</option>
                     ))}
                 </select>
               </div>

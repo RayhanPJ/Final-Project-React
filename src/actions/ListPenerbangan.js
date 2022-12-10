@@ -15,7 +15,7 @@ export const getListPenerbangan = () => {
 
     axios({
       method: "GET",
-      url: "https://gotravel-production.up.railway.app/api/v1/airport",
+      url: "https://gotravel-production.up.railway.app/api/v1/flight",
       timeout: 120000,
     })
       .then((response) => {

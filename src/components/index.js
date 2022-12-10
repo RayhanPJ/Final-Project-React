@@ -8,5 +8,6 @@ import PemilihanTiket from "./PemilihanTiket"
 import LogOut from './LogOut';
 import Protected from './Protected';
 import BayarTiket from './BayarTiket';
+import Filter from './FilterTry';
 
-export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket};
+export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter};
