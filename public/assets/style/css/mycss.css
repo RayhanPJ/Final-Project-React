@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+ul li {
+  list-style: none;  
+}
+
 /* navbar main */
 .list_nav_main{
   padding-left: 25px !important;

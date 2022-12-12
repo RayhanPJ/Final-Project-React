@@ -9,5 +9,6 @@ import LogOut from './LogOut';
 import Protected from './Protected';
 import BayarTiket from './BayarTiket';
 import Filter from './FilterTry';
+import ListBooking from './ListBooking';
 
-export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter};
+export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter, ListBooking};

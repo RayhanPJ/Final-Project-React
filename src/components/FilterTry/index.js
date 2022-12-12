@@ -101,7 +101,7 @@ const Filter = () => {
                 <select className="form-select" id="driver" onChange={(e) => setbandara(e.target.value)} >
                 {airports &&
                     airports.map((airport) => (
-                      <option key={airport.id} value={airport.name}>{airport.name}</option>
+                      <option key={airport.id} value={airport.name}>{airport.city}</option>
                     ))}
                 </select>
               </div>
@@ -110,7 +110,7 @@ const Filter = () => {
                 <select className="form-select" id="driver2" onChange={(e) => setbandara2(e.target.value)} >
                 {airports &&
                     airports.map((airport) => (
-                      <option key={airport.id} value={airport.name}>{airport.name}</option>
+                      <option key={airport.id} value={airport.name}>{airport.city}</option>
                     ))}
                 </select>
               </div>
