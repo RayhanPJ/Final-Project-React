@@ -76,7 +76,7 @@ const FormInfoTiket = () => {
 
     const filterCars = flight.filter(
       (item) =>
-        item.FromAirport.name == bandara && item.ToAirport.name == bandara2 
+        item.FromAirport.name === bandara && item.ToAirport.name === bandara2 
     );
     setdisplayFlight(filterCars);
   };
@@ -104,6 +104,7 @@ const FormInfoTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>
@@ -122,6 +123,7 @@ const FormInfoTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara2(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>

@@ -7,11 +7,15 @@ const FormTiket = () => {
   const [show, setShow] = useState(true);
   const [airports, setAirports] = useState([]);
   const [flight, setflight] = useState([]);
-  const [displayFlight, setdisplayFlight] = useState([]);
   const [bandara, setbandara] = useState("");
   const [bandara2, setbandara2] = useState("");
+  const [trip, setTrip] = useState("");
   const [date, setDate] = useState("");
-  const [kelas, setKelas] = useState("Ekonomi");
+  const [kelas, setKelas] = useState({
+    economi: "Economy Class",
+    first: "First Class",
+    business: "Business Class",
+  });
   const [date2, setDate2] = useState("");
   const [capacity, setCapacity] = useState("");
 
@@ -37,25 +41,7 @@ const FormTiket = () => {
         console.log("err", err);
       });
   }, []);
-
-  // const t = new Date("2022-10-06T15:06:22.516Z");
-  // console.log(t);
-  // let minutes = t.getUTCMinutes();
-  // let hour = t.getUTCHours();
-  // console.log(hour + ":" + minutes + " WIB");
-
-  //Get Name Day
-  const weekday = [
-    "Minggu",
-    "Senin",
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat",
-    "Sabtu",
-  ];
-  const d = new Date(date);
-  let day = weekday[d.getDay()];
+  console.log(flight);
 
   // const populateCars = (cars) => {
   //   return cars.map((car) => {
@@ -71,34 +57,36 @@ const FormTiket = () => {
   //   })
   // }
 
-  const handleSearchCar = () => {
-    // const carsPopulate = populateCars(cars);
-    // console.log(carsPopulate);
-    // const newDateTime = new Date(`${date}`);
+  // const handleSearchCar = () => {
+  //   // const carsPopulate = populateCars(cars);
+  //   // console.log(carsPopulate);
+  //   // const newDateTime = new Date(`${date}`);
 
-    // if (bandara === "") {
-    //   alert("Please select driver type");
-    //   return;
-    // } else if (!date) {
-    //   alert("Please select date");
-    //   return;
-    // } else if (newDateTime < today) {
-    //   alert("Dont select past time");
-    //   return;
-    // }
+  //   // if (bandara === "") {
+  //   //   alert("Please select driver type");
+  //   //   return;
+  //   // } else if (!date) {
+  //   //   alert("Please select date");
+  //   //   return;
+  //   // } else if (newDateTime < today) {
+  //   //   alert("Dont select past time");
+  //   //   return;
+  //   // }
 
-    console.log(date);
-    console.log(bandara);
-    console.log(bandara2);
-    console.log(capacity);
-    console.log(kelas);
-    const filterCars = flight.filter(
-      (item) =>
-        item.FromAirport.name == bandara && item.ToAirport.name == bandara2 && item.kelas == kelas
-    );
-    console.log(filterCars);
-    setdisplayFlight(filterCars);
-  };
+  //   console.log(date);
+  //   console.log(bandara);
+  //   console.log(bandara2);
+  //   console.log(capacity);
+  //   console.log(kelas);
+  //   const filterCars = flight.filter(
+  //     (item) =>
+  //       item.FromAirport.name == bandara &&
+  //       item.ToAirport.name == bandara2 &&
+  //       item.kelas == kelas
+  //   );
+  //   console.log(filterCars);
+  //   setdisplayFlight(filterCars);
+  // };
 
   // const handleReset = () => {
   //   setdisplayFlight([]);
@@ -128,6 +116,7 @@ const FormTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>
@@ -146,6 +135,7 @@ const FormTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara2(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>
@@ -164,6 +154,8 @@ const FormTiket = () => {
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
+                    value={"One Trip"}
+                    onChange={(e) => setTrip(e.target.value)}
                   />
                   <label
                     className="form-check-label"
@@ -179,6 +171,8 @@ const FormTiket = () => {
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
+                    value={"Round Trip"}
+                    onChange={(e) => setTrip(e.target.value)}
                   />
                   <label
                     className="form-check-label"
@@ -237,24 +231,23 @@ const FormTiket = () => {
                   onChange={(e) => setKelas(e.target.value)}
                 >
                   <option value="">Pilih Kelas Penerbangan</option>
-                  <option value={kelas}>Ekonomi</option>
+                  <option value={kelas.economi}>Ekonomi</option>
+                  <option value={kelas.business}>Bussiness</option>
+                  <option value={kelas.first}>First</option>
                 </select>
               </div>
             </div>
             <div className="div8 d-grid">
-              <div
-                className="d-grid gap-2"
-                style={{ position: "relative", top: "30px" }}
-              >
+              <div style={{ position: "relative", top: "30px" }}>
                 <Link
+                  className="d-grid gap-2 text-decoration-none"
                   to="/pilih"
-                  state={{bandara, bandara2, date , date2, capacity, kelas}}
+                  state={{ bandara, bandara2, date, date2, capacity, kelas, trip }}
                 >
                   <button
                     className="btn btn-light shadow py-2 mb-5 bg-body rounded"
                     type="submit"
                     id="btn-search"
-                    onClick={handleSearchCar}
                   >
                     <b>Cari Tiket</b>
                   </button>
@@ -262,7 +255,7 @@ const FormTiket = () => {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          {/* <div className="mt-5">
             {displayFlight.length > 0 ? (
               displayFlight.map((item) => (
                 <div className="col-md-12 mb-3" key={item.id}>
@@ -307,7 +300,7 @@ const FormTiket = () => {
                 <h1>Penerbangan Kosong</h1>
               </div>
             )}
-          </div>
+          </div> */}
         </Container>
       </main>
     </div>
