@@ -3,11 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const PemilihanTiket = () => {
   const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  const dataForm = location.state;
+  console.log(dataForm);
   const [flight, setflight] = useState([]);
   const [show, setShow] = useState(true);
   const [flightId, setflightId] = useState([]);
@@ -52,18 +53,18 @@ const PemilihanTiket = () => {
     "Jumat",
     "Sabtu",
   ];
-  const d = new Date(data.date);
+  const d = new Date(dataForm.date);
   let day = weekday[d.getDay()];
 
   const handleGetitem = () => {
-    const filteritems = flight
+    const filteritems = flightId
       .filter(
         (item) =>
-          item.FromAirport.name === data.bandara &&
-          item.ToAirport.name === data.bandara2 &&
-          item.kelas === data.kelas
+          item.FromAirport.name === dataForm.bandara &&
+          item.ToAirport.name === dataForm.bandara2 &&
+          item.kelas === dataForm.kelas && item.id === 7
       )
-      .map((item) => item);
+      .map((item) => item.id);
     console.log(filteritems);
   };
 
@@ -74,9 +75,9 @@ const PemilihanTiket = () => {
         {flight
           .filter(
             (item) =>
-              item.FromAirport.name === data.bandara &&
-              item.ToAirport.name === data.bandara2 &&
-              item.kelas === data.kelas
+              item.FromAirport.name === dataForm.bandara &&
+              item.ToAirport.name === dataForm.bandara2 &&
+              item.kelas === dataForm.kelas
           )
           .map((item) => {
             return (
@@ -107,7 +108,7 @@ const PemilihanTiket = () => {
                     <div className="col-md text-end">
                       <img src="assets/img/date.png" alt="Tanggal" />
                       <h6>
-                        {day}, {data.date}
+                        {day}, {dataForm.date}
                       </h6>
                     </div>
                   </div>
@@ -116,7 +117,9 @@ const PemilihanTiket = () => {
                     <div className="col-md-8">
                       <div
                         className="card d-grid gap-2 btn text-start"
-                        onClick={handleGetitem}
+                        onClick={() => {
+                          setShow(false);
+                        }}
                       >
                         <img
                           src="assets/img/flightImg.png"
@@ -141,7 +144,7 @@ const PemilihanTiket = () => {
                             </div>
                             <div className="col-auto my-auto">
                               <span className="text-muted">
-                                {day}, {data.date}
+                                {day}, {dataForm.date}
                               </span>
                               <h3 className="fw-bolder mb-0">Rp{item.price}</h3>
                             </div>
@@ -155,15 +158,18 @@ const PemilihanTiket = () => {
                           <h5>Detail Penerbangan</h5>
                           {flight
                             .filter(
-                              (plane) =>
-                                plane.id === 7
+                              (item) =>
+                                item.FromAirport.name === dataForm.bandara &&
+                                item.ToAirport.name === dataForm.bandara2 &&
+                                item.kelas === dataForm.kelas &&
+                                item.id === 7
                             )
                             .map((item) => {
-                              console.log(item)
+                              console.log(item);
                               return (
                                 <div>
                                   <p>{item.Plane.name}</p>
-                                  <p>{data.date}</p>
+                                  <p>{dataForm.date}</p>
                                   <p>
                                     {item.FromAirport.city} -{" "}
                                     {item.ToAirport.city}
@@ -187,7 +193,13 @@ const PemilihanTiket = () => {
                                     </div>
                                   </div>
                                   <div className="btn_lanjutByr d-grid gap-2">
-                                    <button>Lanjut Pembayaran</button>
+                                    <Link
+                                      className="d-grid gap-2 text-decoration-none"
+                                      state={dataForm}
+                                      to="/pesan"
+                                    >
+                                      <button>Lanjut Pembayaran</button>
+                                    </Link>
                                   </div>
                                 </div>
                               );

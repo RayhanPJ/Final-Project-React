@@ -3,8 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BayarTiket = () => {
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
   return (
     <div className="bayarTiket">
       <Header />
