@@ -7,21 +7,35 @@ import Footer from "../Footer";
 
 const Profile = () => {
     const [show, setShow] = useState(false);
-    
+    const [profile, setProfile] = useState([]);
+    const [displayProfile, setdisplayProfile] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [bio, setBio] = useState("");
 
-    const getApiDataProfile = async () => {
-        const response = await fetch(
-          "https://gotravel-production.up.railway.app/api/v1/profile"
-        ).then((response) => response.json());
-        
-        console.log(response.data);
-        
-      };
-      useEffect(() => {
-        getApiDataProfile();
+    function handleSubmit(e) {
+        const a = profile && profile.map(
+            (item) =>
+              item.name === name && item.address === address && item.bio === bio
+          );
+          setdisplayProfile(a);
+      }
+    useEffect(() => {
+        fetch("https://gotravel-production.up.railway.app/api/v1/register")
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.data);
+            setProfile(data.data);
+          })
+          .catch((err) => {
+            console.log("err", err);
+
+          });
       }, []);
+    //   const profileitems = profile.filter.map((item) => item);
+    //     console.log(profileitems);
     return (
         <div>
         <Header />
@@ -35,12 +49,26 @@ const Profile = () => {
                 <div className="w-100 my-2"></div>
 
                 <div className="col-12 text-center">
-                    <h3 className="fw-bolder">Rayhan</h3>
-                    <h5 className="text-muted">Jakarta</h5>
-                    <p>Saya senang sekali Traveling keliling Indonesia.<br />Traveling ke tempat wisata seperti Candi.</p>
+                    
+                    {displayProfile.length > 0 ? (
+                    displayProfile.map((item) => (
+                    <div>
+                        <h3 className="fw-bolder">Rayhan</h3>
+                        <h5 className="text-muted">Jakarta</h5>
+                        <p>Saya senang sekali Traveling keliling Indonesia.<br />Traveling ke tempat wisata seperti Candi.</p>
+                    </div>
+                
+              ))
+            ) : (
+            <div>
+                <h3 className="fw-bolder">Rayhan</h3>
+                <h5 className="text-muted">Jakarta</h5>
+                <p>Saya senang sekali Traveling keliling Indonesia.<br />Traveling ke tempat wisata seperti Candi.</p>
+            </div>
+            )}
                     
                     <Button variant="btn btn-lg btn-outline-dark" onClick={handleShow}>
-                    Edit Foto Profile
+                    Edit Profile
                     </Button>
                     <a href="#" className="btn btn-lg btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-share-fill" viewBox="0 0 16 16"><path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/></svg></a>
                     
@@ -54,19 +82,63 @@ const Profile = () => {
                         <Modal.Title>Edit Foto</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                    <div className="mb-3">
+                        <label className="form-label">Name</label>
+                        <input
+                      type="text"
+                      className="form-control bg-transparent border-dark"
+                      placeholder="Masukan nama anda"
+                      id="filterCapacity"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Address</label>
+                        <input
+                      type="text"
+                      className="form-control bg-transparent border-dark"
+                      placeholder="Jakarta"
+                      id="filterCapacity"
+                      value={address}
+                      onChange={(e) => {
+                        setAddress(e.target.value);
+                      }}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Bio</label>
+                        <input
+                      type="text"
+                      className="form-control bg-transparent border-dark"
+                      placeholder="Saya..."
+                      id="filterCapacity"
+                      value={bio}
+                      onChange={(e) => {
+                        setBio(e.target.value);
+                      }}
+                        />
+                    </div>
                     <label htmlFor="colFormLabel" className="col-sm-2 col-form-label">Foto</label>
                         <div className="col-sm-5">
-                          <input className="form-control" name="gambar" type="file" id="foto" placeholder="small"/>
+                          <input className="form-control" name="gambar" type="file" id="foto" placeholder="small" />
                           <small id="text" className="text-muted">
                             File size max.2MB
                           </small>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="btn-lg btn-outline-dark" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button 
+                        variant="btn-lg btn-outline-dark"
+                        type="submit"
+                        id="btn-search"
+                        // onClick={handleSubmit}
+                        >
                         Save
                         </Button>
                     </Modal.Footer>
