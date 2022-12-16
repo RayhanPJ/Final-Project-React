@@ -10,8 +10,9 @@ const PemilihanTiket = () => {
   const dataForm = location.state;
   console.log(dataForm);
   const [flight, setflight] = useState([]);
-  const [show, setShow] = useState(true);
-  const [flightId, setflightId] = useState([]);
+  const [getItemId, setgetItemId] = useState("");
+  // const [show, setShow] = useState(true);
+  // const [flightId, setflightId] = useState([]);
 
   // Function to get data airport
   useEffect(() => {
@@ -19,15 +20,6 @@ const PemilihanTiket = () => {
       .then((response) => response.json())
       .then((data) => {
         setflight(data.data.flights);
-        console.log(data.data.flights);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-    fetch("https://gotravel-production.up.railway.app/api/v1/flight")
-      .then((response) => response.json())
-      .then((data) => {
-        setflightId(data.data.flights);
         console.log(data.data.flights);
       })
       .catch((err) => {
@@ -56,17 +48,17 @@ const PemilihanTiket = () => {
   const d = new Date(dataForm.date);
   let day = weekday[d.getDay()];
 
-  const handleGetitem = () => {
-    const filteritems = flightId
-      .filter(
-        (item) =>
-          item.FromAirport.name === dataForm.bandara &&
-          item.ToAirport.name === dataForm.bandara2 &&
-          item.kelas === dataForm.kelas && item.id === 7
-      )
-      .map((item) => item.id);
-    console.log(filteritems);
-  };
+  // const handleGetitem = () => {
+  //   const filteritems = flightId
+  //     .filter(
+  //       (item) =>
+  //         item.FromAirport.name === dataForm.bandara &&
+  //         item.ToAirport.name === dataForm.bandara2 &&
+  //         item.kelas === dataForm.kelas && item.id === 7
+  //     )
+  //     .map((item) => item.id);
+  //   console.log(filteritems);
+  // };
 
   return (
     <div>
@@ -118,7 +110,7 @@ const PemilihanTiket = () => {
                       <div
                         className="card d-grid gap-2 btn text-start"
                         onClick={() => {
-                          setShow(false);
+                          setgetItemId(`${item.id}`);
                         }}
                       >
                         <img
@@ -127,7 +119,14 @@ const PemilihanTiket = () => {
                           alt="Gambar Garuda"
                         />
                         <div className="card-body">
-                          <div className="card-body p-0 row justify-content-between">
+                          <div
+                            className="card-body p-0 row justify-content-between"
+                            value={getItemId}
+                            onClick={(e) => {
+                              setgetItemId(e.target.value);
+                            }}
+                          >
+                            {console.log(getItemId)}
                             <div className="col-auto">
                               <a href="#/" className="link-dark-card">
                                 <h4 className="fw-bolder">
@@ -159,15 +158,15 @@ const PemilihanTiket = () => {
                           {flight
                             .filter(
                               (item) =>
-                                item.FromAirport.name === dataForm.bandara &&
-                                item.ToAirport.name === dataForm.bandara2 &&
-                                item.kelas === dataForm.kelas &&
-                                item.id === 7
+                                item.FromAirport.name == dataForm.bandara &&
+                                item.ToAirport.name == dataForm.bandara2 &&
+                                item.kelas == dataForm.kelas &&
+                                item.id == getItemId
                             )
                             .map((item) => {
                               console.log(item);
                               return (
-                                <div>
+                                <div key={item.id}>
                                   <p>{item.Plane.name}</p>
                                   <p>{dataForm.date}</p>
                                   <p>
@@ -195,7 +194,7 @@ const PemilihanTiket = () => {
                                   <div className="btn_lanjutByr d-grid gap-2">
                                     <Link
                                       className="d-grid gap-2 text-decoration-none"
-                                      state={dataForm}
+                                      state={{dataForm, getItemId}}
                                       to="/pesan"
                                     >
                                       <button>Lanjut Pembayaran</button>

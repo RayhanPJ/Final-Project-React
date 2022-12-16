@@ -226,10 +226,10 @@ const PesanTiket = () => {
                 {flight
                   .filter(
                     (item) =>
-                      item.FromAirport.name === data.bandara &&
-                      item.ToAirport.name === data.bandara2 &&
-                      item.kelas === data.kelas &&
-                      item.id === 7
+                      item.FromAirport.name == data.dataForm.bandara &&
+                      item.ToAirport.name == data.dataForm.bandara2 &&
+                      item.kelas == data.dataForm.kelas &&
+                      item.id == data.getItemId
                   )
                   .map((item) => {
                     console.log(item);
@@ -245,7 +245,7 @@ const PesanTiket = () => {
                           <p>Date :</p>
                         </div>
                         <div className="col-6">
-                          <p>{data.date}</p>
+                          <p>{data.dataForm.date}</p>
                         </div>
                         <div className="col-6">
                           <p>Destination :</p>
