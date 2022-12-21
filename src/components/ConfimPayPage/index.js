@@ -11,29 +11,7 @@ const BayarTiket = () => {
   const dataBooking = location.state;
   console.log(dataBooking);
   // const [flight, setflight] = useState([]);
-  const [user, setUser] = useState([]);
   const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    var method = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    };
-
-    fetch("https://gotravel-production.up.railway.app/api/v1/profile", method)
-      .then((response) => response.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }, []);
-  console.log(user.role);
 
   async function booking() {
     // Gunakan endpoint-mu sendiri
@@ -44,19 +22,14 @@ const BayarTiket = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        id_flight: `${dataBooking.data.item.id_plane}`,
-        baggage: `${dataBooking.baggageWeight}`,
-        food: `${dataBooking.typeFood}`,
-        name: `${dataBooking.name}`,
-        homephone: `${dataBooking.homePhone}`,
-        mobilephone: `${dataBooking.mobilePhone}`,
-        totalprice: `${dataBooking.data.item.price}`,
-      }),
+      // body: JSON.stringify({
+      //   file_url: ,
+
+      // }),
     };
 
     const response = await fetch(
-      "https://gotravel-production.up.railway.app/api/v1/booking",
+      "https://gotravel-production.up.railway.app/confirmation",
       method
     );
     const data = await response.json();

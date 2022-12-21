@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const FormTiket = () => {
-  const [show, setShow] = useState(true);
+  const [roundTrip, setroundTrip] = useState(true);
   const [airports, setAirports] = useState([]);
   const [flight, setflight] = useState([]);
   const [bandara, setbandara] = useState("");
@@ -149,7 +149,7 @@ const FormTiket = () => {
               <div className="d-flex">
                 <div className="form-check">
                   <input
-                    onClick={() => setShow(true)}
+                    onClick={() => setroundTrip(true)}
                     className="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
@@ -166,7 +166,7 @@ const FormTiket = () => {
                 </div>
                 <div className="form-check">
                   <input
-                    onClick={() => setShow(false)}
+                    onClick={() => setroundTrip(false)}
                     className="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
@@ -195,7 +195,7 @@ const FormTiket = () => {
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
-                {!show && (
+                {!roundTrip && (
                   <div className="input-group mb-3">
                     <input
                       type="date"
@@ -242,7 +242,7 @@ const FormTiket = () => {
                 <Link
                   className="d-grid gap-2 text-decoration-none"
                   to="/pilih"
-                  state={{ bandara, bandara2, date, date2, capacity, kelas, trip }}
+                  state={{ bandara, bandara2, date, date2, capacity, kelas, trip, roundTrip }}
                 >
                   <button
                     className="btn btn-light shadow py-2 mb-5 bg-body rounded"

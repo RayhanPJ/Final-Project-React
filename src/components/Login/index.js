@@ -41,7 +41,8 @@ async function doLoginGoogle(res, email) {
     }
   );
   const data = await response.json();
-  return data.token;
+  console.log(data);
+  return data.accessToken;
 }
 
 function Login() {
@@ -51,7 +52,8 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
-  const GOOGLECLIENTID = "1075166577960-t9j4kguud7mo2dkaij6k3o5qu9rfna1b.apps.googleusercontent.com";
+  const GOOGLECLIENTID =
+    "1075166577960-u21r9932mfr51s1uiq3mbc5v5k15uu96.apps.googleusercontent.com";
 
   useEffect(() => {
     setIsLoggedIn(!!token);
@@ -63,11 +65,11 @@ function Login() {
     doLogin({ username, password })
       .then((user) => {
         if (!user) {
-        setError(user.message);
-      } else {
-        localStorage.setItem("token", user);
-      }
-})
+          setError(user.message);
+        } else {
+          localStorage.setItem("token", user);
+        }
+      })
       .catch((err) => err.message)
       .finally(() => setIsLoading(false));
   }
@@ -78,8 +80,12 @@ function Login() {
     if (response.credential) {
       doLoginGoogle(response.credential, userData.email)
         .then((token) => {
-          localStorage.setItem("token", token);
-          setIsLoggedIn(token);
+          if (!token) {
+            setError("TOKEN TIDAK ADA");
+          } else {
+            localStorage.setItem("token", token);
+            setIsLoggedIn(token);
+          }
         })
         .catch((err) => err.message)
         .finally(() => setIsLoading(false));

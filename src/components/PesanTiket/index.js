@@ -9,9 +9,8 @@ import { Link } from "react-router-dom";
 const PesanTiket = () => {
   const [name, setName] = useState("");
   const [typeFood, setTypeFood] = useState({
-    anak: "Anak-Anak",
-    dewasa: "Dewasa",
-    anak_dewasa: "Anak-Anak + Dewasa",
+    anak: true,
+    dewasa: false,
   });
   const [baggageWeight, setBaggageWeight] = useState({
     w5: "5",
@@ -44,6 +43,7 @@ const PesanTiket = () => {
         console.log("err", err);
       });
   }, []);
+
 
   return (
     <div style={{ backgroundColor: "#F0F0F0" }} className="pesanTiket">
@@ -132,7 +132,6 @@ const PesanTiket = () => {
                     <option value="">Pilih Tipe Makanan</option>
                     <option value={typeFood.anak}>Anak</option>
                     <option value={typeFood.dewasa}>Dewasa</option>
-                    <option value={typeFood.anak_dewasa}>Dewasa + Anak</option>
                   </select>
                 </div>
                 <div className="col-lg-6">
@@ -232,7 +231,6 @@ const PesanTiket = () => {
                       item.id == data.getItemId
                   )
                   .map((item) => {
-                    console.log(item);
                     return (
                       <div className="row" key={item.id}>
                         <div className="col-6">
@@ -287,14 +285,15 @@ const PesanTiket = () => {
                 <div className="btn_lanjutByr d-grid gap-2">
                   <Link
                     className="d-grid gap-2 text-decoration-none"
-                    state={
-                      {data,
+                    state={{
+                      data,
+                      name,
                       email,
                       mobilePhone,
                       homePhone,
                       typeFood,
-                      baggageWeight}
-                    }
+                      baggageWeight,
+                    }}
                     to="/bayar"
                   >
                     <button>Lanjut Pembayaran</button>
