@@ -11,29 +11,29 @@ const BayarTiket = () => {
   const dataBooking = location.state;
   console.log(dataBooking);
   // const [flight, setflight] = useState([]);
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    var method = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    };
+  // useEffect(() => {
+  //   var method = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     }
+  //   };
 
-    fetch("https://gotravel-production.up.railway.app/api/v1/profile", method)
-      .then((response) => response.json())
-      .then((data) => {
-        setUser(data);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }, []);
-  console.log(user.role);
+  //   fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile", method)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setUser(data);
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }, []);
+  // console.log(user.role);
 
   async function booking() {
     // Gunakan endpoint-mu sendiri
@@ -56,7 +56,7 @@ const BayarTiket = () => {
     };
 
     const response = await fetch(
-      "https://gotravel-production.up.railway.app/api/v1/booking",
+      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking",
       method
     );
     const data = await response.json();
@@ -171,8 +171,7 @@ const BayarTiket = () => {
               <p style={{ paddingTop: "20px" }}>
                 Jumlah yang harus di bayar adalah IDR{" "}
                 <b>
-                  {(dataBooking.data.item.price +
-                    dataBooking.data.item2.price) *
+                  {dataBooking.data.item.price *
                     dataBooking.data.dataForm.capacity}
                 </b>
               </p>

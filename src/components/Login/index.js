@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 async function doLogin({ username, password }) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://gotravel-production.up.railway.app/api/v1/login",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/login",
     {
       method: "POST",
       headers: {
@@ -28,7 +28,7 @@ async function doLogin({ username, password }) {
 async function doLoginGoogle(res, email) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://gotravel-production.up.railway.app/api/v1/google",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/google",
     {
       method: "POST",
       headers: {

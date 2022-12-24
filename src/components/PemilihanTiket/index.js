@@ -18,7 +18,7 @@ const PemilihanTiket = () => {
 
   // Function to get data airport
   useEffect(() => {
-    fetch("https://gotravel-production.up.railway.app/api/v1/flight")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight")
       .then((response) => response.json())
       .then((data) => {
         setflight(data.data.flights);
@@ -277,6 +277,21 @@ const PemilihanTiket = () => {
                                       <p>Rp {item.price}</p>
                                     </div>
                                   </div>
+                                  {roundTrip && (
+                                    <div className="btn_lanjutByr d-grid gap-2">
+                                    <Link
+                                      className="d-grid gap-2 text-decoration-none"
+                                      state={{
+                                        dataForm,
+                                        getItemId,
+                                        item,
+                                      }}
+                                      to="/pesan"
+                                    >
+                                      <button>Lanjut Pembayaran</button>
+                                    </Link>
+                                  </div>
+                                  )}
                                   <hr />
                                   <hr />
                                   {flight

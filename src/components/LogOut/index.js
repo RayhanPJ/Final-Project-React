@@ -24,7 +24,7 @@ function LogOut() {
                 Apakah anda yakin ingin keluar dari akun ini ?
                 </Card.Text>
                 <Button variant="primary" value="Logout" onClick={handleLogout} style={{width: "70px"}}>Ya</Button>
-                <Button variant="primary" className="btn_logout_y" href="http://localhost:3000/">Tidak</Button>
+                <Button variant="primary" className="btn_logout_y" href="/">Tidak</Button>
             </Card.Body>
         </Card>
         <Footer/>

@@ -33,7 +33,7 @@ const PesanTiket = () => {
 
   // Function to get data airport
   useEffect(() => {
-    fetch("https://gotravel-production.up.railway.app/api/v1/flight")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight")
       .then((response) => response.json())
       .then((data) => {
         setflight(data.data.flights);

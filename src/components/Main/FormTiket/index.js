@@ -21,7 +21,7 @@ const FormTiket = () => {
 
   // Function to get data airport
   useEffect(() => {
-    fetch("https://gotravel-production.up.railway.app/api/v1/airport")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport")
       .then((response) => response.json())
       .then((data) => {
         setAirports(data.data.airports);
@@ -31,7 +31,7 @@ const FormTiket = () => {
         console.log("err", err);
       });
 
-    fetch("https://gotravel-production.up.railway.app/api/v1/flight")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight")
       .then((response) => response.json())
       .then((data) => {
         setflight(data.data.flights);

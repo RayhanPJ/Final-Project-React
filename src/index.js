@@ -18,6 +18,7 @@ import {
   BayarTiket,
   Filter,
   ListBooking,
+  ConfirmPay
 } from "./components";
 import reducers from "./reducers";
 import PersonList from "./App";
@@ -81,6 +82,7 @@ root.render(
       <Route path="/logout" element={<LogOut />} />
       <Route path="/filter" element={<Filter />} />
       <Route path="/listbooking" element={<ListBooking />} />
+      <Route path="/confirmpay" element={<ConfirmPay />} />
       <Route path="/try" element={<PersonList />} />
     </Routes>
   </BrowserRouter>

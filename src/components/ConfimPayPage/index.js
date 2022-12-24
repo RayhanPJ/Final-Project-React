@@ -3,44 +3,74 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const BayarTiket = () => {
-  const location = useLocation();
-  const dataBooking = location.state;
-  console.log(dataBooking);
+const ConfirmPay = () => {
+  // const location = useLocation();
+  // const dataBooking = location.state;
+  // console.log(dataBooking);
   // const [flight, setflight] = useState([]);
   const token = localStorage.getItem("token");
+  const [payImg, setPayImg] = useState("");
 
-  async function booking() {
+  const booking = () => {
     // Gunakan endpoint-mu sendiri
 
+    // var myHeaders = new Headers();
+    // myHeaders.append(
+    //   "Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJkaXRhdGF0YTMxMzk3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjItMTItMjFUMTc6NDE6NDYuNjAzWiIsInVwZGF0ZWRBdCI6IjIwMjItMTItMjFUMTc6NDE6NDYuNjAzWiIsImlhdCI6MTY3MTY1MDM2OX0.rE7qYsHBSxvYWwp_NnO8yZkYX7ws0ALeJe-Bh8etKfU"
+    // );
+
+    var formdata = new FormData();
+    formdata.append("image", payImg);
+
+    // var requestOptions = {
+    //   mode: 'no-cors',
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: formdata,
+    //   redirect: "follow",
+    // };
+
+    // fetch(
+    //   "https://gotravel-ilms4lrona-as.a.run.app/confirmation",
+    //   requestOptions
+    // )
+    //   .then((response) => response.text())
+    //   .then((result) => console.log(result))
+    //   .catch((error) => console.log("error", error));
+
     var method = {
-      method: "POST",
+      mode: "no-cors",
+      method: "put",
+      url: "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      // body: JSON.stringify({
-      //   file_url: ,
-
-      // }),
+      body: payImg,
     };
 
-    const response = await fetch(
-      "https://gotravel-production.up.railway.app/confirmation",
-      method
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  }
+    axios(method)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+      console.log(payImg);
+    // const data = response.text();
+    // console.log(data);
+    // return data;
+  };
 
   // async function profile() {
   //   // Gunakan endpoint-mu sendiri
 
   //   var method = {
+  //     mode : "no-cors",
   //     method: "GET",
   //     headers: {
   //       "Content-Type": "application/json",
@@ -49,7 +79,7 @@ const BayarTiket = () => {
   //   };
 
   //   const response = await fetch(
-  //     "https://gotravel-production.up.railway.app/api/v1/profile",
+  //     "https://gotravel-ilms4lrona-as.a.run.app/confirmation",
   //     method
   //   );
   //   const data = await response.json();
@@ -63,7 +93,7 @@ const BayarTiket = () => {
       <Header />
       <Container>
         <div className="row" style={{ paddingTop: "10px" }}>
-          <div className="col-lg-12" key={dataBooking.data.item.id}>
+          <div className="col-lg-12">
             <nav
               className="navbar navbar-expand-lg"
               style={{ backgroundColor: "#4E4E4E" }}
@@ -107,72 +137,33 @@ const BayarTiket = () => {
                 </div>
               </div>
             </nav>
-            <h2 style={{ marginTop: "40px" }}>
-              <img
-                src="assets/img/park-tickets-couple 1.png"
-                alt="tiket"
-                style={{ paddingRight: "15px" }}
-              />
-              Metode Pengiriman
-            </h2>
-            <section style={{ marginLeft: "60px", paddingLeft: "15px" }}>
-              <h3>Tiket Elektronik</h3>
-              <p>
-                Inilah cara hemat waktu dan tanpa kertas untuk bepergian. Anda
-                akan menerima referensi tiket elektronik melalui e-mail.
-              </p>
-            </section>
             <h2 style={{ paddingTop: "20px" }}>
               <img
                 src="assets/img/card.png"
                 alt=""
                 style={{ paddingRight: "15px" }}
               />
-              Pembayaran
+              Upload Bukti Pembayaran
             </h2>
-            <div
-              style={{
-                textAlign: "center",
-                width: "1050px",
-                height: "70px",
-                marginLeft: "70px",
-                backgroundColor: "#9f9f9f",
-                borderRadius: "8px",
-              }}
-              className="tbayar"
+            <section
+              style={{ marginLeft: "60px", paddingLeft: "15px" }}
+              className="mb-3"
             >
-              <p style={{ paddingTop: "20px" }}>
-                Jumlah yang harus di bayar adalah IDR{" "}
-                <b>
-                  {(dataBooking.data.item.price +
-                    dataBooking.data.item2.price) *
-                    dataBooking.data.dataForm.capacity}
-                </b>
-              </p>
-            </div>
-            <section style={{ marginLeft: "60px", paddingLeft: "15px" }}>
-              <h3>Pembayaran Online</h3>
-              <p>
-                Pembayaran Online Anda akan dialihkan ke halaman eksternal bila
-                mengklik tombol Konfirmasi perjalanan. Metode pembayaran yang
-                tersedia antara lain:
-              </p>
-              <ul>
-                <li>
-                  <p>Internet Banking </p>
-                </li>
-                <li>
-                  <p>Kartu Kredit (Visa, Master, JCB)</p>
-                </li>
-              </ul>
+              <div>
+                <label htmlFor="formFileLg" className="form-label">
+                  Silahkan upload bukti pembayaran kamu dibawah sini
+                </label>
+                <input
+                  onChange={(e) => {
+                    setPayImg(e.target.files);
+                  }}
+                  className="form-control form-control-lg"
+                  id="formFileLg"
+                  type="file"
+                />
+              </div>
             </section>
-            <Link
-              className="d-grid gap-2 text-decoration-none"
-              state={{
-                dataBooking
-              }}
-              to="/confirmpay"
-            >
+            <Link className="d-grid gap-2 text-decoration-none">
               <button
                 className="btn_bayar"
                 onClick={booking}
@@ -184,7 +175,7 @@ const BayarTiket = () => {
                   color: "#ffff",
                 }}
               >
-                Bayar
+                Kirim
               </button>
             </Link>
           </div>
@@ -197,4 +188,4 @@ const BayarTiket = () => {
   );
 };
 
-export default BayarTiket;
+export default ConfirmPay;
