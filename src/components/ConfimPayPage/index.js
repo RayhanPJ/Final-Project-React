@@ -14,56 +14,15 @@ const ConfirmPay = () => {
   const token = localStorage.getItem("token");
   const [payImg, setPayImg] = useState("");
 
-  const booking = () => {
-    // Gunakan endpoint-mu sendiri
+  const upload = () => {
+    const formData = new FormData();
+    formData.append("file", payImg);
 
-    // var myHeaders = new Headers();
-    // myHeaders.append(
-    //   "Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJkaXRhdGF0YTMxMzk3QGdtYWlsLmNvbSIsImNyZWF0ZWRBdCI6IjIwMjItMTItMjFUMTc6NDE6NDYuNjAzWiIsInVwZGF0ZWRBdCI6IjIwMjItMTItMjFUMTc6NDE6NDYuNjAzWiIsImlhdCI6MTY3MTY1MDM2OX0.rE7qYsHBSxvYWwp_NnO8yZkYX7ws0ALeJe-Bh8etKfU"
-    // );
-
-    var formdata = new FormData();
-    formdata.append("image", payImg);
-
-    // var requestOptions = {
-    //   mode: 'no-cors',
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: formdata,
-    //   redirect: "follow",
-    // };
-
-    // fetch(
-    //   "https://gotravel-ilms4lrona-as.a.run.app/confirmation",
-    //   requestOptions
-    // )
-    //   .then((response) => response.text())
-    //   .then((result) => console.log(result))
-    //   .catch((error) => console.log("error", error));
-
-    var method = {
-      mode: "no-cors",
-      method: "put",
-      url: "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: payImg,
-    };
-
-    axios(method)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-      console.log(payImg);
-    // const data = response.text();
-    // console.log(data);
-    // return data;
+    axios.post(
+      "https://gotravel-ilms4lrona-as.a.run.app/confirmation", formData
+    ).then((response) => {
+      console.log(response);
+    })
   };
 
   // async function profile() {
@@ -155,7 +114,7 @@ const ConfirmPay = () => {
                 </label>
                 <input
                   onChange={(e) => {
-                    setPayImg(e.target.files);
+                    setPayImg(e.target.files[0]);
                   }}
                   className="form-control form-control-lg"
                   id="formFileLg"
@@ -163,10 +122,10 @@ const ConfirmPay = () => {
                 />
               </div>
             </section>
-            <Link className="d-grid gap-2 text-decoration-none">
+            <Link className="d-grid gap-2 text-decoration-none" to="/">
               <button
                 className="btn_bayar"
-                onClick={booking}
+                onClick={upload}
                 style={{
                   borderRadius: "26px",
                   width: "250px",
