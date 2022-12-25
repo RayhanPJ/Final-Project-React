@@ -4,11 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
+import axios from "axios";
 
 const Profile = () => {
     const [show, setShow] = useState(false);
-    
-   
+
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [name, setName] = useState("");
@@ -17,13 +18,15 @@ const Profile = () => {
     const [datebirth, setDatebirth] = useState("");
     const [noktp, setKtp] = useState("");
 
+    const [upImg, setUpImg] = useState("");
+
     const [user, setUser] = useState([]);
     const token = localStorage.getItem("token");
 
     async function editProfile() {
         // Gunakan endpoint-mu sendiri
         var method = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
@@ -43,7 +46,7 @@ const Profile = () => {
         };
 
         const response = await fetch(
-            "https://gotravel-production.up.railway.app/api/v1/register",
+            "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateUser",
             method
         );
         const data = await response.json();
@@ -51,6 +54,33 @@ const Profile = () => {
         return data;
         console.log(user);
     }
+    // const uploadimg = () => {
+
+    //     var formdata = new FormData();
+    //     formdata.append("image", upImg);
+
+    //     var method = {
+    //         mode: "no-cors",
+    //         method: "PUT",
+    //         url: "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             Authorization: `Bearer ${token}`,
+    //         },
+    //         body: upImg,
+    //     };
+
+    //     axios(method)
+    //         .then(function (response) {
+    //             console.log(JSON.stringify(response.data));
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+
+    //     console.log(upImg);
+    // };
+
     useEffect(() => {
         var method = {
             method: "GET",
@@ -60,10 +90,10 @@ const Profile = () => {
             }
         };
 
-        fetch("https://gotravel-production.up.railway.app/api/v1/profile", method)
+        fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile", method)
             .then((response) => response.json())
             .then((data) => {
-                setUser(data);
+                setUser(data); 
                 console.log(data);
             })
             .catch((err) => {
@@ -72,8 +102,7 @@ const Profile = () => {
     }, []);
     console.log(user);
 
-    //   const profileitems = profile.filter.map((item) => item);
-    //     console.log(profileitems);
+
     return (
         <div>
             <Header />
@@ -175,9 +204,16 @@ const Profile = () => {
                                             }}
                                         />
                                     </div>
-                                    <label htmlFor="colFormLabel" className="col-sm-2 col-form-label">Foto</label>
+                                    <label htmlFor="formFileLg" className="col-sm-2 col-form-label">Foto</label>
                                     <div className="col-sm-5">
-                                        <input className="form-control" name="gambar" type="file" id="foto" placeholder="small" />
+                                        <input
+                                            onChange={(e) => {
+                                                setUpImg(e.target.files);
+                                            }}
+                                            className="form-control form-control-lg"
+                                            id="formFileLg"
+                                            type="file"
+                                        />
                                         <small id="text" className="text-muted">
                                             File size max.2MB
                                         </small>
@@ -191,7 +227,7 @@ const Profile = () => {
                                         variant="btn-lg btn-outline-dark"
                                         type="submit"
                                         id="btn-search"
-                                    onClick={editProfile}
+                                        onClick={editProfile}
                                     >
                                         Save
                                     </Button>
