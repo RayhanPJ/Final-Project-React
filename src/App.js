@@ -3,14 +3,23 @@ import axios from "axios";
 
 const PersonList = () => {
   const [payImg, setPayImg] = useState("");
+  const token = localStorage.getItem("token");
+  const num = "50";
 
   const upload = () => {
     const formData = new FormData();
     formData.append("file", payImg);
 
-    axios.post(
-      "https://gotravel-ilms4lrona-as.a.run.app/confirmation", formData
-    ).then((response) => {
+    var config = {
+      method: 'put',
+      url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/confirmation/${num}`,
+      headers: { 
+        'Authorization': `Bearer ${token}`, 
+      },
+      data : formData
+    };
+
+    axios(config).then((response) => {
       console.log(response);
     })
   };

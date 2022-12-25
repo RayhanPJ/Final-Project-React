@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -10,80 +10,66 @@ const BayarTiket = () => {
   const location = useLocation();
   const dataBooking = location.state;
   console.log(dataBooking);
-  // const [flight, setflight] = useState([]);
-  // const [user, setUser] = useState([]);
+
   const token = localStorage.getItem("token");
+  const [itemBooking, setItemBooking] = useState("");
 
-  // useEffect(() => {
-  //   var method = {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     }
-  //   };
-
-  //   fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile", method)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setUser(data);
-  //       console.log(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-  // }, []);
-  // console.log(user.role);
-
-  async function booking() {
-    // Gunakan endpoint-mu sendiri
-
-    var method = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        id_flight: `${dataBooking.data.item.id_plane}`,
-        baggage: `${dataBooking.baggageWeight}`,
-        food: `${dataBooking.typeFood}`,
-        name: `${dataBooking.name}`,
-        homephone: `${dataBooking.homePhone}`,
-        mobilephone: `${dataBooking.mobilePhone}`,
-        totalprice: `${dataBooking.data.item.price}`,
-      }),
-    };
-
-    const response = await fetch(
-      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking",
-      method
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  }
-
-  // async function profile() {
+  // const booking = () => {
   //   // Gunakan endpoint-mu sendiri
 
   //   var method = {
-  //     method: "GET",
+  //     method: "POST",
   //     headers: {
   //       "Content-Type": "application/json",
   //       Authorization: `Bearer ${token}`,
-  //     }
+  //     },
+  //     body: JSON.stringify({
+  //       id_flight: `${dataBooking.data.item.id_plane}`,
+  //       baggage: `${dataBooking.baggageWeight}`,
+  //       food: `${dataBooking.typeFood}`,
+  //       name: `${dataBooking.name}`,
+  //       homephone: `${dataBooking.homePhone}`,
+  //       mobilephone: `${dataBooking.mobilePhone}`,
+  //       totalprice: `${dataBooking.data.item.price}`,
+  //     }),
   //   };
 
-  //   const response = await fetch(
-  //     "https://gotravel-production.up.railway.app/api/v1/profile",
+  //   const response = fetch(
+  //     "https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking",
   //     method
   //   );
-  //   const data = await response.json();
+  //   const data = response.json();
   //   console.log(data);
   //   return data;
   // }
-  // console.log(profile());
+
+  var method = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      id_flight: `${dataBooking.data.item.id_plane}`,
+      baggage: `${dataBooking.baggageWeight}`,
+      food: `${dataBooking.typeFood}`,
+      name: `${dataBooking.name}`,
+      homephone: `${dataBooking.homePhone}`,
+      mobilephone: `${dataBooking.mobilePhone}`,
+      totalprice: `${dataBooking.data.item.price}`,
+    }),
+  };
+  useEffect(() => {
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
+      .then((response) => response.json())
+      .then((data) => {
+        setItemBooking(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, []);
 
   return (
     <div className="bayarTiket">
@@ -195,13 +181,15 @@ const BayarTiket = () => {
             <Link
               className="d-grid gap-2 text-decoration-none"
               state={{
-                dataBooking
+                dataBooking,
+                itemBooking
+                
               }}
               to="/confirmpay"
             >
               <button
                 className="btn_bayar"
-                onClick={booking}
+                onClick={setItemBooking}
                 style={{
                   borderRadius: "26px",
                   width: "250px",

@@ -1,51 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ConfirmPay = () => {
-  // const location = useLocation();
-  // const dataBooking = location.state;
-  // console.log(dataBooking);
-  // const [flight, setflight] = useState([]);
-  const token = localStorage.getItem("token");
+  const location = useLocation();
+  const dataBooking = location.state;
+  console.log(dataBooking);
+
   const [payImg, setPayImg] = useState("");
+  const token = localStorage.getItem("token");
+  const num = dataBooking.itemBooking.data.id;
+  console.log(num);
 
   const upload = () => {
     const formData = new FormData();
     formData.append("file", payImg);
 
-    axios.post(
-      "https://gotravel-ilms4lrona-as.a.run.app/confirmation", formData
-    ).then((response) => {
+    var config = {
+      method: 'put',
+      url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/confirmation/${num}`,
+      headers: { 
+        'Authorization': `Bearer ${token}`, 
+      },
+      data : formData
+    };
+
+    axios(config).then((response) => {
       console.log(response);
     })
   };
-
-  // async function profile() {
-  //   // Gunakan endpoint-mu sendiri
-
-  //   var method = {
-  //     mode : "no-cors",
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     }
-  //   };
-
-  //   const response = await fetch(
-  //     "https://gotravel-ilms4lrona-as.a.run.app/confirmation",
-  //     method
-  //   );
-  //   const data = await response.json();
-  //   console.log(data);
-  //   return data;
-  // }
-  // console.log(profile());
+  console.log(payImg);
 
   return (
     <div className="bayarTiket">
