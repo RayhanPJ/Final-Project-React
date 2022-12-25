@@ -8,9 +8,11 @@ import Table from 'react-bootstrap/Table';
 
 
 const ListBooking = () => {
-  const [listBooking, setListBooking] = useState([]);
 
+  const [listBooking, setListBooking] = useState([]);
+  const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
   
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -36,6 +38,36 @@ const ListBooking = () => {
 
   console.log(listBooking)
 
+  // fungsi konfirmasi pembayaran
+  const handleConfirmPayment = (paymentId) => {
+    setListBooking(listBooking.map((bookings) => {
+      if (bookings.id === paymentId) {
+        return { ...bookings, approved: true };
+      }
+      return bookings;
+    }));
+  };
+  // fungsi tolak pembayaran
+  const handleRejectPayment = (paymentId) => {
+    setListBooking(listBooking.map((bookings) => {
+      if (bookings.id === paymentId) {
+        return { ...bookings, approved: false };
+      }
+      return bookings;
+    }));
+  };
+
+  // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
+  const ubahUkuran = () => {
+    if (ukuran.width === '100px') {
+      setUkuran({ width: '600px', height: '300px' });
+    } else {
+      setUkuran({ width: '100px', height: '100px' });
+    }
+  };
+  
+ 
+
   return (
     <div style={{ backgroundColor: "#F0F0F0" }} className="pesanTiket">
       <Header />
@@ -52,7 +84,6 @@ const ListBooking = () => {
             </div>
           </div>
         </nav>
-        {/* data diri */}
         <div className="row" style={{margin: "50px 0 230px 0"}}>
           <Table striped>
             <thead>
@@ -61,12 +92,12 @@ const ListBooking = () => {
                 <th>Name</th>
                 <th>Mobile Phone</th>
                 <th>Flight Destination</th>
-                <th>Price</th>
-                <th>Payment</th>
+                <th>Bukti Pembayaran</th>
+                <th>confirmation</th>
               </tr>
             </thead>
             <tbody>
-
+              {/* listbooking */}
               {listBooking.length > 0 ? (
                 listBooking.map ((bookings) =>(
                   <tr key={bookings.id}>
@@ -74,9 +105,17 @@ const ListBooking = () => {
                     <td>{bookings.name}</td>
                     <td>{bookings.mobilephone}</td>
                     <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city}</td>
-                    <td>{bookings.totalprice}</td>
-                    <td>{bookings.confirmation}</td>
-
+                    <td><img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran} /></td>
+                    <td>
+                      {bookings.approved === null && (
+                        <div>
+                          <button onClick={() => handleConfirmPayment(bookings.id)}>Konfirmasi Pembayaran</button>
+                          <button onClick={() => handleRejectPayment(bookings.id)}>Tolak Pembayaran</button>
+                        </div>
+                      )}
+                      {bookings.approved === true && <div>Pembayaran telah dikonfirmasi</div>}
+                      {bookings.approved === false && <div>Pembayaran telah ditolak</div>}
+                    </td>
                   </tr>
                 ))
               ) : (
