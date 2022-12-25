@@ -39,55 +39,6 @@ function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
 }
 
-// function handleLogout(e) {
-//   e.preventDefault();
-//   localStorage.removeItem("token");
-//   Navigate('http://localhost:3000/#Booking')
-// }
-// const token = localStorage.getItem("token");
-// async function booking() {
-//   // Gunakan endpoint-mu sendiri
-
-//   var method = {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
- 
-//   };
-
-//   const response = await fetch(
-//     "https://gotravel-production.up.railway.app/api/v1/admin",
-//     method
-//   );
-//   const data = await response.json();
-//   console.log(data.data.users);
-//   return data.data.users;
-// }
-// console.log(booking())
-// async function profile() {
-//   // Gunakan endpoint-mu sendiri
-
-//   var method = {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     }
-//   };
-
-//   const response = await fetch(
-//     "https://gotravel-production.up.railway.app/api/v1/profile",
-//     method
-//   );
-//   const data = await response.json();
-//   console.log(data.role);
-//   return await data;
-// }
-// console.log(profile());
-
-
 
 function NavbarHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
