@@ -11,4 +11,5 @@ import BayarTiket from './BayarTiket';
 import Filter from './FilterTry';
 import ListBooking from './ListBooking';
 
+
 export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter, ListBooking};

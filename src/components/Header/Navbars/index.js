@@ -14,8 +14,26 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import {Link} from "react-router-dom";
 
+
+
 const settings = ["Profile","Wishlist", "Logout"];
 
+
+// const endpoint = "https://gotravel-production.up.railway.app/api/v1/profile"
+// fetch("https://gotravel-production.up.railway.app/api/v1/profile/")
+// .then((response)=>response.text())
+// .then((json)=>console.log(json))
+
+
+
+// fetch('https://gotravel-production.up.railway.app/api/v1/profile', {
+//     method: 'GET',
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+// })
+// .then(response => response.json())
+// .then(response => console.log(JSON.stringify(response)))
 
 function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -26,15 +44,82 @@ function simulateNetworkRequest() {
 //   localStorage.removeItem("token");
 //   Navigate('http://localhost:3000/#Booking')
 // }
+// const token = localStorage.getItem("token");
+// async function booking() {
+//   // Gunakan endpoint-mu sendiri
+
+//   var method = {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     },
+ 
+//   };
+
+//   const response = await fetch(
+//     "https://gotravel-production.up.railway.app/api/v1/admin",
+//     method
+//   );
+//   const data = await response.json();
+//   console.log(data.data.users);
+//   return data.data.users;
+// }
+// console.log(booking())
+// async function profile() {
+//   // Gunakan endpoint-mu sendiri
+
+//   var method = {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     }
+//   };
+
+//   const response = await fetch(
+//     "https://gotravel-production.up.railway.app/api/v1/profile",
+//     method
+//   );
+//   const data = await response.json();
+//   console.log(data.role);
+//   return await data;
+// }
+// console.log(profile());
+
+
 
 function NavbarHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [showListBooking, setShowListBooking] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  }, []);
+
+    var method = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+
+    fetch("https://gotravel-ilms4lrona-as.a.run.app//api/v1/profile", method)
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+     user.role === 'admin' ? setShowListBooking (false) : setShowListBooking (true);
+  }, [user.role]);
+  
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -72,6 +157,7 @@ function NavbarHeader() {
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
             >
+              {/* {console.log(Login)} */}
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   GoTravel
@@ -94,6 +180,20 @@ function NavbarHeader() {
                   >
                     Testimonial
                   </Nav.Link>
+                  {!showListBooking ? (
+                      <Nav.Link
+                        href="http://localhost:3000/listbooking" 
+                        className="text-dark list_nav_main"
+                      >
+                        List Booking    
+                      </Nav.Link>
+
+                    )
+                    :(
+                      ""
+                    )
+                  }
+                  
                   {!isLoggedIn ? (
                     <Nav.Link href="/login" className="text-dark">
                       <Button

@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 async function doLogin({ username, password }) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://gotravel-production.up.railway.app/api/v1/login",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/login",
     {
       method: "POST",
       headers: {
@@ -22,13 +22,13 @@ async function doLogin({ username, password }) {
     }
   );
   const data = await response.json();
+
   return data.token;
 }
-
 async function doLoginGoogle(res, email) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://gotravel-production.up.railway.app/api/v1/google",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/google",
     {
       method: "POST",
       headers: {
@@ -64,6 +64,9 @@ function Login() {
       .then((user) => {
         if (!user) {
         setError(user.message);
+        // if(username === 'admin'){
+        //   Navigate('/listbooking');
+        // }
       } else {
         localStorage.setItem("token", user);
       }
@@ -113,6 +116,7 @@ function Login() {
                   <label htmlFor="username" className="form-label">
                     Username
                   </label>
+                  {/* {console.log(username)} */}
                   <input
                     type="text"
                     className="form-control bg-transparent formInput"

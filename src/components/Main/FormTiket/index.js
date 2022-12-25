@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// import {getListUser} from "../../apis";
 
 const FormTiket = () => {
   const [show, setShow] = useState(true);
@@ -36,6 +37,7 @@ const FormTiket = () => {
       .catch((err) => {
         console.log("err", err);
       });
+      // getListUser()
   }, []);
 
   // const t = new Date("2022-10-06T15:06:22.516Z");
