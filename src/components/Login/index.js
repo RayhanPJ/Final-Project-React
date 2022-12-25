@@ -22,9 +22,9 @@ async function doLogin({ username, password }) {
     }
   );
   const data = await response.json();
+
   return data.token;
 }
-
 async function doLoginGoogle(res, email) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
@@ -65,11 +65,14 @@ function Login() {
     doLogin({ username, password })
       .then((user) => {
         if (!user) {
-          setError(user.message);
-        } else {
-          localStorage.setItem("token", user);
-        }
-      })
+        setError(user.message);
+        // if(username === 'admin'){
+        //   Navigate('/listbooking');
+        // }
+      } else {
+        localStorage.setItem("token", user);
+      }
+})
       .catch((err) => err.message)
       .finally(() => setIsLoading(false));
   }
@@ -119,6 +122,7 @@ function Login() {
                   <label htmlFor="username" className="form-label">
                     Username
                   </label>
+                  {/* {console.log(username)} */}
                   <input
                     type="text"
                     className="form-control bg-transparent formInput"

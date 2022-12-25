@@ -13,3 +13,4 @@ import ListBooking from './ListBooking';
 import ConfirmPay from './ConfimPayPage';
 
 export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter, ListBooking, ConfirmPay};
+
