@@ -9,7 +9,7 @@ import jwtDecode from "jwt-decode";
 async function doRegister({ username, email, password }) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://gotravel-production.up.railway.app/api/v1/register",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/register",
     {
       method: "POST",
       headers: {
@@ -29,7 +29,7 @@ async function doRegister({ username, email, password }) {
 async function doLoginGoogle(res, email) {
   // Gunakan endpoint-mu sendiri
   const response = await fetch(
-    "https://challenge-8-be-fsw-production.up.railway.app/api/v1/google",
+    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/google",
     {
       method: "POST",
       headers: {
@@ -55,7 +55,7 @@ function Register() {
   const GOOGLECLIENTID = "1075166577960-qiqbp7khn8e0e50mrgf01hcci3kognqf.apps.googleusercontent.com";
 
   useEffect(() => {
-    setIsRegisterIn(false);
+    setIsRegisterIn();
   }, []);
 
   function handleSubmit(e) {

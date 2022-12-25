@@ -6,7 +6,7 @@ const initialState = {
   getListPenerbanganError: false,
 };
 
-const Penerbangan = (state = initialState, action) => {
+const Airlines = (state = initialState, action) => {
   switch (action.type) {
     case GET_LIST_PENERBANGAN:
       return {
@@ -20,4 +20,4 @@ const Penerbangan = (state = initialState, action) => {
   }
 };
 
-export default Penerbangan;
+export default Airlines;
