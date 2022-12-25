@@ -1,34 +1,136 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BayarTiket = () => {
+  const location = useLocation();
+  const dataBooking = location.state;
+  console.log(dataBooking);
+  // const [flight, setflight] = useState([]);
+  // const [user, setUser] = useState([]);
+  const token = localStorage.getItem("token");
+
+  // useEffect(() => {
+  //   var method = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     }
+  //   };
+
+  //   fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile", method)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setUser(data);
+  //       console.log(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }, []);
+  // console.log(user.role);
+
+  async function booking() {
+    // Gunakan endpoint-mu sendiri
+
+    var method = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id_flight: `${dataBooking.data.item.id_plane}`,
+        baggage: `${dataBooking.baggageWeight}`,
+        food: `${dataBooking.typeFood}`,
+        name: `${dataBooking.name}`,
+        homephone: `${dataBooking.homePhone}`,
+        mobilephone: `${dataBooking.mobilePhone}`,
+        totalprice: `${dataBooking.data.item.price}`,
+      }),
+    };
+
+    const response = await fetch(
+      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking",
+      method
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+
+  // async function profile() {
+  //   // Gunakan endpoint-mu sendiri
+
+  //   var method = {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     }
+  //   };
+
+  //   const response = await fetch(
+  //     "https://gotravel-production.up.railway.app/api/v1/profile",
+  //     method
+  //   );
+  //   const data = await response.json();
+  //   console.log(data);
+  //   return data;
+  // }
+  // console.log(profile());
+
   return (
     <div className="bayarTiket">
       <Header />
       <Container>
         <div className="row" style={{ paddingTop: "10px" }}>
-          <div className="col-lg-12">
+          <div className="col-lg-12" key={dataBooking.data.item.id}>
             <nav
               className="navbar navbar-expand-lg"
               style={{ backgroundColor: "#4E4E4E" }}
             >
               <div className="container-fluid row">
                 <div className="col-lg-7">
-                  <a className="navbar-brand" href="#/" style={{ color: "#FFFFFF" }}>
+                  <a
+                    className="navbar-brand"
+                    href="#/"
+                    style={{ color: "#FFFFFF" }}
+                  >
                     Booking
                   </a>
                 </div>
                 <div className="col-lg-2">
-                <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pilih Tiket</a>
+                  <a
+                    href="#/"
+                    className="nav-link"
+                    style={{ color: "#FFFFFF" }}
+                  >
+                    Pilih Tiket
+                  </a>
                 </div>
                 <div className="col-lg-2">
-                  <a href="#/" className="nav-link" style={{ color: "#FFFFFF" }}>Pesanan Tiket</a>
+                  <a
+                    href="#/"
+                    className="nav-link"
+                    style={{ color: "#FFFFFF" }}
+                  >
+                    Pesanan Tiket
+                  </a>
                 </div>
                 <div className="col-lg-2">
-                  <a href="#/" className="nav-link active" style={{ color: "#FFFFFF" }}>Bayar</a>
+                  <a
+                    href="#/"
+                    className="nav-link active"
+                    style={{ color: "#FFFFFF" }}
+                  >
+                    Bayar
+                  </a>
                 </div>
               </div>
             </nav>
@@ -63,10 +165,15 @@ const BayarTiket = () => {
                 marginLeft: "70px",
                 backgroundColor: "#9f9f9f",
                 borderRadius: "8px",
-              }} className="tbayar"
+              }}
+              className="tbayar"
             >
               <p style={{ paddingTop: "20px" }}>
-                Jumlah yang harus di bayar adalah IDR 1,921,020
+                Jumlah yang harus di bayar adalah IDR{" "}
+                <b>
+                  {dataBooking.data.item.price *
+                    dataBooking.data.dataForm.capacity}
+                </b>
               </p>
             </div>
             <section style={{ marginLeft: "60px", paddingLeft: "15px" }}>
@@ -78,28 +185,34 @@ const BayarTiket = () => {
               </p>
               <ul>
                 <li>
-                  <p>Internet Banking</p>
+                  <p>Internet Banking </p>
                 </li>
                 <li>
                   <p>Kartu Kredit (Visa, Master, JCB)</p>
                 </li>
-                <li>
-                  <p>Kartu Debit</p>
-                </li>
               </ul>
             </section>
-            <button
-              className="btn_bayar"
-              style={{
-                borderRadius: "26px",
-                width: "250px",
-                height: "50px",
-                marginLeft: "450px",
-                color: "#ffff",
+            <Link
+              className="d-grid gap-2 text-decoration-none"
+              state={{
+                dataBooking
               }}
+              to="/confirmpay"
             >
-              Bayar
-            </button>
+              <button
+                className="btn_bayar"
+                onClick={booking}
+                style={{
+                  borderRadius: "26px",
+                  width: "250px",
+                  height: "50px",
+                  marginLeft: "450px",
+                  color: "#ffff",
+                }}
+              >
+                Bayar
+              </button>
+            </Link>
           </div>
         </div>
       </Container>

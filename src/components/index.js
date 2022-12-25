@@ -10,6 +10,7 @@ import Protected from './Protected';
 import BayarTiket from './BayarTiket';
 import Filter from './FilterTry';
 import ListBooking from './ListBooking';
+import ConfirmPay from './ConfimPayPage';
 
+export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter, ListBooking, ConfirmPay};
 
-export {LandingPage, Login, Register, Profile, Wishlist, PesanTiket, PemilihanTiket, LogOut, Protected, BayarTiket, Filter, ListBooking};

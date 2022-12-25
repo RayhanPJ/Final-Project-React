@@ -12,7 +12,7 @@ const FormInfoTiket = () => {
 
   // Function to get data airport
   useEffect(() => {
-    fetch("https://gotravel-production.up.railway.app/api/v1/airport")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport")
       .then((response) => response.json())
       .then((data) => {
         setAirports(data.data.airports);
@@ -21,7 +21,7 @@ const FormInfoTiket = () => {
         console.log("err", err);
       });
 
-    fetch("https://gotravel-production.up.railway.app/api/v1/flight")
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight")
       .then((response) => response.json())
       .then((data) => {
         setflight(data.data.flights);
@@ -76,7 +76,7 @@ const FormInfoTiket = () => {
 
     const filterCars = flight.filter(
       (item) =>
-        item.FromAirport.name == bandara && item.ToAirport.name == bandara2 
+        item.FromAirport.name === bandara && item.ToAirport.name === bandara2 
     );
     setdisplayFlight(filterCars);
   };
@@ -104,6 +104,7 @@ const FormInfoTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>
@@ -122,6 +123,7 @@ const FormInfoTiket = () => {
                   className="form-select bg-transparent border-dark"
                   onChange={(e) => setbandara2(e.target.value)}
                 >
+                  <option value="">Pilih Tujuan</option>
                   {airports &&
                     airports.map((airport) => (
                       <option key={airport.id} value={airport.name}>

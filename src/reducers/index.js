@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import Penerbangan from "./Penerbangan";
+import Airlines from "./AirlinesReducer";
+import formReducer from "./FormReducer";
 
 export default combineReducers({
-  Penerbangan,
+  Airlines,
+  formReducer
 });

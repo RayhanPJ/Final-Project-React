@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import axios from "axios";
 
-function App() {
+const PersonList = () => {
+  const [payImg, setPayImg] = useState("");
+
+  const upload = () => {
+    const formData = new FormData();
+    formData.append("file", payImg);
+
+    axios.post(
+      "https://gotravel-ilms4lrona-as.a.run.app/confirmation", formData
+    ).then((response) => {
+      console.log(response);
+    })
+  };
+  console.log(payImg);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <label htmlFor="formFileLg" className="form-label">
+        Silahkan upload bukti pembayaran kamu dibawah sini
+      </label>
+      <input
+        onChange={(e) => {
+          setPayImg(e.target.files[0]);
+        }}
+        className="form-control form-control-lg"
+        id="formFileLg"
+        type="file"
+      />
+      <button onClick={upload}>upload gambar</button>
     </div>
   );
-}
+};
 
-export default App;
+export default PersonList;
