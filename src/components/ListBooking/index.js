@@ -85,7 +85,7 @@ const ListBooking = () => {
           </div>
         </nav>
         <div className="row" style={{margin: "50px 0 230px 0"}}>
-          <Table striped>
+          <Table responsive="sm" striped>
             <thead>
               <tr>
                 <th>Profile</th>
@@ -101,7 +101,7 @@ const ListBooking = () => {
               {listBooking.length > 0 ? (
                 listBooking.map ((bookings) =>(
                   <tr key={bookings.id}>
-                    <td>{bookings.User.image}</td>
+                    <td><img src={bookings.User.image} alt="profile"/></td>
                     <td>{bookings.name}</td>
                     <td>{bookings.mobilephone}</td>
                     <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city}</td>
