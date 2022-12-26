@@ -10,6 +10,8 @@ const FormInfoTiket = () => {
   const [bandara2, setbandara2] = useState("");
   const [date, setDate] = useState("");
 
+
+    
   // Function to get data airport
   useEffect(() => {
     fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport")
