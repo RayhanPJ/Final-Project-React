@@ -18,10 +18,34 @@ const Profile = () => {
     const [datebirth, setDatebirth] = useState("");
     const [noktp, setKtp] = useState("");
 
-    const [upImg, setUpImg] = useState("");
+    // const [upImg, setUpImg] = useState("");
 
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState({});
     const token = localStorage.getItem("token");
+
+    const [payImg, setPayImg] = useState("");
+
+    // const num = dataBooking.itemBooking.data.id;
+    // console.log(num);
+
+    const upload = () => {
+        const formData = new FormData();
+        formData.append("file", payImg);
+
+        var config = {
+            method: 'put',
+            url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser`,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            data: formData
+        };
+
+        axios(config).then((response) => {
+            console.log(response);
+        })
+    };
+    console.log(payImg);
 
     async function editProfile() {
         // Gunakan endpoint-mu sendiri
@@ -93,7 +117,7 @@ const Profile = () => {
         fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile", method)
             .then((response) => response.json())
             .then((data) => {
-                setUser(data); 
+                setUser(data);
                 console.log(data);
             })
             .catch((err) => {
@@ -118,7 +142,7 @@ const Profile = () => {
                         <div className="col-12 text-center">
 
                             <div>
-                                <h3 className="fw-bolder">{user.username}</h3>
+                                <h3 className="fw-bolder">Roro</h3>
                                 <h5 className="text-muted">Jakarta</h5>
                                 <p>Saya senang sekali Traveling keliling Indonesia.<br />Traveling ke tempat wisata seperti Candi.</p>
                             </div>
@@ -208,7 +232,7 @@ const Profile = () => {
                                     <div className="col-sm-5">
                                         <input
                                             onChange={(e) => {
-                                                setUpImg(e.target.files);
+                                                setPayImg(e.target.files[0]);
                                             }}
                                             className="form-control form-control-lg"
                                             id="formFileLg"
@@ -227,7 +251,7 @@ const Profile = () => {
                                         variant="btn-lg btn-outline-dark"
                                         type="submit"
                                         id="btn-search"
-                                        onClick={editProfile}
+                                        onClick={upload}
                                     >
                                         Save
                                     </Button>
