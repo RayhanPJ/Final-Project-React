@@ -7,6 +7,11 @@ import Table from "react-bootstrap/Table";
 
 const ListBooking = () => {
   const [listBooking, setListBooking] = useState({});
+  const token = localStorage.getItem("token");
+  // const [approve, setApprove] = useState({
+  //   true : true,
+  //   false : false
+  //  });
   const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
 
   useEffect(() => {
@@ -37,6 +42,21 @@ const ListBooking = () => {
     setListBooking(
       listBooking.map((item) => {
         if (item.id === paymentId) {
+          var method = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "approved": true
+            }),
+          };
+      
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking/${paymentId}`,
+            method
+          ).then((data) => {console.log(data);});
           return { ...item, approved: true };
         }
         return item;
@@ -48,6 +68,21 @@ const ListBooking = () => {
     setListBooking(
       listBooking.map((item) => {
         if (item.id === paymentId) {
+          var method = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "approved": false
+            }),
+          };
+      
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking/${paymentId}`,
+            method
+          ).then((data) => {console.log(data);});
           return { ...item, approved: false };
         }
         return item;
