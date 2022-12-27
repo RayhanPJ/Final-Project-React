@@ -114,6 +114,14 @@ footer {
     padding-bottom: 20px;
   }
 
+  /* Testimonial */
+  .testimonials img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 0;
+  }
+
   /* pesan tiket */
   .nama_lengkap input{
     width: 240px !important;
