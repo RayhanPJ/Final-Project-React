@@ -1,17 +1,13 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
-
-
+import Table from "react-bootstrap/Table";
 
 const ListBooking = () => {
-
-  const [listBooking, setListBooking] = useState([]);
-  const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
-  
+  const [listBooking, setListBooking] = useState({});
+  const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -21,52 +17,52 @@ const ListBooking = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      }
+      },
     };
 
     fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
       .then((response) => response.json())
       .then((data) => {
         setListBooking(data.data.bookings);
-        console.log(data);
+        console.log(data.data.bookings);
       })
       .catch((err) => {
         console.log("err", err);
       });
-
   }, []);
-
-  console.log(listBooking)
+  console.log(listBooking);
 
   // fungsi konfirmasi pembayaran
   const handleConfirmPayment = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        return { ...bookings, approved: true };
-      }
-      return bookings;
-    }));
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          return { ...item, approved: true };
+        }
+        return item;
+      })
+    );
   };
   // fungsi tolak pembayaran
   const handleRejectPayment = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        return { ...bookings, approved: false };
-      }
-      return bookings;
-    }));
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          return { ...item, approved: false };
+        }
+        return item;
+      })
+    );
   };
 
   // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
   const ubahUkuran = () => {
-    if (ukuran.width === '100px') {
-      setUkuran({ width: '600px', height: '300px' });
+    if (ukuran.width === "100px") {
+      setUkuran({ width: "600px", height: "300px" });
     } else {
-      setUkuran({ width: '100px', height: '100px' });
+      setUkuran({ width: "100px", height: "100px" });
     }
   };
-  
- 
 
   return (
     <div style={{ backgroundColor: "#F0F0F0" }} className="pesanTiket">
@@ -78,13 +74,17 @@ const ListBooking = () => {
         >
           <div className="container-fluid row">
             <div className="col-lg-7">
-              <a className="navbar-brand" href="#/" style={{ color: "#FFFFFF" }}>
+              <a
+                className="navbar-brand"
+                href="#/"
+                style={{ color: "#FFFFFF" }}
+              >
                 List User Booking
               </a>
             </div>
           </div>
         </nav>
-        <div className="row" style={{margin: "50px 0 230px 0"}}>
+        <div className="row" style={{ margin: "50px 0 230px 0" }}>
           <Table striped>
             <thead>
               <tr>
@@ -99,22 +99,46 @@ const ListBooking = () => {
             <tbody>
               {/* listbooking */}
               {listBooking.length > 0 ? (
-                listBooking.map ((bookings) =>(
-                  <tr key={bookings.id}>
-                    <td>{bookings.User.image}</td>
-                    <td>{bookings.name}</td>
-                    <td>{bookings.mobilephone}</td>
-                    <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city}</td>
-                    <td><img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran} /></td>
+                listBooking.map((item) => (
+                  <tr key={item.id}>
                     <td>
-                      {bookings.approved === null && (
+                      <img
+                        src={item.User.image}
+                        className="rounded-circle"
+                        height="80"
+                        alt="profileUser"
+                      />
+                    </td>
+                    <td>{item.name}</td>
+                    <td>{item.mobilephone}</td>
+                    <td>
+                      {item.Flight.FromAirport.city} - {item.Flight.ToAirport.city}
+                    </td>
+                    <td>
+                      <img
+                        src={item.confirmation}
+                        alt="bukti pembayaran"
+                        style={ukuran}
+                        onClick={ubahUkuran}
+                      />
+                    </td>
+                    <td>
+                      {item.approved === null && (
                         <div>
-                          <button onClick={() => handleConfirmPayment(bookings.id)}>Konfirmasi Pembayaran</button>
-                          <button onClick={() => handleRejectPayment(bookings.id)}>Tolak Pembayaran</button>
+                          <button onClick={() => handleConfirmPayment(item.id)}>
+                            Konfirmasi Pembayaran
+                          </button>
+                          <button onClick={() => handleRejectPayment(item.id)}>
+                            Tolak Pembayaran
+                          </button>
                         </div>
                       )}
-                      {bookings.approved === true && <div>Pembayaran telah dikonfirmasi</div>}
-                      {bookings.approved === false && <div>Pembayaran telah ditolak</div>}
+                      {item.approved === true && (
+                        <div>Pembayaran telah dikonfirmasi</div>
+                      )}
+                      {item.approved === false && (
+                        <div>Pembayaran telah ditolak</div>
+                      )}
                     </td>
                   </tr>
                 ))
