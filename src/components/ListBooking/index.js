@@ -36,7 +36,7 @@ const ListBooking = () => {
 
   }, []);
 
-  console.log(listBooking)
+  console.log(listBooking);
 
   // fungsi konfirmasi pembayaran
   const handleConfirmPayment = (paymentId) => {
@@ -91,7 +91,7 @@ const ListBooking = () => {
                 <th>Profile</th>
                 <th>Name</th>
                 <th>Mobile Phone</th>
-                <th>Flight Destination</th>
+                {/* <th>Flight Destination</th> */}
                 <th>Bukti Pembayaran</th>
                 <th>confirmation</th>
               </tr>
@@ -101,10 +101,10 @@ const ListBooking = () => {
               {listBooking.length > 0 ? (
                 listBooking.map ((bookings) =>(
                   <tr key={bookings.id}>
-                    <td><img src={bookings.User.image} alt="profile"/></td>
+                    <td><img src={bookings.User.image} style={{width: '100px', height: '100px'}} alt="profile"/></td>
                     <td>{bookings.name}</td>
                     <td>{bookings.mobilephone}</td>
-                    <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city}</td>
+                    {/* <td>{bookings.Flight.kelas}</td> */}
                     <td><img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran} /></td>
                     <td>
                       {bookings.approved === null && (
