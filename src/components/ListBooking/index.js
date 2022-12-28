@@ -4,14 +4,39 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 
 const ListBooking = () => {
 
   const [listBooking, setListBooking] = useState([]);
-  const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
+  // const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState(null);
+  // const [images, setImages] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const handleModalShow = (paymentId) => {
+    setListBooking(listBooking.map((bookings) => {
+      if (bookings.id === paymentId) {
+        setShow(true);
+      }
+      return bookings.confirmation;
+    }));
+  };
+
+  const handleModalClose = (paymentId) => {
+    setListBooking(listBooking.map((bookings) => {
+      if (bookings.id === paymentId) {
+        setShow(false);
+      }
+      return bookings.confirmation;
+    }));
+  };
   
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,6 +59,15 @@ const ListBooking = () => {
         console.log("err", err);
       });
 
+    // fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setSelectedImage(data.bookings.confirmation);
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
   }, []);
 
   console.log(listBooking);
@@ -58,13 +92,21 @@ const ListBooking = () => {
   };
 
   // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
-  const ubahUkuran = () => {
-    if (ukuran.width === '100px') {
-      setUkuran({ width: '600px', height: '300px' });
-    } else {
-      setUkuran({ width: '100px', height: '100px' });
-    }
-  };
+  // const ubahUkuran = () => {
+  //   if (ukuran.width === '100px') {
+  //     setUkuran({ width: '600px', height: '300px' });
+  //   } else {
+  //     setUkuran({ width: '100px', height: '100px' });
+  //   }
+  // };
+  // const handleOpenModal = (image) => {
+  //   setSelectedImage(setListBooking(data.bookings.confirmation));
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleCloseModal = () => {
+  //   setIsModalOpen(false);
+  // };
   
  
 
@@ -91,7 +133,7 @@ const ListBooking = () => {
                 <th>Profile</th>
                 <th>Name</th>
                 <th>Mobile Phone</th>
-                {/* <th>Flight Destination</th> */}
+                <th>Flight Destination</th>
                 <th>Bukti Pembayaran</th>
                 <th>confirmation</th>
               </tr>
@@ -104,8 +146,13 @@ const ListBooking = () => {
                     <td><img src={bookings.User.image} style={{width: '100px', height: '100px'}} alt="profile"/></td>
                     <td>{bookings.name}</td>
                     <td>{bookings.mobilephone}</td>
-                    {/* <td>{bookings.Flight.kelas}</td> */}
-                    <td><img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran} /></td>
+                    <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city} </td>
+                    <td>
+                      <img src={bookings.confirmation} alt="bukti pembayaran" style={{width: '100px', height: '100px'}} onClick={handleModalShow}/>
+                      <Modal show={show} onHide={handleModalClose} animation={false}>
+                        <img src={bookings.confirmation} alt=""/>
+                      </Modal>
+                    </td>
                     <td>
                       {bookings.approved === null && (
                         <div>
