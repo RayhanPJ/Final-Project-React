@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+// import { useLocation } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 
 const Wishlist = () => {
+  // const location = useLocation();
   const [airports, setAirports] = useState([]);
   const [flight, setflight] = useState([]);
   const [displayFlight, setdisplayFlight] = useState([]);
   const [bandara, setbandara] = useState("");
   const [bandara2, setbandara2] = useState("");
   const [date, setDate] = useState("");
+  const [flightId, setFlightId] = useState("");
+  
+  // const [flightId2, setFlightId2] = useState("");
+  // const dataForm = location.state;
 
+  // const roundTrip = dataForm.roundTrip;
+
+
+
+  const [user, setUser] = useState("");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport")
@@ -31,8 +44,50 @@ const Wishlist = () => {
       .catch((err) => {
         console.log("err", err);
       });
+
+      fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/profile")
+      .then((response) => response.json())
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      }); 
   }, []);
 
+  const getId =  () =>{
+    const idFlight = flight.id;
+    const idUser = user.id;
+    console.log(idFlight);
+    console.log(idUser);
+  }
+
+  async function getWishlist() {
+    // Gunakan endpoint-mu sendiri
+    var method = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id_user: `${user.id}`,
+          id_flight: "10"
+        }),
+    };
+
+    const response = await fetch(
+        "https://gotravel-ilms4lrona-as.a.run.app/api/v1/whislist",
+        method
+    );
+    
+   
+    const data = await response.json();
+    console.log(data);
+    return data;
+    
+}
   //Get Name Day
   const weekday = [
     "Minggu",
@@ -70,25 +125,16 @@ const Wishlist = () => {
               />
             </div> */}
 
-            {/* <div className="w-100 my-2"></div> */}
-
-            {/* <div className="col-md-8 mt-5 text-start"> */}
+          
               <div className="row justify-content-between">
                 <div className="col-md-6 my-auto">
                   <h3 className="fw-bolder">Wishlist</h3>
                 </div>
               </div>
-            {/* </div> */}
-
             <div className="w-100 my-3"></div>
-
-            {/* <div className="bgFormInfo" id="infoTiket"> */}
               <main className="py-5 px-5">
-                
                   <div className="parentInfo">
-                    {/* <div className="divInfo1 d-flex justify-content-center">
-                      <h3 className="text-light"></h3>
-                    </div> */}
+                   
                     <div className="divInfo2 ">
                       <label className="form-label">Dari</label>
                       <div className="input-group mb-3">
@@ -161,7 +207,11 @@ const Wishlist = () => {
                     {displayFlight.length > 0 ? (
                       displayFlight.map((item) => (
                         <div className="col-md-12 mb-3" key={item.id}>
-                          <div className="card d-grid gap-2 text-start bg-light border-0">
+                          <div 
+                          className="card d-grid gap-2 text-start bg-light border-0 btn " 
+                          onClick={() => { setFlightId(`${item.id}`);
+                          }} value={item.id}>
+                            {console.log(flightId)}
                             <img
                               src="assets/img/list.png"
                               className="card-img-top"
@@ -190,6 +240,14 @@ const Wishlist = () => {
                                   </span>
                                   <h3 className="fw-bolder mb-0">Rp{item.price}</h3>
                                 </div>
+                                <Button
+                                        variant="btn-lg btn-outline-dark"
+                                        type="submit"
+                                        id="btn-search"
+                                        onClick={getWishlist}
+                                    >
+                                        save on wishlist
+                                    </Button>
                               </div>
                             </div>
                           </div>
@@ -201,9 +259,126 @@ const Wishlist = () => {
                       </div>
                     )}
                   </div>
-                
+                  {/* <div className="col-4">
+                      <div className="card">
+                        <div className="card-body">
+                          <h5>Detail Penerbangan</h5>
+                          {flight
+                            .filter(
+                              (item) =>
+                                item.FromAirport.name == dataForm.bandara &&
+                                item.ToAirport.name == dataForm.bandara2 &&
+                                item.kelas == dataForm.kelas &&
+                                item.id == flightId
+                            )
+                            .map((item) => {
+                              return (
+                                <div key={item.id}>
+                                  <p>Plane : {item.Plane.name}</p>
+                                  <p>Date : {dataForm.date}</p>
+                                  <p>Destination :</p>
+                                  <p>
+                                    {item.FromAirport.city} -{" "}
+                                    {item.ToAirport.city}
+                                  </p>
+                                  <p>
+                                    Time : {item.arrival_time} -{" "}
+                                    {item.departure_time}
+                                  </p>
+                                  <p>Class : {item.kelas}</p>
+                                  <div className="row">
+                                    <div className="col-6">
+                                      <p>Tiket</p>
+                                    </div>
+                                    <div className="col-6">
+                                      <p>Rp {item.price}</p>
+                                    </div>
+                                  </div>
+                                  {roundTrip && (
+                                    <div className="btn_lanjutByr d-grid gap-2">
+                                    <Link
+                                      className="d-grid gap-2 text-decoration-none"
+                                      state={{
+                                        dataForm,
+                                        flightId,
+                                        item,
+                                      }}
+                                      to="/pesan"
+                                    >
+                                      <button>Simpan ke Wishlist</button>
+                                    </Link>
+                                  </div>
+                                  )}
+                                  <hr />
+                                  <hr />
+                                  {flight
+                                    .filter(
+                                      (item) =>
+                                        item.FromAirport.name ==
+                                          dataForm.bandara2 &&
+                                        item.ToAirport.name ==
+                                          dataForm.bandara &&
+                                        item.kelas == dataForm.kelas &&
+                                        item.id == flightId2
+                                    )
+                                    .map((item2) => {
+                                      return (
+                                        <div key={item2.id}>
+                                          <p>Plane : {item2.Plane.name}</p>
+                                          <p>Date : {dataForm.date2}</p>
+                                          <p>Destination :</p>
+                                          <p>
+                                            {item2.FromAirport.city} -{" "}
+                                            {item2.ToAirport.city}
+                                          </p>
+                                          <p>
+                                            Time : {item2.arrival_time} -{" "}
+                                            {item2.departure_time}
+                                          </p>
+                                          <p>Class : {item2.kelas}</p>
+
+                                          <div className="row">
+                                            <div className="col-6">
+                                              <p>Tiket</p>
+                                            </div>
+                                            <div className="col-6">
+                                              <p>Rp {item2.price}</p>
+                                            </div>
+                                            <br />
+                                            <hr />
+                                            <div className="col-6">
+                                              <p>Total</p>
+                                            </div>
+                                            <div className="col-6">
+                                              <p>
+                                                Rp {item.price + item2.price}
+                                              </p>
+                                            </div>
+                                          </div>
+                                          <div className="btn_lanjutByr d-grid gap-2">
+                                            <Link
+                                              className="d-grid gap-2 text-decoration-none"
+                                              state={{
+                                                dataForm,
+                                                flightId2,
+                                                item,
+                                                item2,
+                                              }}
+                                              to="/pesan"
+                                            >
+                                              <button>Simpan ke Wishlist</button>
+                                            </Link>
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                </div>
+                              );
+                            })}
+                        </div>
+                      </div>
+                    </div> */}
               </main>
-            {/* </div> */}
           </div>
         </div>
       </section>
