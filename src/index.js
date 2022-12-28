@@ -18,7 +18,10 @@ import {
   BayarTiket,
   Filter,
   ListBooking,
-  ConfirmPay
+  ConfirmPay,
+  InputAirport,
+  InputFlight,
+  InputPlane,
 } from "./components";
 import reducers from "./reducers";
 import PersonList from "./App";
@@ -84,6 +87,9 @@ root.render(
       <Route path="/listbooking" element={<ListBooking />} />
       <Route path="/confirmpay" element={<ConfirmPay />} />
       <Route path="/try" element={<PersonList />} />
+      <Route path="/inputplane" element={<InputPlane />} />
+      <Route path="/inputflight" element={<InputFlight />} />
+      <Route path="/inputairport" element={<InputAirport />} />
     </Routes>
   </BrowserRouter>
 );

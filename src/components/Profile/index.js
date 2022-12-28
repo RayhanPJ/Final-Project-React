@@ -13,6 +13,7 @@ const Profile = () => {
   const handleShow = () => setShow(true);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
+  const [listBooking, setListBooking] = useState({});
   const [gender, setGender] = useState({
     men: "L",
     women: "P",
@@ -118,6 +119,16 @@ const Profile = () => {
       .catch((err) => {
         console.log("err", err);
       });
+
+      fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
+      .then((response) => response.json())
+      .then((data) => {
+        setListBooking(data.data.bookings);
+        console.log(data.data.bookings);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }, []);
   console.log(user);
 
@@ -136,7 +147,7 @@ const Profile = () => {
                   height="125"
                 />
               )}
-              {user.address == "" && (
+              {user.address === null && (
                 <img
                   src="assets/img/profile1.png"
                   alt="Profile"
@@ -151,11 +162,11 @@ const Profile = () => {
             <div className="col-12 text-center">
               <div>
                 {user.name && <h3 className="fw-bolder">{user.name}</h3>}
-                {user.name == "" && (
+                {user.name == null && (
                   <h3 className="fw-bolder">{user.username}</h3>
                 )}
                 {user.address && <h5 className="text-muted">{user.address}</h5>}
-                {user.address == "" && <h5 className="text-muted">Unknown</h5>}
+                {user.address == null && <h5 className="text-muted">Unknown</h5>}
                 <p>
                   Saya senang sekali Traveling keliling Indonesia.
                   <br />
@@ -289,12 +300,12 @@ const Profile = () => {
               >
                 Riwayat Perjalanan
               </a>
-              <a
+              {/* <a
                 href="#/Favorite"
                 className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-decoration-none"
               >
                 Favorite
-              </a>
+              </a> */}
             </div>
 
             <div className="w-100 my-3"></div>

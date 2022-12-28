@@ -22,17 +22,17 @@ const ConfirmPay = () => {
     formData.append("file", payImg);
 
     var config = {
-      method: 'put',
+      method: "put",
       url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/confirmation/${num}`,
-      headers: { 
-        'Authorization': `Bearer ${token}`, 
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      data : formData
+      data: formData,
     };
 
     axios(config).then((response) => {
       console.log(response);
-    })
+    });
   };
   console.log(payImg);
 
@@ -111,7 +111,10 @@ const ConfirmPay = () => {
                 />
               </div>
             </section>
-            <Link className="d-grid gap-2 text-decoration-none" to="/">
+            <Link
+              className="d-grid gap-2 text-decoration-none"
+              to="/"
+            >
               <button
                 className="btn_bayar"
                 onClick={upload}
