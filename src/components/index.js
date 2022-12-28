@@ -14,6 +14,8 @@ import ConfirmPay from "./ConfimPayPage";
 import InputAirport from "./InputDataAirport";
 import InputFlight from "./InputDataFlight";
 import InputPlane from "./InputDataPlane";
+import ListFlight from "./listflight";
+import UpdateFlight from "./updateDataFlight";
 
 export {
   LandingPage,
@@ -32,4 +34,6 @@ export {
   InputAirport,
   InputFlight,
   InputPlane,
+  ListFlight,
+  UpdateFlight
 };

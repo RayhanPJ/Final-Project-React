@@ -12,19 +12,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-
-
-const settings = ["Profile","Wishlist", "Logout"];
-
+const settings = ["Profile", "Wishlist", "Logout"];
 
 // const endpoint = "https://gotravel-production.up.railway.app/api/v1/profile"
 // fetch("https://gotravel-production.up.railway.app/api/v1/profile/")
 // .then((response)=>response.text())
 // .then((json)=>console.log(json))
-
-
 
 // fetch('https://gotravel-production.up.railway.app/api/v1/profile', {
 //     method: 'GET',
@@ -38,7 +33,6 @@ const settings = ["Profile","Wishlist", "Logout"];
 function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
 }
-
 
 function NavbarHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -55,7 +49,7 @@ function NavbarHeader() {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      }
+      },
     };
 
     fetch("https://gotravel-ilms4lrona-as.a.run.app//api/v1/profile", method)
@@ -68,9 +62,10 @@ function NavbarHeader() {
         console.log("err", err);
       });
 
-     user.role === 'admin' ? setShowListBooking (false) : setShowListBooking (true);
+    user.role === "admin"
+      ? setShowListBooking(false)
+      : setShowListBooking(true);
   }, [user.role]);
-  
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -119,10 +114,16 @@ function NavbarHeader() {
                   <Nav.Link href="http://localhost:3000/" className="text-dark">
                     Beranda
                   </Nav.Link>
-                  <Nav.Link href="http://localhost:3000/#Booking" className="text-dark list_nav_main">
+                  <Nav.Link
+                    href="http://localhost:3000/#Booking"
+                    className="text-dark list_nav_main"
+                  >
                     Books
                   </Nav.Link>
-                  <Nav.Link href="http://localhost:3000/#aboutUs" className="text-dark list_nav_main">
+                  <Nav.Link
+                    href="http://localhost:3000/#aboutUs"
+                    className="text-dark list_nav_main"
+                  >
                     About Us
                   </Nav.Link>
                   <Nav.Link
@@ -132,19 +133,30 @@ function NavbarHeader() {
                     Testimonial
                   </Nav.Link>
                   {!showListBooking ? (
+                    <div>
                       <Nav.Link
-                        href="http://localhost:3000/listbooking" 
+                        href="http://localhost:3000/listbooking"
                         className="text-dark list_nav_main"
                       >
-                        List Booking    
+                        List Booking
                       </Nav.Link>
+                      <Nav.Link
+                        href="http://localhost:3000/listflight"
+                        className="text-dark list_nav_main"
+                      >
+                        List Flight
+                      </Nav.Link>
+                      <Nav.Link
+                        href="http://localhost:3000/inputairport"
+                        className="text-dark list_nav_main"
+                      >
+                        List Airport
+                      </Nav.Link>
+                    </div>
+                  ) : (
+                    ""
+                  )}
 
-                    )
-                    :(
-                      ""
-                    )
-                  }
-                  
                   {!isLoggedIn ? (
                     <Nav.Link href="/login" className="text-dark">
                       <Button
@@ -185,8 +197,15 @@ function NavbarHeader() {
                         {settings.map((setting) => (
                           <MenuItem key={setting} onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">
-                              <Link style={{textDecoration: "none",color: "black"}} to={`/${setting}`}>{setting}</Link>
-                              
+                              <Link
+                                style={{
+                                  textDecoration: "none",
+                                  color: "black",
+                                }}
+                                to={`/${setting}`}
+                              >
+                                {setting}
+                              </Link>
                             </Typography>
                           </MenuItem>
                         ))}

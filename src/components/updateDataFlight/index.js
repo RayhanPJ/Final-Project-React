@@ -16,12 +16,13 @@ async function addFlight({
   time2,
   date,
   kelas,
-  token
+  token,
+  id
 }) {
   const response = await fetch(
-    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight",
+    `https://gotravel-ilms4lrona-as.a.run.app/api/v1/flight/${id}`,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -43,29 +44,26 @@ async function addFlight({
   return data;
 }
 
-const InputFlight = () => {
-  const [airports, setAirports] = useState([]);
-  const [bandara, setBandara] = useState("");
-  const [bandara2, setBandara2] = useState("");
-  const [capacity, setCapacity] = useState("");
-  const [price, setPrice] = useState("");
-  const [time, setTime] = useState("");
-  const [time2, setTime2] = useState("");
-  const [date, setDate] = useState("");
-  const token = localStorage.getItem("token");
-  const [kelas, setKelas] = useState({
-    economi: "Economy Class",
-    first: "First Class",
-    business: "Business Class",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  const [issetRegisterd, setRegisterd] = useState(false);
+const UpdateFlight = () => {
   const location = useLocation();
   const data = location.state;
+  const id = data.id;
   console.log(data);
+  const [airports, setAirports] = useState([]);
+  const [bandara, setBandara] = useState(data.FromAirport.id);
+  const [bandara2, setBandara2] = useState(data.ToAirport.id);
+  const [capacity, setCapacity] = useState(data.available_seats);
+  const [price, setPrice] = useState(data.price);
+  const [time, setTime] = useState(data.arrival_time);
+  const [time2, setTime2] = useState(data.departure_time);
+  const [date, setDate] = useState(data.flight_date);
+  const token = localStorage.getItem("token");
+  const [kelas, setKelas] = useState(data.kelas);
+  const [isLoading, setIsLoading] = useState(false);
+  const [issetRegisterd, setRegisterd] = useState(false);
 
   const [planes, setPlanes] = useState([]);
-  const [penerbangan, setPenerbangan] = useState([]);
+  const [penerbangan, setPenerbangan] = useState(data.Plane.id);
   console.log(penerbangan,
     bandara,
     bandara2,
@@ -113,7 +111,8 @@ const InputFlight = () => {
       time2,
       date,
       kelas,
-      token
+      token,
+      id
     })
       .then((data) => console.log(data))
       .catch((err) => console.log(err.message))
@@ -138,7 +137,7 @@ const InputFlight = () => {
                 href="#/"
                 style={{ color: "#FFFFFF" }}
               >
-                Add Flight
+                Update Flight
               </a>
             </div>
           </div>
@@ -176,6 +175,7 @@ const InputFlight = () => {
                   className="form-select"
                   style={{ width: "300px" }}
                   onChange={(e) => setPenerbangan(e.target.value)}
+                  value={penerbangan}
                 >
                   <option value="" hidden>
                     Pilih Pesawat
@@ -197,6 +197,7 @@ const InputFlight = () => {
                   className="form-select"
                   style={{ width: "300px" }}
                   onChange={(e) => setBandara(e.target.value)}
+                  value={bandara}
                 >
                   <option value="" hidden>
                     Pilih Tujuan
@@ -218,6 +219,7 @@ const InputFlight = () => {
                   className="form-select"
                   style={{ width: "300px" }}
                   onChange={(e) => setBandara2(e.target.value)}
+                  value={bandara2}
                 >
                   <option value="" hidden>
                     Pilih Tujuan
@@ -239,13 +241,14 @@ const InputFlight = () => {
                     className="form-select"
                     style={{ width: "300px" }}
                     onChange={(e) => setKelas(e.target.value)}
+                    value={kelas}
                   >
                     <option value="" hidden>
                       Pilih Kelas Penerbangan
                     </option>
-                    <option value={kelas.economi}>Ekonomi</option>
-                    <option value={kelas.business}>Bussiness</option>
-                    <option value={kelas.first}>First</option>
+                    <option value="Economy Class">Ekonomi</option>
+                    <option value="Business Class">Bussiness</option>
+                    <option value="First Class">First</option>
                   </select>
                 </div>
               </div>
@@ -425,4 +428,4 @@ const InputFlight = () => {
   );
 };
 
-export default InputFlight;
+export default UpdateFlight;

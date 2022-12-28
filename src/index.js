@@ -22,6 +22,8 @@ import {
   InputAirport,
   InputFlight,
   InputPlane,
+  ListFlight,
+  UpdateFlight
 } from "./components";
 import reducers from "./reducers";
 import PersonList from "./App";
@@ -85,6 +87,8 @@ root.render(
       <Route path="/logout" element={<LogOut />} />
       <Route path="/filter" element={<Filter />} />
       <Route path="/listbooking" element={<ListBooking />} />
+      <Route path="/listflight" element={<ListFlight />} />
+      <Route path="/updateflight" element={<UpdateFlight />} />
       <Route path="/confirmpay" element={<ConfirmPay />} />
       <Route path="/try" element={<PersonList />} />
       <Route path="/inputplane" element={<InputPlane />} />
