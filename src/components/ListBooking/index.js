@@ -12,7 +12,7 @@ import Modal from 'react-bootstrap/Modal';
 const ListBooking = () => {
 
   const [listBooking, setListBooking] = useState([]);
-  // const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
+  const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [selectedImage, setSelectedImage] = useState(null);
   // const [images, setImages] = useState([]);
@@ -92,13 +92,13 @@ const ListBooking = () => {
   };
 
   // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
-  // const ubahUkuran = () => {
-  //   if (ukuran.width === '100px') {
-  //     setUkuran({ width: '600px', height: '300px' });
-  //   } else {
-  //     setUkuran({ width: '100px', height: '100px' });
-  //   }
-  // };
+  const ubahUkuran = () => {
+    if (ukuran.width === '100px') {
+      setUkuran({ width: '600px', height: '300px' });
+    } else {
+      setUkuran({ width: '100px', height: '100px' });
+    }
+  };
   // const handleOpenModal = (image) => {
   //   setSelectedImage(setListBooking(data.bookings.confirmation));
   //   setIsModalOpen(true);
@@ -148,10 +148,7 @@ const ListBooking = () => {
                     <td>{bookings.mobilephone}</td>
                     <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city} </td>
                     <td>
-                      <img src={bookings.confirmation} alt="bukti pembayaran" style={{width: '100px', height: '100px'}} onClick={handleModalShow}/>
-                      <Modal show={show} onHide={handleModalClose} animation={false}>
-                        <img src={bookings.confirmation} alt=""/>
-                      </Modal>
+                      <img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran}/>
                     </td>
                     <td>
                       {bookings.approved === null && (
