@@ -8,6 +8,8 @@ import axios from "axios";
 
 const Profile = () => {
   const [show, setShow] = useState(false);
+  const [riwayat, setRiwayat] = useState(false);
+  const [tiket, setTiket] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -75,7 +77,9 @@ const Profile = () => {
     const response = await fetch(
       "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateUser",
       method
-    );
+    ).then((data) => {
+      window.location.reload();
+    });
     const data = await response.json();
     console.log(data);
     return data;
@@ -120,7 +124,7 @@ const Profile = () => {
         console.log("err", err);
       });
 
-      fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
       .then((response) => response.json())
       .then((data) => {
         setListBooking(data.data.bookings);
@@ -131,6 +135,7 @@ const Profile = () => {
       });
   }, []);
   console.log(user);
+  console.log(listBooking);
 
   return (
     <div>
@@ -166,7 +171,9 @@ const Profile = () => {
                   <h3 className="fw-bolder">{user.username}</h3>
                 )}
                 {user.address && <h5 className="text-muted">{user.address}</h5>}
-                {user.address == null && <h5 className="text-muted">Unknown</h5>}
+                {user.address == null && (
+                  <h5 className="text-muted">Unknown</h5>
+                )}
                 <p>
                   Saya senang sekali Traveling keliling Indonesia.
                   <br />
@@ -272,10 +279,7 @@ const Profile = () => {
                     </small>
                   </div>
                   <div className="col-sm-5">
-                    <Button
-                      variant="btn-lg btn-outline-dark"
-                      onClick={upload}
-                    >
+                    <Button variant="btn-lg btn-outline-dark" onClick={upload}>
                       Upload Profile Image
                     </Button>
                   </div>
@@ -296,50 +300,130 @@ const Profile = () => {
             <div className="col-12 mt-5 text-center">
               <a
                 href="#/RiwayatPerjalanan"
-                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-decoration-none border-bottom border-dark"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-decoration-none text-dark border-bottom border-dark"
+                onClick={() => {
+                  setRiwayat(true);
+                  setTiket(false);
+                }}
               >
                 Riwayat Perjalanan
               </a>
-              {/* <a
+              <a
+                href="#/Tiket"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
+                onClick={() => {
+                  setTiket(true);
+                  setRiwayat(false);
+                }}
+              >
+                Tiket
+              </a>
+              <a
                 href="#/Favorite"
-                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-decoration-none"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
               >
                 Favorite
-              </a> */}
+              </a>
             </div>
-
-            <div className="w-100 my-3"></div>
-
-            <div className="col-md-6 col-lg-4 my-3">
-              <div className="card shadow-sm">
-                <div className="card-header p-0">
-                  <img
-                    src="assets/img/pesawat-garuda.jpg"
-                    alt="Gambar Garuda"
-                    className="img-fluid image-zoom-on-hover rounded-top-5"
-                  />
-                </div>
-                <div className="card-body">
-                  <div className="card-title">
-                    <a
-                      href="#/"
-                      title="Garuda Airlines"
-                      className="link-dark-card"
-                    >
-                      <h4 className="fw-bolder mb-0">Garuda Airlines</h4>
-                    </a>
-                    <small>10/10/2019</small>
+            {riwayat && (
+              <div className="row">
+                {listBooking.length > 0 ? (
+                  listBooking
+                    .filter((item) => item.id_user == user.id)
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
                   </div>
-                  <div className="card-body p-0 mt-4">
-                    <ul className="list-unstyled">
-                      <li>Jakarta (JKT) - Bali (DPS)</li>
-                      <li>15.30 - 18.00 WIB</li>
-                      <li>2 jam 30 menit</li>
-                    </ul>
-                  </div>
-                </div>
+                )}
               </div>
-            </div>
+            )}
+            {tiket && (
+              <div className="row">
+                {listBooking.length > 0 ? (
+                  listBooking
+                    .filter((item) => item.id_user == user.id)
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
+                                  asd
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
