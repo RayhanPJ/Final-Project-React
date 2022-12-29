@@ -57,6 +57,7 @@ const BayarTiket = () => {
       homephone: `${dataBooking.homePhone}`,
       mobilephone: `${dataBooking.mobilePhone}`,
       totalprice: `${dataBooking.data.item.price}`,
+      trip_type: `${dataBooking.data.dataForm.trip}`
     }),
   };
   useEffect(() => {

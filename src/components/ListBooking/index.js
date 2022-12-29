@@ -1,42 +1,15 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
-import Modal from 'react-bootstrap/Modal';
-
-
 
 
 const ListBooking = () => {
 
   const [listBooking, setListBooking] = useState([]);
   const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [selectedImage, setSelectedImage] = useState(null);
-  // const [images, setImages] = useState([]);
-  const [show, setShow] = useState(false);
-
-  const handleModalShow = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        setShow(true);
-      }
-      return bookings.confirmation;
-    }));
-  };
-
-  const handleModalClose = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        setShow(false);
-      }
-      return bookings.confirmation;
-    }));
-  };
-  
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -46,69 +19,85 @@ const ListBooking = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      }
+      },
     };
 
     fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
       .then((response) => response.json())
       .then((data) => {
         setListBooking(data.data.bookings);
-        console.log(data);
+        console.log(data.data.bookings);
       })
       .catch((err) => {
         console.log("err", err);
       });
-
-    // fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking", method)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setSelectedImage(data.bookings.confirmation);
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log("err", err);
-    //   });
+      
   }, []);
-
+  
   console.log(listBooking);
 
   // fungsi konfirmasi pembayaran
   const handleConfirmPayment = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        return { ...bookings, approved: true };
-      }
-      return bookings;
-    }));
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          var method = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "approved": true
+            }),
+          };
+      
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking/${paymentId}`,
+            method
+          ).then((data) => {console.log(data);});
+          return { ...item, approved: true };
+        }
+        return item;
+      })
+    );
   };
+  
   // fungsi tolak pembayaran
   const handleRejectPayment = (paymentId) => {
-    setListBooking(listBooking.map((bookings) => {
-      if (bookings.id === paymentId) {
-        return { ...bookings, approved: false };
-      }
-      return bookings;
-    }));
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          var method = {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "approved": false
+            }),
+          };
+      
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/booking/${paymentId}`,
+            method
+          ).then((data) => {console.log(data);});
+          return { ...item, approved: false };
+        }
+        return item;
+      })
+    );
   };
 
   // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
   const ubahUkuran = () => {
-    if (ukuran.width === '100px') {
-      setUkuran({ width: '600px', height: '300px' });
+    if (ukuran.width === "100px") {
+      setUkuran({ width: "600px", height: "300px" });
     } else {
-      setUkuran({ width: '100px', height: '100px' });
+      setUkuran({ width: "100px", height: "100px" });
     }
   };
-  // const handleOpenModal = (image) => {
-  //   setSelectedImage(setListBooking(data.bookings.confirmation));
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setIsModalOpen(false);
-  // };
-  
- 
 
   return (
     <div style={{ backgroundColor: "#F0F0F0" }} className="pesanTiket">
@@ -120,7 +109,11 @@ const ListBooking = () => {
         >
           <div className="container-fluid row">
             <div className="col-lg-7">
-              <a className="navbar-brand" href="#/" style={{ color: "#FFFFFF" }}>
+              <a
+                className="navbar-brand"
+                href="#/"
+                style={{ color: "#FFFFFF" }}
+              >
                 List User Booking
               </a>
             </div>

@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const PersonList = () => {
+  // const location = useLocation();
+  // const dataBooking = location.state;
+  // console.log(dataBooking);
+
   const [payImg, setPayImg] = useState("");
   const token = localStorage.getItem("token");
-  const num = "50";
+  // const num = dataBooking.itemBooking.data.id;
+  // console.log(num);
 
   const upload = () => {
     const formData = new FormData();
@@ -12,7 +18,7 @@ const PersonList = () => {
 
     var config = {
       method: 'put',
-      url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/confirmation/${num}`,
+      url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser`,
       headers: { 
         'Authorization': `Bearer ${token}`, 
       },

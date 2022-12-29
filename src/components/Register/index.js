@@ -52,11 +52,13 @@ function Register() {
   const [password, setPassword] = useState("");
   const [isRegisterIn, setIsRegisterIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const GOOGLECLIENTID = "1075166577960-qiqbp7khn8e0e50mrgf01hcci3kognqf.apps.googleusercontent.com";
+  const token = localStorage.getItem("token");
+  const GOOGLECLIENTID =
+    "1075166577960-u21r9932mfr51s1uiq3mbc5v5k15uu96.apps.googleusercontent.com";
 
   useEffect(() => {
-    setIsRegisterIn();
-  }, []);
+    setIsRegisterIn(!!token);
+  }, [token]);
 
   function handleSubmit(e) {
     setIsLoading(true);
@@ -169,7 +171,7 @@ function Register() {
               </form>
             </div>
           ) : (
-            <Navigate to="/"/>
+            <Navigate to="/" />
           )}
         </div>
       </Container>
