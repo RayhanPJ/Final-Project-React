@@ -93,11 +93,11 @@ const FormInfoTiket = () => {
     <div className="bgFormInfo" id="infoTiket">
       <main className="py-5 px-5">
         <Container>
-          <div className="parentInfo">
+          <div className="parentInfo row">
             <div className="divInfo1 d-flex justify-content-center">
               <h3 className="text-light">Info Tiket</h3>
             </div>
-            <div className="divInfo2 ">
+            <div className="divInfo2 col-lg-3">
               <label className="form-label">Dari</label>
               <div className="input-group mb-3">
                 <select
@@ -116,7 +116,7 @@ const FormInfoTiket = () => {
                 </select>
               </div>
             </div>
-            <div className="divInfo3">
+            <div className="divInfo3 col-lg-3">
               <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
@@ -135,8 +135,8 @@ const FormInfoTiket = () => {
                 </select>
               </div>
             </div>
-            <div className="divInfo4">
-            <label className="form-label">Date :</label>
+            <div className="divInfo4 col-lg-3">
+              <label className="form-label">Date :</label>
               <div className="input-group mb-3">
                 <input
                   type="date"
@@ -149,7 +149,7 @@ const FormInfoTiket = () => {
                 />
               </div>
             </div>
-            <div className="divInfo5 d-grid">
+            <div className="divInfo5 d-grid col-lg">
               <div
                 className="d-grid gap-2"
                 style={{ position: "relative", top: "30px" }}

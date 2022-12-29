@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+
 // import {getListUser} from "../../apis";
 
 const FormTiket = () => {
@@ -100,7 +101,7 @@ const FormTiket = () => {
     <div className="bgForm" id="Booking">
       <main className="py-5 px-5">
         <Container>
-          <div className="parent">
+          <div className="parent row">
             <div className="div1 d-flex justify-content-center">
               <h3 className="text-light">Booking</h3>
             </div>
@@ -109,7 +110,8 @@ const FormTiket = () => {
                 <h5>Login</h5>
               </a>
             </div>
-            <div className="div3 ">
+      
+            <div className="div3 col-lg-3">
               <label className="form-label">Dari</label>
               <div className="input-group mb-3">
                 <select
@@ -128,7 +130,9 @@ const FormTiket = () => {
                 </select>
               </div>
             </div>
-            <div className="div4">
+        
+          
+            <div className="div4 col-lg-3">
               <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
@@ -147,7 +151,9 @@ const FormTiket = () => {
                 </select>
               </div>
             </div>
-            <div className="div5">
+        
+        
+            <div className="div5 col-lg-4">
               <div className="d-flex">
                 <div className="form-check">
                   <input
@@ -212,7 +218,9 @@ const FormTiket = () => {
                 )}
               </div>
             </div>
-            <div className="div6">
+          
+            
+            <div className="div6 col-lg-5">
               <label className="form-label">Penumpang</label>
               <input
                 type="number"
@@ -223,7 +231,7 @@ const FormTiket = () => {
                 onChange={(e) => setCapacity(e.target.value)}
               />
             </div>
-            <div className="div7">
+            <div className="div7 col-lg-5">
               <label className="form-label">Class</label>
               <div className="input-group mb-3">
                 <select
@@ -239,7 +247,7 @@ const FormTiket = () => {
                 </select>
               </div>
             </div>
-            <div className="div8 d-grid">
+            <div className="div8 d-grid col-lg">
               <div style={{ position: "relative", top: "30px" }}>
                 <Link
                   className="d-grid gap-2 text-decoration-none"

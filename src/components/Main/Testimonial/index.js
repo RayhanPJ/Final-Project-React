@@ -27,15 +27,15 @@ const Testimonial = () => {
         >
           <Carousel activeIndex={index} onSelect={handleSelect}>
             <Carousel.Item>
-              <div className="row mx-4 my-5">
-                <div className="col-2 m-auto">
+              <div className="row mb-3 mx-auto">
+                <div className="col-lg-4">
                   <img
                     src="assets/img/photo1-testimoni.png"
                     className="d-block testimonial-img m-auto"
                     alt="Person"
                   />
                 </div>
-                <div className="col-10">
+                <div className="col-lg-8 testimonials">
                   <img
                     src="assets/img/Rate.png"
                     className="testimonial-rating"
@@ -52,15 +52,15 @@ const Testimonial = () => {
               </div>
             </Carousel.Item>
             <Carousel.Item>
-              <div className="row mx-4 my-5">
-                <div className="col-2 m-auto">
+              <div className="row mb-3 mx-auto">
+                <div className="col-lg-4">
                   <img
                     src="assets/img/photo2-testimoni.png"
                     className="d-block testimonial-img m-auto"
                     alt="Person"
                   />
                 </div>
-                <div className="col-10">
+                <div className="col-lg-8 testimonials">
                   <img
                     src="assets/img/Rate.png"
                     className="testimonial-rating"
@@ -77,15 +77,15 @@ const Testimonial = () => {
               </div>
             </Carousel.Item>
             <Carousel.Item>
-              <div className="row mx-4 my-5">
-                <div className="col-2 m-auto">
+              <div className="row mb-3 mx-auto">
+                <div className="col-lg-4 m-auto">
                   <img
                     src="assets/img/photo1-testimoni.png"
                     className="d-block testimonial-img m-auto"
                     alt="Person"
                   />
                 </div>
-                <div className="col-10">
+                <div className="col-lg-8 testimonials">
                   <img
                     src="assets/img/Rate.png"
                     className="testimonial-rating"

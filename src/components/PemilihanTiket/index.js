@@ -242,7 +242,7 @@ const PemilihanTiket = () => {
                         </div>
                       )}
                     </div>
-                    <div className="col-4">
+                    <div className="col-lg-4">
                       <div className="card">
                         <div className="card-body">
                           <h5>Detail Penerbangan</h5>

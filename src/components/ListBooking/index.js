@@ -3,16 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import Table from 'react-bootstrap/Table';
+
 
 const ListBooking = () => {
-  const [listBooking, setListBooking] = useState({});
-  const token = localStorage.getItem("token");
-  // const [approve, setApprove] = useState({
-  //   true : true,
-  //   false : false
-  //  });
-  const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
+
+  const [listBooking, setListBooking] = useState([]);
+  const [ukuran, setUkuran] = useState({ width: '100px', height: '100px' });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -34,7 +31,9 @@ const ListBooking = () => {
       .catch((err) => {
         console.log("err", err);
       });
+      
   }, []);
+  
   console.log(listBooking);
 
   // fungsi konfirmasi pembayaran
@@ -63,6 +62,7 @@ const ListBooking = () => {
       })
     );
   };
+  
   // fungsi tolak pembayaran
   const handleRejectPayment = (paymentId) => {
     setListBooking(
@@ -119,8 +119,8 @@ const ListBooking = () => {
             </div>
           </div>
         </nav>
-        <div className="row" style={{ margin: "50px 0 230px 0" }}>
-          <Table striped>
+        <div className="row" style={{margin: "50px 0 230px 0"}}>
+          <Table responsive="sm" striped>
             <thead>
               <tr>
                 <th>Profile</th>
@@ -134,46 +134,24 @@ const ListBooking = () => {
             <tbody>
               {/* listbooking */}
               {listBooking.length > 0 ? (
-                listBooking.map((item) => (
-                  <tr key={item.id}>
+                listBooking.map ((bookings) =>(
+                  <tr key={bookings.id}>
+                    <td><img src={bookings.User.image} style={{width: '100px', height: '100px'}} alt="profile"/></td>
+                    <td>{bookings.name}</td>
+                    <td>{bookings.mobilephone}</td>
+                    <td>{bookings.Flight.FromAirport.city} - {bookings.Flight.ToAirport.city} </td>
                     <td>
-                      <img
-                        src={item.User.image}
-                        className="rounded-circle"
-                        height="80"
-                        alt="profileUser"
-                      />
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{item.mobilephone}</td>
-                    <td>
-                      {item.Flight.FromAirport.city} - {item.Flight.ToAirport.city}
+                      <img src={bookings.confirmation} alt="bukti pembayaran" style={ukuran} onClick={ubahUkuran}/>
                     </td>
                     <td>
-                      <img
-                        src={item.confirmation}
-                        alt="bukti pembayaran"
-                        style={ukuran}
-                        onClick={ubahUkuran}
-                      />
-                    </td>
-                    <td>
-                      {item.approved === null && (
+                      {bookings.approved === null && (
                         <div>
-                          <button onClick={() => handleConfirmPayment(item.id)}>
-                            Konfirmasi Pembayaran
-                          </button>
-                          <button onClick={() => handleRejectPayment(item.id)}>
-                            Tolak Pembayaran
-                          </button>
+                          <button onClick={() => handleConfirmPayment(bookings.id)}>Konfirmasi Pembayaran</button>
+                          <button onClick={() => handleRejectPayment(bookings.id)}>Tolak Pembayaran</button>
                         </div>
                       )}
-                      {item.approved === true && (
-                        <div>Pembayaran telah dikonfirmasi</div>
-                      )}
-                      {item.approved === false && (
-                        <div>Pembayaran telah ditolak</div>
-                      )}
+                      {bookings.approved === true && <div>Pembayaran telah dikonfirmasi</div>}
+                      {bookings.approved === false && <div>Pembayaran telah ditolak</div>}
                     </td>
                   </tr>
                 ))
