@@ -162,7 +162,7 @@ const FormTiket = () => {
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
-                    value={"One Trip"}
+                    value={"One Way"}
                     onChange={(e) => setTrip(e.target.value)}
                   />
                   <label

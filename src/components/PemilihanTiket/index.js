@@ -85,8 +85,10 @@ const PemilihanTiket = () => {
                       <img src="assets/img/plane1.png" alt="" />
                     </div>
                     <div className="col-md">
-                      <h5>{item.FromAirport.city}</h5>
-                      <p>{item.FromAirport.name}</p>
+                      <h5>
+                        {item.FromAirport.city} ({item.FromAirport.code})
+                      </h5>
+                      <p>{item.FromAirport.name} </p>
                     </div>
                     <div className="col-md offset-1 text-center">
                       <img
@@ -96,7 +98,9 @@ const PemilihanTiket = () => {
                       />
                     </div>
                     <div className="col-md">
-                      <h5>{item.ToAirport.city}</h5>
+                      <h5>
+                        {item.ToAirport.city} ({item.ToAirport.code})
+                      </h5>
                       <p>{item.ToAirport.name}</p>
                     </div>
                     <div className="col-md text-end">
@@ -113,7 +117,9 @@ const PemilihanTiket = () => {
                         <img src="assets/img/plane1.png" alt="" />
                       </div>
                       <div className="col-md">
-                        <h5>{item.ToAirport.city}</h5>
+                        <h5>
+                          {item.ToAirport.city} ({item.FromAirport.code})
+                        </h5>
                         <p>{item.ToAirport.name}</p>
                       </div>
                       <div className="col-md offset-1 text-center">
@@ -124,7 +130,9 @@ const PemilihanTiket = () => {
                         />
                       </div>
                       <div className="col-md">
-                        <h5>{item.FromAirport.city}</h5>
+                        <h5>
+                          {item.FromAirport.city} ({item.ToAirport.code})
+                        </h5>
                         <p>{item.FromAirport.name}</p>
                       </div>
                       <div className="col-md text-end">
@@ -158,12 +166,12 @@ const PemilihanTiket = () => {
                             }}
                           >
                             <div className="col-auto">
-                              <a href="#/" className="link-dark-card">
-                                <h4 className="fw-bolder">
-                                  {item.FromAirport.city} -{" "}
-                                  {item.ToAirport.city}
-                                </h4>
-                              </a>
+                              <h4 className="fw-bolder">
+                                {item.FromAirport.city} ({item.FromAirport.code}
+                                ) - {item.ToAirport.city} ({item.ToAirport.code}
+                                )
+                              </h4>
+
                               <ul className="list-unstyled mb-0">
                                 <li>
                                   {item.arrival_time} - {item.departure_time}
@@ -212,12 +220,13 @@ const PemilihanTiket = () => {
                                       }}
                                     >
                                       <div className="col-auto">
-                                        <a href="#/" className="link-dark-card">
-                                          <h4 className="fw-bolder">
-                                            {item.FromAirport.city} -{" "}
-                                            {item.ToAirport.city}
-                                          </h4>
-                                        </a>
+                                        <h4 className="fw-bolder">
+                                          {item.FromAirport.city} (
+                                          {item.FromAirport.code}) -{" "}
+                                          {item.ToAirport.city} (
+                                          {item.ToAirport.code})
+                                        </h4>
+
                                         <ul className="list-unstyled mb-0">
                                           <li>
                                             {item.arrival_time} -{" "}
@@ -261,8 +270,10 @@ const PemilihanTiket = () => {
                                   <p>Date : {dataForm.date}</p>
                                   <p>Destination :</p>
                                   <p>
-                                    {item.FromAirport.city} -{" "}
-                                    {item.ToAirport.city}
+                                    {item.FromAirport.city} (
+                                    {item.FromAirport.code}) -{" "}
+                                    {item.ToAirport.city} ({item.ToAirport.code}
+                                    )
                                   </p>
                                   <p>
                                     Time : {item.arrival_time} -{" "}
@@ -279,18 +290,18 @@ const PemilihanTiket = () => {
                                   </div>
                                   {roundTrip && (
                                     <div className="btn_lanjutByr d-grid gap-2">
-                                    <Link
-                                      className="d-grid gap-2 text-decoration-none"
-                                      state={{
-                                        dataForm,
-                                        getItemId,
-                                        item,
-                                      }}
-                                      to="/pesan"
-                                    >
-                                      <button>Lanjut Pembayaran</button>
-                                    </Link>
-                                  </div>
+                                      <Link
+                                        className="d-grid gap-2 text-decoration-none"
+                                        state={{
+                                          dataForm,
+                                          getItemId,
+                                          item,
+                                        }}
+                                        to="/pesan"
+                                      >
+                                        <button>Lanjut Pembayaran</button>
+                                      </Link>
+                                    </div>
                                   )}
                                   <hr />
                                   <hr />
@@ -311,8 +322,10 @@ const PemilihanTiket = () => {
                                           <p>Date : {dataForm.date2}</p>
                                           <p>Destination :</p>
                                           <p>
-                                            {item2.FromAirport.city} -{" "}
-                                            {item2.ToAirport.city}
+                                            {item2.FromAirport.city} (
+                                            {item2.FromAirport.code}) -{" "}
+                                            {item2.ToAirport.city} (
+                                            {item2.ToAirport.code})
                                           </p>
                                           <p>
                                             Time : {item2.arrival_time} -{" "}

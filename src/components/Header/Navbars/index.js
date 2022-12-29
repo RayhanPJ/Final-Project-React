@@ -11,7 +11,19 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+
 import MenuItem from "@mui/material/MenuItem";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
 const settings = ["Profile", "Wishlist", "Logout"];
@@ -39,6 +51,11 @@ function NavbarHeader() {
   const [showListBooking, setShowListBooking] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickList = () => {
+    setOpen(!open);
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -97,7 +114,6 @@ function NavbarHeader() {
                 alt="React Bootstrap logo"
               />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
@@ -134,30 +150,36 @@ function NavbarHeader() {
                   </Nav.Link>
                   {!showListBooking ? (
                     <div>
-                      <Nav.Link
-                        href="http://localhost:3000/listbooking"
-                        className="text-dark list_nav_main"
+                      <DropdownButton
+                        id="dropdown-basic-button"
+                        title="CRUD"
+                        variant="transparent"
                       >
-                        List Booking
-                      </Nav.Link>
-                      <Nav.Link
-                        href="http://localhost:3000/listflight"
-                        className="text-dark list_nav_main"
-                      >
-                        List Flight
-                      </Nav.Link>
-                      <Nav.Link
-                        href="http://localhost:3000/listairport"
-                        className="text-dark list_nav_main"
-                      >
-                        List Airport
-                      </Nav.Link>
-                      <Nav.Link
-                        href="http://localhost:3000/listplane"
-                        className="text-dark list_nav_main"
-                      >
-                        List Plane
-                      </Nav.Link>
+                        <Dropdown.Item
+                          href="http://localhost:3000/listflight"
+                          className="text-dark list_nav_main"
+                        >
+                          List Fight
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href="http://localhost:3000/listairport"
+                          className="text-dark list_nav_main"
+                        >
+                          List Airport
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href="http://localhost:3000/listplane"
+                          className="text-dark list_nav_main"
+                        >
+                          List Plane
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          href="http://localhost:3000/listbooking"
+                          className="text-dark list_nav_main"
+                        >
+                          List Booking
+                        </Dropdown.Item>
+                      </DropdownButton>
                     </div>
                   ) : (
                     ""
@@ -178,10 +200,22 @@ function NavbarHeader() {
                     <Box sx={{ flexGrow: 0 }}>
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                          <Avatar
-                            alt="Remy Sharp"
-                            src="assets/img/profile1.png"
-                          />
+                          {user.address && (
+                            <div className="d-flex">
+                              <Avatar
+                                className="me-2 ms-4"
+                                src={user.image}
+                                alt="Profile"
+                              />
+                              <p className="fs-6 mt-2">Hi {user.name}</p>
+                            </div>
+                          )}
+                          {user.address === null && (
+                            <Avatar
+                              alt="Profile"
+                              src="assets/img/profile1.png"
+                            />
+                          )}
                         </IconButton>
                       </Tooltip>
                       <Menu

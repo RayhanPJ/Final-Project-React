@@ -9,13 +9,17 @@ import axios from "axios";
 const Profile = () => {
   const [show, setShow] = useState(false);
   const [riwayat, setRiwayat] = useState(false);
-  const [tiket, setTiket] = useState(false);
+  const [listWhislist, setListWhislist] = useState(false);
+  const [tiketDiterima, setTiketDiterima] = useState(false);
+  const [tiketDitolak, setTiketDitolak] = useState(false);
+  const [menungguPembayaran, setMenungguPembayaran] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [listBooking, setListBooking] = useState({});
+  const [whislist, setWhistlist] = useState({});
   const [gender, setGender] = useState({
     men: "L",
     women: "P",
@@ -133,9 +137,17 @@ const Profile = () => {
       .catch((err) => {
         console.log("err", err);
       });
+
+    fetch("https://gotravel-ilms4lrona-as.a.run.app/api/v1/whislist", method)
+      .then((response) => response.json())
+      .then((data) => {
+        setWhistlist(data.data.whislists);
+        console.log(data);
+      });
   }, []);
   console.log(user);
   console.log(listBooking);
+  console.log(whislist);
 
   return (
     <div>
@@ -303,7 +315,9 @@ const Profile = () => {
                 className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-decoration-none text-dark border-bottom border-dark"
                 onClick={() => {
                   setRiwayat(true);
-                  setTiket(false);
+                  setTiketDiterima(false);
+                  setMenungguPembayaran(false);
+                  setTiketDitolak(false);
                 }}
               >
                 Riwayat Perjalanan
@@ -312,17 +326,50 @@ const Profile = () => {
                 href="#/Tiket"
                 className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
                 onClick={() => {
-                  setTiket(true);
+                  setTiketDiterima(true);
                   setRiwayat(false);
+                  setTiketDitolak(false);
+                  setMenungguPembayaran(false);
                 }}
               >
-                Tiket
+                Tiket Diterma
+              </a>
+              <a
+                href="#/Tiket"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
+                onClick={() => {
+                  setTiketDiterima(false);
+                  setRiwayat(false);
+                  setTiketDitolak(true);
+                  setMenungguPembayaran(false);
+                }}
+              >
+                Tiket Ditolak
+              </a>
+              <a
+                href="#/Tiket"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
+                onClick={() => {
+                  setTiketDiterima(false);
+                  setRiwayat(false);
+                  setTiketDitolak(false);
+                  setMenungguPembayaran(true);
+                }}
+              >
+                Menunggu Pembayaran
               </a>
               <a
                 href="#/Favorite"
                 className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
+                onClick={() => {
+                  setTiketDiterima(false);
+                  setRiwayat(false);
+                  setTiketDitolak(false);
+                  setMenungguPembayaran(false);
+                  setListWhislist(true)
+                }}
               >
-                Favorite
+                Whislist
               </a>
             </div>
             {riwayat && (
@@ -374,11 +421,13 @@ const Profile = () => {
                 )}
               </div>
             )}
-            {tiket && (
+            {tiketDiterima && (
               <div className="row">
                 {listBooking.length > 0 ? (
                   listBooking
-                    .filter((item) => item.id_user == user.id)
+                    .filter(
+                      (item) => item.id_user == user.id && item.approved == true
+                    )
                     .map((item) => {
                       return (
                         <div className="col-md-6 col-lg-4 my-3" key={item.id}>
@@ -394,7 +443,160 @@ const Profile = () => {
                             <div className="card-body">
                               <div className="card-title">
                                 <h4 className="fw-bolder mb-0">
-                                  asd
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </div>
+            )}
+            {tiketDitolak && (
+              <div className="row">
+                {listBooking.length > 0 ? (
+                  listBooking
+                    .filter(
+                      (item) =>
+                        item.id_user == user.id && item.approved == false
+                    )
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </div>
+            )}
+            {menungguPembayaran && (
+              <div className="row">
+                {listBooking.length > 0 ? (
+                  listBooking
+                    .filter(
+                      (item) => item.id_user == user.id && item.approved == null
+                    )
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </div>
+            )}
+            {whislist && (
+              <div className="row">
+                {whislist.length > 0 ? (
+                  whislist
+                    .filter(
+                      (item) => item.id_user == user.id
+                    )
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
                                   {item.Flight.Plane.name}
                                 </h4>
                                 <small>{item.Flight.flight_date}</small>

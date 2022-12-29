@@ -178,15 +178,9 @@ const FormInfoTiket = () => {
                     <div className="card-body">
                       <div className="card-body p-0 row justify-content-between">
                         <div className="col-auto">
-                          <a
-                            href="#/"
-                            title="Jakarta (JKT) - Bali (DPS)"
-                            className="link-dark-card"
-                          >
                             <h4 className="fw-bolder">
-                              {item.FromAirport.city} - {item.ToAirport.city}
+                              {item.FromAirport.city} ({item.FromAirport.code}) - {item.ToAirport.city} ({item.ToAirport.code})
                             </h4>
-                          </a>
                           <ul className="list-unstyled mb-0">
                             <li>{item.arrival_time} - {item.departure_time}</li>
                             <li>Class : {item.kelas}</li>
