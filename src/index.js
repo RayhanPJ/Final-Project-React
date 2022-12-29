@@ -23,7 +23,11 @@ import {
   InputFlight,
   InputPlane,
   ListFlight,
-  UpdateFlight
+  UpdateFlight,
+  ListAirport,
+  UpdateAirport,
+  ListPlane,
+  UpdatePlane
 } from "./components";
 import reducers from "./reducers";
 import PersonList from "./App";
@@ -89,6 +93,11 @@ root.render(
       <Route path="/listbooking" element={<ListBooking />} />
       <Route path="/listflight" element={<ListFlight />} />
       <Route path="/updateflight" element={<UpdateFlight />} />
+      <Route path="/listbooking" element={<ListBooking />} />
+      <Route path="/listairport" element={<ListAirport />} />
+      <Route path="/updateairport" element={<UpdateAirport />} />
+      <Route path="/listplane" element={<ListPlane />} />
+      <Route path="/updateplane" element={<UpdatePlane />} />
       <Route path="/confirmpay" element={<ConfirmPay />} />
       <Route path="/try" element={<PersonList />} />
       <Route path="/inputplane" element={<InputPlane />} />

@@ -147,10 +147,16 @@ function NavbarHeader() {
                         List Flight
                       </Nav.Link>
                       <Nav.Link
-                        href="http://localhost:3000/inputairport"
+                        href="http://localhost:3000/listairport"
                         className="text-dark list_nav_main"
                       >
                         List Airport
+                      </Nav.Link>
+                      <Nav.Link
+                        href="http://localhost:3000/listplane"
+                        className="text-dark list_nav_main"
+                      >
+                        List Plane
                       </Nav.Link>
                     </div>
                   ) : (

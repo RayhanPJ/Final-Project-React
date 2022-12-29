@@ -15,7 +15,11 @@ import InputAirport from "./InputDataAirport";
 import InputFlight from "./InputDataFlight";
 import InputPlane from "./InputDataPlane";
 import ListFlight from "./listflight";
+import ListAirport from "./listAirport";
+import ListPlane from "./listPlane";
 import UpdateFlight from "./updateDataFlight";
+import UpdateAirport from "./updateDataAirport";
+import UpdatePlane from "./updateDataPlane";
 
 export {
   LandingPage,
@@ -35,5 +39,9 @@ export {
   InputFlight,
   InputPlane,
   ListFlight,
-  UpdateFlight
+  UpdateFlight,
+  ListAirport,
+  UpdateAirport,
+  ListPlane,
+  UpdatePlane
 };

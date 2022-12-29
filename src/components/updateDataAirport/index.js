@@ -6,7 +6,7 @@ import { Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
-async function addAirport({
+async function updateAirport({
   name,
   province,
   city,
@@ -14,22 +14,23 @@ async function addAirport({
   code,
   status,
   token,
+  id
 }) {
   const response = await fetch(
-    "https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport",
+    `https://gotravel-ilms4lrona-as.a.run.app/api/v1/airport/${id}`,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        name : name,
-        province : province,
-        city: city,
-        country: country,
-        code: code,
-        status: status
+        name,
+        province,
+        city,
+        country,
+        code,
+        status,
       }),
     }
   );
@@ -37,16 +38,17 @@ async function addAirport({
   return data;
 }
 
-const InputAirport = () => {
+const UpdateAirport = () => {
   const location = useLocation();
   const data = location.state;
+  const id = data.id;
   console.log(data);
-  const [name, setName] = useState("");
-  const [province, setProvince] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [code, setCode] = useState("");
-  const [status, setStatus] = useState("");
+  const [name, setName] = useState(data.name);
+  const [province, setProvince] = useState(data.province);
+  const [city, setCity] = useState(data.city);
+  const [country, setCountry] = useState(data.country);
+  const [code, setCode] = useState(data.code);
+  const [status, setStatus] = useState(data.status);
   const token = localStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(false);
   const [issetRegisterd, setRegisterd] = useState(false);
@@ -54,7 +56,7 @@ const InputAirport = () => {
   function handleSubmit(e) {
     setIsLoading(true);
     e.preventDefault();
-    addAirport({
+    updateAirport({
       name,
       province,
       city,
@@ -62,6 +64,7 @@ const InputAirport = () => {
       code,
       status,
       token,
+      id
     })
       .then((data) => console.log(data))
       .catch((err) => console.log(err.message))
@@ -86,7 +89,7 @@ const InputAirport = () => {
                 href="#/"
                 style={{ color: "#FFFFFF" }}
               >
-               Add Airport
+                Update Flight
               </a>
             </div>
           </div>
@@ -103,7 +106,7 @@ const InputAirport = () => {
               }}
             >
               <img src="assets/img/icon _User.png" alt="icon user" />
-              Input Data Airport
+              Input Data Flight
             </h3>
             {!issetRegisterd ? (
             <form
@@ -181,17 +184,18 @@ const InputAirport = () => {
                 />
               </div>
               <div className="col-lg-6">
-              <label className="form-label">Status</label>
+              <label className="form-label">Plane</label>
                 <br />
                 <select
                   id="Status"
                   name="Status"
                   className="form-select"
                   style={{ width: "300px" }}
+                  value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option value="" hidden>
-                    Pilih Status Bandara
+                    Pilih Status Pesawat
                   </option>
                   <option value="on">
                     On
@@ -204,13 +208,108 @@ const InputAirport = () => {
               <input
                 type="submit"
                 className="button-28"
-                value={isLoading ? "Loading" : "Add Airport"}
+                value={isLoading ? "Loading" : "Update Airport"}
               />
             </form>
             ) : (
               <Navigate to="/listairport"/>
             )}
           </div>
+          {/* detail pesanan & total */}
+          {/* <div className="col-lg-4">
+            <div
+              style={{
+                borderStyle: "solid",
+                backgroundColor: "#ffffff",
+                borderRadius: "6px",
+                marginTop: "50px",
+                padding: "17px",
+              }}
+            >
+              <p style={{ textAlign: "center", fontSize: "20px" }}>
+                Detail Penerbangan
+              </p> */}
+          {/* <div>
+                {flight
+                  .filter(
+                    (item) =>
+                      item.FromAirport.name == data.dataForm.bandara &&
+                      item.ToAirport.name == data.dataForm.bandara2 &&
+                      item.kelas == data.dataForm.kelas &&
+                      item.id == data.getItemId
+                  )
+                  .map((item) => {
+                    return (
+                      <div className="row" key={item.id}>
+                        <div className="col-6">
+                          <p>Nama Pesawat :</p>
+                        </div>
+                        <div className="col-6">
+                          <p>{item.Plane.name}</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Date :</p>
+                        </div>
+                        <div className="col-6">
+                          <p>{data.dataForm.date}</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Destination :</p>
+                        </div>
+                        <div className="col-6">
+                          <p>
+                            {item.FromAirport.city} - {item.ToAirport.city}
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p>Waiting Time :</p>
+                        </div>
+                        <div className="col-6">
+                          <p>
+                            {item.arrival_time} - {item.departure_time}
+                          </p>
+                        </div>
+                        <div className="col-6">
+                          <p>Class Booking :</p>
+                        </div>
+                        <div className="col-6">
+                          <p>{item.kelas}</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Tiket</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Rp {item.price}</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Total</p>
+                        </div>
+                        <div className="col-6">
+                          <p>Rp {item.price}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                <div className="btn_lanjutByr d-grid gap-2">
+                  <Link
+                    className="d-grid gap-2 text-decoration-none"
+                    state={{
+                      data,
+                      name,
+                      email,
+                      mobilePhone,
+                      homePhone,
+                      typeFood,
+                      baggageWeight,
+                    }}
+                    to="/bayar"
+                  >
+                    <button>Lanjut Pembayaran</button>
+                  </Link>
+                </div>
+              </div> */}
+          {/* </div>
+          </div> */}
         </div>
       </Container>
       {/* footer */}
@@ -219,4 +318,4 @@ const InputAirport = () => {
   );
 };
 
-export default InputAirport;
+export default UpdateAirport;
