@@ -13,16 +13,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-
 import MenuItem from "@mui/material/MenuItem";
+import Badge from "@mui/material/Badge";
+import MailIcon from "@mui/icons-material/Mail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
@@ -52,6 +45,13 @@ function NavbarHeader() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [anchorElNotif, setAnchorElNotif] = React.useState(null);
+  const handleOpenNotifMsg = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseNotifMsg = () => {
+    setAnchorElUser(null);
+  };
 
   const handleClickList = () => {
     setOpen(!open);
@@ -148,6 +148,36 @@ function NavbarHeader() {
                   >
                     Testimonial
                   </Nav.Link>
+                  <Badge badgeContent={4} color="primary">
+                    <MailIcon color="action" />
+                  </Badge>
+                  <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenNotifMsg} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElNotif}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElNotif)}
+              onClose={handleCloseNotifMsg}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseNotifMsg}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
                   {!showListBooking ? (
                     <div>
                       <DropdownButton

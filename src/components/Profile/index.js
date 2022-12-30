@@ -103,9 +103,11 @@ const Profile = () => {
       data: formData,
     };
 
-    axios(config).then((response) => {
-      console.log(response);
-    });
+    axios(config)
+      .then((response) => {
+        console.log(response);
+      })
+      .then(alert("success"));
   };
   console.log(payImg);
 
@@ -366,7 +368,7 @@ const Profile = () => {
                   setRiwayat(false);
                   setTiketDitolak(false);
                   setMenungguPembayaran(false);
-                  setListWhislist(true)
+                  setListWhislist(true);
                 }}
               >
                 Whislist
@@ -575,13 +577,11 @@ const Profile = () => {
                 )}
               </div>
             )}
-            {whislist && (
+            {listWhislist && (
               <div className="row">
                 {whislist.length > 0 ? (
                   whislist
-                    .filter(
-                      (item) => item.id_user == user.id
-                    )
+                    .filter((item) => item.id_user == user.id)
                     .map((item) => {
                       return (
                         <div className="col-md-6 col-lg-4 my-3" key={item.id}>

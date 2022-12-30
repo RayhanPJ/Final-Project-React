@@ -3,12 +3,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "../Header";
 import Footer from "../Footer";
 import { Container } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
 import Table from "react-bootstrap/Table";
 
 const ListBooking = () => {
   const token = localStorage.getItem("token");
   const [listBooking, setListBooking] = useState([]);
   const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
+  const [oneWay, setOneWay] = useState(false);
+  const [roundTrip, setRoundTrip] = useState(false);
+  const [TripType, setTripType] = useState({oneWay : "One Way", roundTrip : "Round Trip"});
+  const [noFilter, setNoFilter] = useState(true);
 
   useEffect(() => {
     var method = {
@@ -119,6 +124,43 @@ const ListBooking = () => {
             </div>
           </div>
         </nav>
+        <Dropdown className="mt-3">
+          <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+            Filter
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item
+              onClick={() => {
+                setNoFilter(false);
+                setRoundTrip(false);
+                setOneWay(true);
+                setTripType(TripType.oneWay)
+              }}
+            >
+              One Way
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                setNoFilter(false);
+                setRoundTrip(true);
+                setOneWay(false);
+                setTripType(TripType.roundTrip)
+              }}
+            >
+              Round Trip
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                setNoFilter(true);
+                setRoundTrip(false);
+                setOneWay(false);
+              }}
+            >
+              No Filter
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <div className="row" style={{ margin: "50px 0 230px 0" }}>
           <Table responsive="sm" striped>
             <thead>
@@ -131,62 +173,188 @@ const ListBooking = () => {
                 <th>confirmation</th>
               </tr>
             </thead>
-            <tbody>
-              {/* listbooking */}
-              {listBooking.length > 0 ? (
-                listBooking.map((bookings) => (
-                  <tr key={bookings.id}>
-                    <td>
-                      <img
-                        src={bookings.User.image}
-                        style={{ width: "100px", height: "100px" }}
-                        alt="profile"
-                      />
-                    </td>
-                    <td>{bookings.name}</td>
-                    <td>{bookings.mobilephone}</td>
-                    <td>
-                      {bookings.Flight.FromAirport.city} -{" "}
-                      {bookings.Flight.ToAirport.city}{" "}
-                    </td>
-                    <td>
-                      <img
-                        src={bookings.confirmation}
-                        alt="bukti pembayaran"
-                        style={ukuran}
-                        onClick={ubahUkuran}
-                      />
-                    </td>
-                    <td>
-                      {bookings.approved === null && (
-                        <div>
-                          <button
-                            onClick={() => handleConfirmPayment(bookings.id)}
-                          >
-                            Konfirmasi Pembayaran
-                          </button>
-                          <button
-                            onClick={() => handleRejectPayment(bookings.id)}
-                          >
-                            Tolak Pembayaran
-                          </button>
-                        </div>
-                      )}
-                      {bookings.approved === true && (
-                        <div>Pembayaran telah dikonfirmasi</div>
-                      )}
-                      {bookings.approved === false && (
-                        <div>Pembayaran telah ditolak</div>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <div className="text-center">
-                  <h1>Penerbangan Kosong</h1>
-                </div>
-              )}
-            </tbody>
+            {noFilter && (
+              <tbody>
+                {/* listbooking */}
+                {listBooking.length > 0 ? (
+                  listBooking.map((bookings) => (
+                    <tr key={bookings.id}>
+                      <td>
+                        <img
+                          src={bookings.User.image}
+                          style={{ width: "100px", height: "100px" }}
+                          alt="profile"
+                        />
+                      </td>
+                      <td>{bookings.name}</td>
+                      <td>{bookings.mobilephone}</td>
+                      <td>
+                        {bookings.Flight.FromAirport.city} -{" "}
+                        {bookings.Flight.ToAirport.city}{" "}
+                      </td>
+                      <td>
+                        <img
+                          src={bookings.confirmation}
+                          alt="bukti pembayaran"
+                          style={ukuran}
+                          onClick={ubahUkuran}
+                        />
+                      </td>
+                      <td>
+                        {bookings.approved === null && (
+                          <div>
+                            <button
+                              onClick={() => handleConfirmPayment(bookings.id)}
+                            >
+                              Konfirmasi Pembayaran
+                            </button>
+                            <button
+                              onClick={() => handleRejectPayment(bookings.id)}
+                            >
+                              Tolak Pembayaran
+                            </button>
+                          </div>
+                        )}
+                        {bookings.approved === true && (
+                          <div>Pembayaran telah dikonfirmasi</div>
+                        )}
+                        {bookings.approved === false && (
+                          <div>Pembayaran telah ditolak</div>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </tbody>
+            )}
+            {roundTrip && (
+              <tbody>
+                {/* listbooking */}
+                {listBooking.length > 0 ? (
+                  listBooking
+                  .filter((item) => item.trip_type == "Round Trip")
+                    .map((bookings) => (
+                      <tr key={bookings.id}>
+                        <td>
+                          <img
+                            src={bookings.User.image}
+                            style={{ width: "100px", height: "100px" }}
+                            alt="profile"
+                          />
+                        </td>
+                        <td>{bookings.name}</td>
+                        <td>{bookings.mobilephone}</td>
+                        <td>
+                          {bookings.Flight.FromAirport.city} -{" "}
+                          {bookings.Flight.ToAirport.city}{" "}
+                        </td>
+                        <td>
+                          <img
+                            src={bookings.confirmation}
+                            alt="bukti pembayaran"
+                            style={ukuran}
+                            onClick={ubahUkuran}
+                          />
+                        </td>
+                        <td>
+                          {bookings.approved === null && (
+                            <div>
+                              <button
+                                onClick={() =>
+                                  handleConfirmPayment(bookings.id)
+                                }
+                              >
+                                Konfirmasi Pembayaran
+                              </button>
+                              <button
+                                onClick={() => handleRejectPayment(bookings.id)}
+                              >
+                                Tolak Pembayaran
+                              </button>
+                            </div>
+                          )}
+                          {bookings.approved === true && (
+                            <div>Pembayaran telah dikonfirmasi</div>
+                          )}
+                          {bookings.approved === false && (
+                            <div>Pembayaran telah ditolak</div>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </tbody>
+            )}
+            {oneWay && (
+              <tbody>
+                {/* listbooking */}
+                {listBooking.length > 0 ? (
+                  listBooking
+                  .filter((item) => item.trip_type == "One Way")
+                    .map((bookings) => (
+                      <tr key={bookings.id}>
+                        <td>
+                          <img
+                            src={bookings.User.image}
+                            style={{ width: "100px", height: "100px" }}
+                            alt="profile"
+                          />
+                        </td>
+                        <td>{bookings.name}</td>
+                        <td>{bookings.mobilephone}</td>
+                        <td>
+                          {bookings.Flight.FromAirport.city} -{" "}
+                          {bookings.Flight.ToAirport.city}{" "}
+                        </td>
+                        <td>
+                          <img
+                            src={bookings.confirmation}
+                            alt="bukti pembayaran"
+                            style={ukuran}
+                            onClick={ubahUkuran}
+                          />
+                        </td>
+                        <td>
+                          {bookings.approved === null && (
+                            <div>
+                              <button
+                                onClick={() =>
+                                  handleConfirmPayment(bookings.id)
+                                }
+                              >
+                                Konfirmasi Pembayaran
+                              </button>
+                              <button
+                                onClick={() => handleRejectPayment(bookings.id)}
+                              >
+                                Tolak Pembayaran
+                              </button>
+                            </div>
+                          )}
+                          {bookings.approved === true && (
+                            <div>Pembayaran telah dikonfirmasi</div>
+                          )}
+                          {bookings.approved === false && (
+                            <div>Pembayaran telah ditolak</div>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </tbody>
+            )}
           </Table>
         </div>
       </Container>

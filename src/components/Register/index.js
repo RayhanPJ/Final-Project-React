@@ -64,7 +64,8 @@ function Register() {
     setIsLoading(true);
     e.preventDefault();
     doRegister({ username, email, password })
-      .then(() => console.log("Akun sudah dibuat"))
+      .then(alert("success"))
+      .then((window.location.href = "/login"))
       .catch((err) => err.message)
       .finally(() => setIsLoading(false));
   }
