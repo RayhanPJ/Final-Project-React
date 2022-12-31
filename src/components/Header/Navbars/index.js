@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import MenuItem from "@mui/material/MenuItem";
+import Modal from "react-bootstrap/Modal";
 import Badge from "@mui/material/Badge";
 import MailIcon from "@mui/icons-material/Mail";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -46,16 +47,35 @@ function NavbarHeader() {
   const [user, setUser] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [anchorElNotif, setAnchorElNotif] = React.useState(null);
-  const handleOpenNotifMsg = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseNotifMsg = () => {
-    setAnchorElUser(null);
-  };
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const token = localStorage.getItem("token");
 
   const handleClickList = () => {
     setOpen(!open);
   };
+
+  async function editProfile() {
+    // Gunakan endpoint-mu sendiri
+    var method = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({}),
+    };
+
+    const response = await fetch(
+      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateUser",
+      method
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -148,36 +168,29 @@ function NavbarHeader() {
                   >
                     Testimonial
                   </Nav.Link>
-                  <Badge badgeContent={4} color="primary">
-                    <MailIcon color="action" />
-                  </Badge>
-                  <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenNotifMsg} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElNotif}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElNotif)}
-              onClose={handleCloseNotifMsg}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNotifMsg}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+                  <Button
+                    variant="btn btn-lg btn-outline-dark"
+                    onClick={handleShow}
+                  >
+                    Notification
+                  </Button>
+                  <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Notification</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body></Modal.Body>
+
+                    <Modal.Footer>
+                      <Button
+                        variant="btn-lg btn-outline-dark"
+                        type="submit"
+                        id="btn-search"
+                        onClick={handleClose}
+                      >
+                        close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                   {!showListBooking ? (
                     <div>
                       <DropdownButton

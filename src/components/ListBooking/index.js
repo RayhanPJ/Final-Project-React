@@ -12,7 +12,10 @@ const ListBooking = () => {
   const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
   const [oneWay, setOneWay] = useState(false);
   const [roundTrip, setRoundTrip] = useState(false);
-  const [TripType, setTripType] = useState({oneWay : "One Way", roundTrip : "Round Trip"});
+  const [TripType, setTripType] = useState({
+    oneWay: "One Way",
+    roundTrip: "Round Trip",
+  });
   const [noFilter, setNoFilter] = useState(true);
 
   useEffect(() => {
@@ -60,6 +63,61 @@ const ListBooking = () => {
             console.log(data);
           });
           return { ...item, approved: true };
+        }
+        return item;
+      })
+    );
+  };
+  const handleConfirmNotif = (paymentId) => {
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          var method = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              id_user: paymentId,
+              message:
+                "Booking anda sukses, silahkan cek tiket anda di profile",
+            }),
+          };
+
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification/${paymentId}`,
+            method
+          ).then((data) => {
+            console.log(data);
+          });
+        }
+        return item;
+      })
+    );
+  };
+  const handleRejectNotif = (paymentId) => {
+    setListBooking(
+      listBooking.map((item) => {
+        if (item.id === paymentId) {
+          var method = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              id_user: paymentId,
+              message: "Booking anda gagal, silahkan booking ulang!",
+            }),
+          };
+
+          fetch(
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification/${paymentId}`,
+            method
+          ).then((data) => {
+            console.log(data);
+          });
         }
         return item;
       })
@@ -135,7 +193,7 @@ const ListBooking = () => {
                 setNoFilter(false);
                 setRoundTrip(false);
                 setOneWay(true);
-                setTripType(TripType.oneWay)
+                setTripType(TripType.oneWay);
               }}
             >
               One Way
@@ -145,7 +203,7 @@ const ListBooking = () => {
                 setNoFilter(false);
                 setRoundTrip(true);
                 setOneWay(false);
-                setTripType(TripType.roundTrip)
+                setTripType(TripType.roundTrip);
               }}
             >
               Round Trip
@@ -204,12 +262,18 @@ const ListBooking = () => {
                         {bookings.approved === null && (
                           <div>
                             <button
-                              onClick={() => handleConfirmPayment(bookings.id)}
+                              onClick={() => {
+                                handleConfirmPayment(bookings.id);
+                                handleConfirmNotif(bookings.id);
+                              }}
                             >
                               Konfirmasi Pembayaran
                             </button>
                             <button
-                              onClick={() => handleRejectPayment(bookings.id)}
+                              onClick={() => {
+                                handleRejectPayment(bookings.id);
+                                handleRejectNotif(bookings.id);
+                              }}
                             >
                               Tolak Pembayaran
                             </button>
@@ -236,7 +300,7 @@ const ListBooking = () => {
                 {/* listbooking */}
                 {listBooking.length > 0 ? (
                   listBooking
-                  .filter((item) => item.trip_type == "Round Trip")
+                    .filter((item) => item.trip_type == "Round Trip")
                     .map((bookings) => (
                       <tr key={bookings.id}>
                         <td>
@@ -298,7 +362,7 @@ const ListBooking = () => {
                 {/* listbooking */}
                 {listBooking.length > 0 ? (
                   listBooking
-                  .filter((item) => item.trip_type == "One Way")
+                    .filter((item) => item.trip_type == "One Way")
                     .map((bookings) => (
                       <tr key={bookings.id}>
                         <td>
