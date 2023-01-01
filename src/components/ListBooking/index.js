@@ -86,11 +86,13 @@ const ListBooking = () => {
           };
 
           fetch(
-            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification/${paymentId}`,
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
             method
-          ).then((data) => {
-            console.log(data);
-          });
+          )
+            .then((data) => {
+              console.log(data.json());
+            })
+            .then(() => window.location.reload());
         }
         return item;
       })
@@ -113,11 +115,13 @@ const ListBooking = () => {
           };
 
           fetch(
-            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification/${paymentId}`,
+            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
             method
-          ).then((data) => {
-            console.log(data);
-          });
+          )
+            .then((data) => {
+              console.log(data.json());
+            })
+            .then(() => window.location.reload());
         }
         return item;
       })
@@ -328,14 +332,18 @@ const ListBooking = () => {
                           {bookings.approved === null && (
                             <div>
                               <button
-                                onClick={() =>
-                                  handleConfirmPayment(bookings.id)
-                                }
+                                onClick={() => {
+                                  handleConfirmPayment(bookings.id);
+                                  handleConfirmNotif(bookings.id);
+                                }}
                               >
                                 Konfirmasi Pembayaran
                               </button>
                               <button
-                                onClick={() => handleRejectPayment(bookings.id)}
+                                onClick={() => {
+                                  handleRejectPayment(bookings.id);
+                                  handleRejectNotif(bookings.id);
+                                }}
                               >
                                 Tolak Pembayaran
                               </button>
@@ -390,14 +398,18 @@ const ListBooking = () => {
                           {bookings.approved === null && (
                             <div>
                               <button
-                                onClick={() =>
-                                  handleConfirmPayment(bookings.id)
-                                }
+                                onClick={() => {
+                                  handleConfirmPayment(bookings.id);
+                                  handleConfirmNotif(bookings.id);
+                                }}
                               >
                                 Konfirmasi Pembayaran
                               </button>
                               <button
-                                onClick={() => handleRejectPayment(bookings.id)}
+                                onClick={() => {
+                                  handleRejectPayment(bookings.id);
+                                  handleRejectNotif(bookings.id);
+                                }}
                               >
                                 Tolak Pembayaran
                               </button>

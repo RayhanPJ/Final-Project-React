@@ -42,10 +42,11 @@ function simulateNetworkRequest() {
 
 function NavbarHeader() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [showListBooking, setShowListBooking] = useState(true);
+  const [shownotif, setShownotif] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const [notif, setNotif] = React.useState([]);
   const [anchorElNotif, setAnchorElNotif] = React.useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -56,26 +57,6 @@ function NavbarHeader() {
   const handleClickList = () => {
     setOpen(!open);
   };
-
-  async function editProfile() {
-    // Gunakan endpoint-mu sendiri
-    var method = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({}),
-    };
-
-    const response = await fetch(
-      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateUser",
-      method
-    );
-    const data = await response.json();
-    console.log(data);
-    return data;
-  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -98,11 +79,30 @@ function NavbarHeader() {
       .catch((err) => {
         console.log("err", err);
       });
+    fetch(
+      "https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification",
+      method
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setNotif(data.data.notifications);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
 
-    user.role === "admin"
-      ? setShowListBooking(false)
-      : setShowListBooking(true);
+    user.role === "admin" ? setShownotif(false) : setShownotif(true);
   }, [user.role]);
+  console.log(user);
+  const idUser = user.id;
+  let countNotif = 0;
+  for (let i = 0; i < notif.length; i++) {
+    if (notif[i].id_user == idUser) countNotif++;
+  }
+  console.log(countNotif);
+  console.log(idUser);
+  console.log(notif);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -169,16 +169,43 @@ function NavbarHeader() {
                     Testimonial
                   </Nav.Link>
                   <Button
+                    className="btn btn-transparent"
                     variant="btn btn-lg btn-outline-dark"
                     onClick={handleShow}
                   >
-                    Notification
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-bell-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                    </svg>{" "}
+                    <span className="badge text-bg-secondary" >
+                      {countNotif}
+                    </span>
                   </Button>
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
                       <Modal.Title>Notification</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body></Modal.Body>
+                    {notif.length > 0 ? (
+                      notif
+                        .filter((item) => item.id_user == idUser)
+                        .map((item) => {
+                          return (
+                            <Modal.Body key={item.id}>
+                              {item.message} <hr />
+                            </Modal.Body>
+                          );
+                        })
+                    ) : (
+                      <div className="text-center">
+                        <h1>Notifikasi Kosong</h1>
+                      </div>
+                    )}
 
                     <Modal.Footer>
                       <Button
@@ -191,7 +218,7 @@ function NavbarHeader() {
                       </Button>
                     </Modal.Footer>
                   </Modal>
-                  {!showListBooking ? (
+                  {!shownotif ? (
                     <div>
                       <DropdownButton
                         id="dropdown-basic-button"
@@ -217,7 +244,7 @@ function NavbarHeader() {
                           List Plane
                         </Dropdown.Item>
                         <Dropdown.Item
-                          href="http://localhost:3000/listbooking"
+                          href="http://localhost:3000/notif"
                           className="text-dark list_nav_main"
                         >
                           List Booking
