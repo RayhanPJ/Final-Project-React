@@ -8,7 +8,6 @@ import PemilihanTiket from "./PemilihanTiket";
 import LogOut from "./LogOut";
 import Protected from "./Protected";
 import BayarTiket from "./BayarTiket";
-import Filter from "./FilterTry";
 import ListBooking from "./ListBooking";
 import ConfirmPay from "./ConfimPayPage";
 import InputAirport from "./InputDataAirport";
@@ -32,7 +31,6 @@ export {
   LogOut,
   Protected,
   BayarTiket,
-  Filter,
   ListBooking,
   ConfirmPay,
   InputAirport,

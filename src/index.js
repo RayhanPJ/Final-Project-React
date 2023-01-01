@@ -16,7 +16,6 @@ import {
   LogOut,
   Protected,
   BayarTiket,
-  Filter,
   ListBooking,
   ConfirmPay,
   InputAirport,
@@ -27,10 +26,9 @@ import {
   ListAirport,
   UpdateAirport,
   ListPlane,
-  UpdatePlane
+  UpdatePlane,
 } from "./components";
 import reducers from "./reducers";
-import PersonList from "./App";
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
@@ -40,6 +38,7 @@ root.render(
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/logout" element={<LogOut />} />
       <Route
         path="/profile"
         element={
@@ -88,21 +87,25 @@ root.render(
           </Protected>
         }
       />
-      <Route path="/logout" element={<LogOut />} />
-      <Route path="/filter" element={<Filter />} />
-      <Route path="/listbooking" element={<ListBooking />} />
-      <Route path="/listflight" element={<ListFlight />} />
-      <Route path="/updateflight" element={<UpdateFlight />} />
-      <Route path="/listbooking" element={<ListBooking />} />
-      <Route path="/listairport" element={<ListAirport />} />
-      <Route path="/updateairport" element={<UpdateAirport />} />
-      <Route path="/listplane" element={<ListPlane />} />
-      <Route path="/updateplane" element={<UpdatePlane />} />
-      <Route path="/confirmpay" element={<ConfirmPay />} />
-      <Route path="/try" element={<PersonList />} />
-      <Route path="/inputplane" element={<InputPlane />} />
-      <Route path="/inputflight" element={<InputFlight />} />
-      <Route path="/inputairport" element={<InputAirport />} />
+      <Route
+        path="/confirmpay"
+        element={
+          <Protected>
+            <ConfirmPay />
+          </Protected>
+        }
+      />
+      <Route path="/listbooking" element={<ListBooking />} /> // admin
+      <Route path="/listflight" element={<ListFlight />} /> //admin
+      <Route path="/updateflight" element={<UpdateFlight />} /> //admin
+      <Route path="/listbooking" element={<ListBooking />} /> //admin
+      <Route path="/listairport" element={<ListAirport />} /> //admin
+      <Route path="/updateairport" element={<UpdateAirport />} /> //admin
+      <Route path="/listplane" element={<ListPlane />} /> //admin
+      <Route path="/updateplane" element={<UpdatePlane />} /> //admin
+      <Route path="/inputplane" element={<InputPlane />} /> //admin
+      <Route path="/inputflight" element={<InputFlight />} /> //admin
+      <Route path="/inputairport" element={<InputAirport />} /> //admin
     </Routes>
   </BrowserRouter>
 );

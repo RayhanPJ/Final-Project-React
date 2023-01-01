@@ -15,8 +15,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import MenuItem from "@mui/material/MenuItem";
 import Modal from "react-bootstrap/Modal";
-import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
@@ -45,18 +43,10 @@ function NavbarHeader() {
   const [shownotif, setShownotif] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState([]);
-  const [open, setOpen] = React.useState(false);
   const [notif, setNotif] = React.useState([]);
-  const [anchorElNotif, setAnchorElNotif] = React.useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const token = localStorage.getItem("token");
-
-  const handleClickList = () => {
-    setOpen(!open);
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");

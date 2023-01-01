@@ -254,11 +254,11 @@ const PesanTiket = () => {
                           </p>
                         </div>
                         <div className="col-6">
-                          <p>Waiting Time :</p>
+                          <p>Arrival Time :</p>
                         </div>
                         <div className="col-6">
                           <p>
-                            {item.arrival_time} - {item.departure_time}
+                            {item.arrival_time}
                           </p>
                         </div>
                         <div className="col-6">
