@@ -137,23 +137,23 @@ function NavbarHeader() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
-                  <Nav.Link href="http://localhost:3000/" className="text-dark">
+                  <Nav.Link href="#" className="text-dark">
                     Beranda
                   </Nav.Link>
                   <Nav.Link
-                    href="http://localhost:3000/#Booking"
+                    href="#Booking"
                     className="text-dark list_nav_main"
                   >
                     Books
                   </Nav.Link>
                   <Nav.Link
-                    href="http://localhost:3000/#aboutUs"
+                    href="#aboutUs"
                     className="text-dark list_nav_main"
                   >
                     About Us
                   </Nav.Link>
                   <Nav.Link
-                    href="http://localhost:3000/#Testimonial"
+                    href="#Testimonial"
                     className="text-dark list_nav_main"
                   >
                     Testimonial
@@ -216,25 +216,25 @@ function NavbarHeader() {
                         variant="transparent"
                       >
                         <Dropdown.Item
-                          href="http://localhost:3000/listflight"
+                          href="/listflight"
                           className="text-dark list_nav_main"
                         >
                           List Fight
                         </Dropdown.Item>
                         <Dropdown.Item
-                          href="http://localhost:3000/listairport"
+                          href="/listairport"
                           className="text-dark list_nav_main"
                         >
                           List Airport
                         </Dropdown.Item>
                         <Dropdown.Item
-                          href="http://localhost:3000/listplane"
+                          href="/listplane"
                           className="text-dark list_nav_main"
                         >
                           List Plane
                         </Dropdown.Item>
                         <Dropdown.Item
-                          href="http://localhost:3000/notif"
+                          href="/notif"
                           className="text-dark list_nav_main"
                         >
                           List Booking
