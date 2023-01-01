@@ -52,7 +52,7 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
-  // const GOOGLECLIENTID = "1075166577960-u21r9932mfr51s1uiq3mbc5v5k15uu96.apps.googleusercontent.com";
+  const GOOGLECLIENTID = "1075166577960-t9j4kguud7mo2dkaij6k3o5qu9rfna1b.apps.googleusercontent.com";
 
   useEffect(() => {
     setIsLoggedIn(!!token);
@@ -157,7 +157,7 @@ function Login() {
                 </div>
                 <p>Atau masuk dengan</p>
                 <div className="d-grid gap-2">
-                  <GoogleOAuthProvider clientId= "1075166577960-t9j4kguud7mo2dkaij6k3o5qu9rfna1b.apps.googleusercontent.com">
+                  <GoogleOAuthProvider clientId= {GOOGLECLIENTID}>
                     <GoogleLogin
                       buttonText="Login with Google"
                       onSuccess={(res) => {
