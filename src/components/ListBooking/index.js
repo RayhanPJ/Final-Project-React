@@ -91,7 +91,6 @@ const ListBooking = () => {
       .then(() => window.location.reload());
   };
 
-
   const handleRejectNotif = (id_user) => {
     var method = {
       method: "POST",
@@ -237,10 +236,26 @@ const ListBooking = () => {
                       </td>
                       <td>{bookings.name}</td>
                       <td>{bookings.mobilephone}</td>
-                      <td>
-                        {bookings.Flight.FromAirport.city} -{" "}
-                        {bookings.Flight.ToAirport.city}{" "}
-                      </td>
+                      {bookings.trip_type == "Round Trip" && (
+                        <td>
+                          {bookings.Flight.FromAirport.city} -{" "}
+                          {bookings.Flight.ToAirport.city}{" "}
+                          {bookings.Flight.ToAirport.city} -{" "}
+                          {bookings.Flight.FromAirport.city}{" "}
+                        </td>
+                      )}
+                      {bookings.trip_type == "One Way" && (
+                        <td>
+                          {bookings.Flight.FromAirport.city} -{" "}
+                          {bookings.Flight.ToAirport.city}{" "}
+                        </td>
+                      )}
+                      {bookings.trip_type == "" && (
+                        <td>
+                          {bookings.Flight.FromAirport.city} -{" "}
+                          {bookings.Flight.ToAirport.city}{" "}
+                        </td>
+                      )}
                       <td>
                         <img
                           src={bookings.confirmation}

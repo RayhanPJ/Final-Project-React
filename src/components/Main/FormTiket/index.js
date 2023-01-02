@@ -42,7 +42,7 @@ const FormTiket = () => {
       .catch((err) => {
         console.log("err", err);
       });
-      // getListUser()
+    // getListUser()
   }, []);
   console.log(flight);
 
@@ -105,16 +105,13 @@ const FormTiket = () => {
             <div className="div1 d-flex justify-content-center">
               <h3 className="text-light">Booking</h3>
             </div>
-            <div className="div2">
-              <a href="/login">
-                <h5>Login</h5>
-              </a>
-            </div>
-      
+            <div className="div2"></div>
+
             <div className="div3 col-lg-3">
               <label className="form-label">Dari</label>
               <div className="input-group mb-3">
                 <select
+                  required
                   id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
@@ -130,12 +127,12 @@ const FormTiket = () => {
                 </select>
               </div>
             </div>
-        
-          
+
             <div className="div4 col-lg-3">
               <label className="form-label">Ke</label>
               <div className="input-group mb-3">
                 <select
+                  required
                   id="Penerbangan"
                   name="Penerbangan"
                   className="form-select bg-transparent border-dark"
@@ -151,12 +148,12 @@ const FormTiket = () => {
                 </select>
               </div>
             </div>
-        
-        
+
             <div className="div5 col-lg-4">
               <div className="d-flex">
                 <div className="form-check">
                   <input
+                    required
                     onClick={() => setroundTrip(true)}
                     className="form-check-input"
                     type="radio"
@@ -174,6 +171,7 @@ const FormTiket = () => {
                 </div>
                 <div className="form-check">
                   <input
+                    required
                     onClick={() => setroundTrip(false)}
                     className="form-check-input"
                     type="radio"
@@ -194,6 +192,7 @@ const FormTiket = () => {
               <div className="input-group mb-3">
                 <div className="input-group mb-3">
                   <input
+                    required
                     type="date"
                     name="date"
                     id="date"
@@ -206,6 +205,7 @@ const FormTiket = () => {
                 {!roundTrip && (
                   <div className="input-group mb-3">
                     <input
+                      required
                       type="date"
                       name="date"
                       id="date"
@@ -218,11 +218,11 @@ const FormTiket = () => {
                 )}
               </div>
             </div>
-          
-            
+
             <div className="div6 col-lg-5">
               <label className="form-label">Penumpang</label>
               <input
+                required
                 type="number"
                 value={capacity}
                 className="form-control bg-transparent border-dark"
@@ -235,6 +235,7 @@ const FormTiket = () => {
               <label className="form-label">Class</label>
               <div className="input-group mb-3">
                 <select
+                  required
                   id="kelas"
                   name="kelas"
                   className="form-select bg-transparent border-dark"
@@ -252,7 +253,16 @@ const FormTiket = () => {
                 <Link
                   className="d-grid gap-2 text-decoration-none"
                   to="/pilih"
-                  state={{ bandara, bandara2, date, date2, capacity, kelas, trip, roundTrip }}
+                  state={{
+                    bandara,
+                    bandara2,
+                    date,
+                    date2,
+                    capacity,
+                    kelas,
+                    trip,
+                    roundTrip,
+                  }}
                 >
                   <button
                     className="btn btn-light shadow py-2 mb-5 bg-body rounded"

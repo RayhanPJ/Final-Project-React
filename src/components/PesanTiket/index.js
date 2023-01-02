@@ -129,6 +129,7 @@ const PesanTiket = () => {
                 <label>Nama Lengkap</label>
                 <br />
                 <input
+                  required
                   type="text"
                   id="nama_lengkap"
                   placeholder="Nama lengkap"
@@ -143,6 +144,7 @@ const PesanTiket = () => {
                   <label>Makanan</label>
                   <br />
                   <select
+                    required
                     className="form-select"
                     id="pilih-makanan"
                     onChange={(e) => setTypeFood(e.target.value)}
@@ -155,11 +157,8 @@ const PesanTiket = () => {
                 <div className="col-lg-6">
                   <label>Bagasi</label>
                   <br />
-                  {/* <input
-                    type={"text"}
-                    style={{ width: "140px", backgroundColor: "#ffff" }}
-                  ></input> */}
                   <select
+                    required
                     className="form-select"
                     id="kapasitas-bagasi"
                     onChange={(e) => setBaggageWeight(e.target.value)}
@@ -182,6 +181,7 @@ const PesanTiket = () => {
                   <label>Email</label>
                   <br />
                   <input
+                    required
                     type="email"
                     id="email"
                     className="form-control "
@@ -193,6 +193,7 @@ const PesanTiket = () => {
                   <label>Mobile Phone</label>
                   <br />
                   <input
+                    required
                     type="number"
                     id="homeph"
                     className="form-control "
@@ -203,6 +204,7 @@ const PesanTiket = () => {
                   <label>Home Phone</label>
                   <br />
                   <input
+                    required
                     type="number"
                     id="mobileph"
                     className="form-control "
@@ -327,6 +329,7 @@ const PesanTiket = () => {
                   <label>Nama Lengkap</label>
                   <br />
                   <input
+                    required
                     type="text"
                     id="nama_lengkap"
                     placeholder="Nama lengkap"
@@ -341,6 +344,7 @@ const PesanTiket = () => {
                     <label>Makanan</label>
                     <br />
                     <select
+                      required
                       className="form-select"
                       id="pilih-makanan"
                       onChange={(e) => setTypeFood2(e.target.value)}
@@ -353,11 +357,8 @@ const PesanTiket = () => {
                   <div className="col-lg-6">
                     <label>Bagasi</label>
                     <br />
-                    {/* <input
-                    type={"text"}
-                    style={{ width: "140px", backgroundColor: "#ffff" }}
-                  ></input> */}
                     <select
+                      required
                       className="form-select"
                       id="kapasitas-bagasi"
                       onChange={(e) => setBaggageWeight2(e.target.value)}
@@ -379,11 +380,8 @@ const PesanTiket = () => {
                   <div className="col-lg-6">
                     <label>Email</label>
                     <br />
-                    {/* <input
-                    type={"email"}
-                    style={{ backgroundColor: "#ffff" }}
-                  ></input> */}
                     <input
+                      required
                       type="email"
                       id="email"
                       className="form-control "
@@ -394,11 +392,8 @@ const PesanTiket = () => {
                   <div className="col-lg-6">
                     <label>Mobile Phone</label>
                     <br />
-                    {/* <input
-                    type={"tel"}
-                    style={{ backgroundColor: "#ffffff" }}
-                  ></input> */}
                     <input
+                      required
                       type="number"
                       id="homeph"
                       className="form-control "
@@ -408,11 +403,8 @@ const PesanTiket = () => {
                     <br />
                     <label>Home Phone</label>
                     <br />
-                    {/* <input
-                    type={"tel"}
-                    style={{ backgroundColor: "#ffffff" }}
-                  ></input> */}
                     <input
+                      required
                       type="number"
                       id="mobileph"
                       className="form-control "
@@ -426,7 +418,6 @@ const PesanTiket = () => {
           )}
         </div>
       </Container>
-      {/* footer */}
       <Footer />
     </div>
   );
