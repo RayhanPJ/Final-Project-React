@@ -76,7 +76,7 @@ const PemilihanTiket = () => {
           .map((item) => {
             return (
               <div key={item.id}>
-                <div className="card" key={item.id}>
+                <div className="card">
                   {!roundTrip && (
                     <div className="card-body">
                       <p className="fs-5 fw-semibold">
@@ -199,8 +199,7 @@ const PemilihanTiket = () => {
                               {flight
                                 .filter(
                                   (item) =>
-                                    item.FromAirport.name ===
-                                      dataForm.bandara2 &&
+                                    item.FromAirport.name === dataForm.bandara2 &&
                                     item.ToAirport.name === dataForm.bandara &&
                                     item.kelas === dataForm.kelas
                                 )
@@ -425,39 +424,6 @@ const PemilihanTiket = () => {
                         </div>
                       </div>
                       <hr />
-                      {!roundTrip && (
-                        <div className="row">
-                          <div className="col-md text-start">
-                            <img src="assets/img/plane1.png" alt="" />
-                          </div>
-                          <div className="col-md">
-                            <h5>
-                              {item.ToAirport.city} ({item.FromAirport.code})
-                            </h5>
-                            <p>{item.ToAirport.name}</p>
-                          </div>
-                          <div className="col-md offset-1 text-center">
-                            <img
-                              src="assets/img/Vector.png"
-                              style={{ position: "relative", top: "25px" }}
-                              alt="Arrow"
-                            />
-                          </div>
-                          <div className="col-md">
-                            <h5>
-                              {item.FromAirport.city} ({item.ToAirport.code})
-                            </h5>
-                            <p>{item.FromAirport.name}</p>
-                          </div>
-                          <div className="col-md text-end">
-                            <img src="assets/img/date.png" alt="Tanggal" />
-                            <h6>
-                              {day}, {dataForm.date2}
-                            </h6>
-                          </div>
-                        </div>
-                      )}
-                      <hr />
                       <div className="row">
                         <div className="col-md-8">
                           <div
@@ -506,69 +472,6 @@ const PemilihanTiket = () => {
                               </div>
                             </div>
                           </div>
-                          {!roundTrip && (
-                            <div>
-                              {flight
-                                .filter(
-                                  (item) =>
-                                    item.FromAirport.name ===
-                                      dataForm.bandara2 &&
-                                    item.ToAirport.name === dataForm.bandara &&
-                                    item.kelas === dataForm.kelas
-                                )
-                                .map((item) => {
-                                  return (
-                                    <div
-                                      className="card d-grid gap-2 btn text-start mt-4"
-                                      key={item.id}
-                                      onClick={() => {
-                                        setgetItemId2(`${item.id}`);
-                                      }}
-                                    >
-                                      <img
-                                        src="assets/img/flightImg.png"
-                                        className="card-img-top"
-                                        alt="Gambar Garuda"
-                                      />
-                                      <div className="card-body">
-                                        <div
-                                          className="card-body p-0 row justify-content-between"
-                                          value={getItemId2}
-                                          onClick={(e) => {
-                                            setgetItemId2(e.target.value);
-                                          }}
-                                        >
-                                          <div className="col-auto">
-                                            <h4 className="fw-bolder">
-                                              {item.FromAirport.city} (
-                                              {item.FromAirport.code}) -{" "}
-                                              {item.ToAirport.city} (
-                                              {item.ToAirport.code})
-                                            </h4>
-
-                                            <ul className="list-unstyled mb-0">
-                                              <li>
-                                                {item.arrival_time} -{" "}
-                                                {item.departure_time}
-                                              </li>
-                                              <li>{item.kelas}</li>
-                                            </ul>
-                                          </div>
-                                          <div className="col-auto my-auto">
-                                            <span className="text-muted">
-                                              {day}, {dataForm.date2}
-                                            </span>
-                                            <h3 className="fw-bolder mb-0">
-                                              Rp{item.price}
-                                            </h3>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                            </div>
-                          )}
                         </div>
                         <div className="col-lg-4">
                           <div className="card">
