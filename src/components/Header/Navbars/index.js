@@ -47,6 +47,7 @@ function NavbarHeader() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -112,6 +113,26 @@ function NavbarHeader() {
   }, [isLoading]);
 
   const handleClick = () => setLoading(true);
+
+  //fungsi delete
+  const handleDelete = (id) => {
+    var method = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification/${id}`,
+      method
+    ).then((data) => {
+      window.location.reload();
+    });
+    return;
+  };
+
   return (
     <>
       {["md"].map((expand) => (
@@ -137,23 +158,17 @@ function NavbarHeader() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
-                  <Nav.Link href="#" className="text-dark">
+                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/" className="text-dark">
                     Beranda
                   </Nav.Link>
-                  <Nav.Link
-                    href="#Booking"
-                    className="text-dark list_nav_main"
-                  >
+                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Booking" className="text-dark list_nav_main">
                     Books
                   </Nav.Link>
-                  <Nav.Link
-                    href="#aboutUs"
-                    className="text-dark list_nav_main"
-                  >
+                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#aboutUs" className="text-dark list_nav_main">
                     About Us
                   </Nav.Link>
                   <Nav.Link
-                    href="#Testimonial"
+                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Testimonial"
                     className="text-dark list_nav_main"
                   >
                     Testimonial
@@ -173,7 +188,7 @@ function NavbarHeader() {
                     >
                       <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
                     </svg>{" "}
-                    <span className="badge text-bg-secondary" >
+                    <span className="badge text-bg-secondary">
                       {countNotif}
                     </span>
                   </Button>
@@ -181,13 +196,16 @@ function NavbarHeader() {
                     <Modal.Header closeButton>
                       <Modal.Title>Notification</Modal.Title>
                     </Modal.Header>
-                    {notif.length > 0 ? (
+                    {countNotif.length > 0 ? (
                       notif
                         .filter((item) => item.id_user == idUser)
                         .map((item) => {
                           return (
                             <Modal.Body key={item.id}>
-                              {item.message} <hr />
+                              {item.message}
+                              <button onClick={() => handleDelete(item.id)}>
+                                delete
+                              </button> <hr />
                             </Modal.Body>
                           );
                         })
@@ -234,7 +252,7 @@ function NavbarHeader() {
                           List Plane
                         </Dropdown.Item>
                         <Dropdown.Item
-                          href="/notif"
+                          href="/listbooking"
                           className="text-dark list_nav_main"
                         >
                           List Booking

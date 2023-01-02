@@ -68,64 +68,49 @@ const ListBooking = () => {
       })
     );
   };
-  const handleConfirmNotif = (paymentId) => {
-    setListBooking(
-      listBooking.map((item) => {
-        if (item.id === paymentId) {
-          var method = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              id_user: paymentId,
-              message:
-                "Booking anda sukses, silahkan cek tiket anda di profile",
-            }),
-          };
+  const handleConfirmNotif = (id_user) => {
+    var method = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: id_user,
+        message: "Booking anda sukses, silahkan cek tiket anda di profile",
+      }),
+    };
 
-          fetch(
-            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
-            method
-          )
-            .then((data) => {
-              console.log(data.json());
-            })
-            .then(() => window.location.reload());
-        }
-        return item;
+    fetch(
+      `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
+      method
+    )
+      .then((data) => {
+        console.log(data.json());
       })
-    );
+      .then(() => window.location.reload());
   };
-  const handleRejectNotif = (paymentId) => {
-    setListBooking(
-      listBooking.map((item) => {
-        if (item.id === paymentId) {
-          var method = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              id_user: paymentId,
-              message: "Booking anda gagal, silahkan booking ulang!",
-            }),
-          };
+  const handleRejectNotif = (id_user) => {
+    var method = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: id_user,
+        message: "Booking anda gagal, silahkan booking ulang!",
+      }),
+    };
 
-          fetch(
-            `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
-            method
-          )
-            .then((data) => {
-              console.log(data.json());
-            })
-            .then(() => window.location.reload());
-        }
-        return item;
+    fetch(
+      `https://gotravel-ilms4lrona-as.a.run.app/api/v1/notification`,
+      method
+    )
+      .then((data) => {
+        console.log(data.json());
       })
-    );
+      .then(() => window.location.reload());
   };
 
   // fungsi tolak pembayaran
@@ -268,7 +253,7 @@ const ListBooking = () => {
                             <button
                               onClick={() => {
                                 handleConfirmPayment(bookings.id);
-                                handleConfirmNotif(bookings.id);
+                                handleConfirmNotif(bookings.id_user);
                               }}
                             >
                               Konfirmasi Pembayaran
@@ -276,7 +261,7 @@ const ListBooking = () => {
                             <button
                               onClick={() => {
                                 handleRejectPayment(bookings.id);
-                                handleRejectNotif(bookings.id);
+                                handleRejectNotif(bookings.id_user);
                               }}
                             >
                               Tolak Pembayaran
@@ -400,7 +385,10 @@ const ListBooking = () => {
                               <button
                                 onClick={() => {
                                   handleConfirmPayment(bookings.id);
-                                  handleConfirmNotif(bookings.id);
+                                  handleConfirmNotif(
+                                    bookings.id,
+                                    bookings.id_user
+                                  );
                                 }}
                               >
                                 Konfirmasi Pembayaran
@@ -408,7 +396,10 @@ const ListBooking = () => {
                               <button
                                 onClick={() => {
                                   handleRejectPayment(bookings.id);
-                                  handleRejectNotif(bookings.id);
+                                  handleRejectNotif(
+                                    bookings.id,
+                                    bookings.id_user
+                                  );
                                 }}
                               >
                                 Tolak Pembayaran

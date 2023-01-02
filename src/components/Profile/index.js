@@ -13,6 +13,7 @@ const Profile = () => {
   const [tiketDiterima, setTiketDiterima] = useState(false);
   const [tiketDitolak, setTiketDitolak] = useState(false);
   const [menungguPembayaran, setMenungguPembayaran] = useState(false);
+  const [menungguPersetujuan, setMenungguPersetujuan] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -320,6 +321,7 @@ const Profile = () => {
                   setTiketDiterima(false);
                   setMenungguPembayaran(false);
                   setTiketDitolak(false);
+                  setMenungguPersetujuan(false);
                 }}
               >
                 Riwayat Perjalanan
@@ -332,6 +334,7 @@ const Profile = () => {
                   setRiwayat(false);
                   setTiketDitolak(false);
                   setMenungguPembayaran(false);
+                  setMenungguPersetujuan(false);
                 }}
               >
                 Tiket Diterma
@@ -344,6 +347,7 @@ const Profile = () => {
                   setRiwayat(false);
                   setTiketDitolak(true);
                   setMenungguPembayaran(false);
+                  setMenungguPersetujuan(false);
                 }}
               >
                 Tiket Ditolak
@@ -355,7 +359,21 @@ const Profile = () => {
                   setTiketDiterima(false);
                   setRiwayat(false);
                   setTiketDitolak(false);
+                  setMenungguPembayaran(false);
+                  setMenungguPersetujuan(true);
+                }}
+              >
+                Menunggu Persetujuan
+              </a>
+              <a
+                href="#/Tiket"
+                className="fs-5 p-2 fw-bolder mx-2 link-dark-nav text-dark text-decoration-none border-bottom border-dark"
+                onClick={() => {
+                  setTiketDiterima(false);
+                  setRiwayat(false);
+                  setTiketDitolak(false);
                   setMenungguPembayaran(true);
+                  setMenungguPersetujuan(false);
                 }}
               >
                 Menunggu Pembayaran
@@ -369,6 +387,7 @@ const Profile = () => {
                   setTiketDitolak(false);
                   setMenungguPembayaran(false);
                   setListWhislist(true);
+                  setMenungguPersetujuan(false);
                 }}
               >
                 Whislist
@@ -527,6 +546,57 @@ const Profile = () => {
               </div>
             )}
             {menungguPembayaran && (
+              <div className="row">
+                {listBooking.length > 0 ? (
+                  listBooking
+                    .filter(
+                      (item) => item.id_user == user.id && item.confirmation == null
+                    )
+                    .map((item) => {
+                      return (
+                        <div className="col-md-6 col-lg-4 my-3" key={item.id}>
+                          {console.log(item)}
+                          <div className="card shadow-sm">
+                            <div className="card-header p-0">
+                              <img
+                                src="assets/img/pesawat-garuda.jpg"
+                                alt="Gambar Garuda"
+                                className="img-fluid image-zoom-on-hover rounded-top-5"
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="card-title">
+                                <h4 className="fw-bolder mb-0">
+                                  {item.Flight.Plane.name}
+                                </h4>
+                                <small>{item.Flight.flight_date}</small>
+                              </div>
+                              <div className="card-body p-0 mt-4">
+                                <ul className="list-unstyled">
+                                  <li className="mb-3">
+                                    {item.Flight.FromAirport.name} -{" "}
+                                    {item.Flight.ToAirport.name}
+                                  </li>
+                                  <li className="mb-3">
+                                    {item.Flight.arrival_time} -{" "}
+                                    {item.Flight.departure_time}
+                                  </li>
+                                  <li>Kelas : {item.Flight.kelas} </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })
+                ) : (
+                  <div className="text-center">
+                    <h1>Penerbangan Kosong</h1>
+                  </div>
+                )}
+              </div>
+            )}
+            {menungguPersetujuan && (
               <div className="row">
                 {listBooking.length > 0 ? (
                   listBooking
