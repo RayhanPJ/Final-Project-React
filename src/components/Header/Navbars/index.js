@@ -158,13 +158,22 @@ function NavbarHeader() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
-                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/" className="text-dark">
+                  <Nav.Link
+                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/"
+                    className="text-dark"
+                  >
                     Beranda
                   </Nav.Link>
-                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Booking" className="text-dark list_nav_main">
+                  <Nav.Link
+                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Booking"
+                    className="text-dark list_nav_main"
+                  >
                     Books
                   </Nav.Link>
-                  <Nav.Link href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#aboutUs" className="text-dark list_nav_main">
+                  <Nav.Link
+                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#aboutUs"
+                    className="text-dark list_nav_main"
+                  >
                     About Us
                   </Nav.Link>
                   <Nav.Link
@@ -196,18 +205,27 @@ function NavbarHeader() {
                     <Modal.Header closeButton>
                       <Modal.Title>Notification</Modal.Title>
                     </Modal.Header>
-                    {countNotif.length > 0 ? (
+                    {notif.length > 0 ? (
                       notif
                         .filter((item) => item.id_user == idUser)
                         .map((item) => {
-                          return (
-                            <Modal.Body key={item.id}>
-                              {item.message}
-                              <button onClick={() => handleDelete(item.id)}>
-                                delete
-                              </button> <hr />
-                            </Modal.Body>
-                          );
+                          if (item.length > 0) {
+                            return (
+                              <Modal.Body key={item.id}>
+                                {item.message}
+                                <button onClick={() => handleDelete(item.id)}>
+                                  delete
+                                </button>{" "}
+                                <hr />
+                              </Modal.Body>
+                            );
+                          } else {
+                            return (
+                              <div className="text-center">
+                                <h1>Notifikasi Kosong</h1>
+                              </div>
+                            );
+                          }
                         })
                     ) : (
                       <div className="text-center">

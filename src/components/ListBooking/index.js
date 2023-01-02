@@ -76,7 +76,7 @@ const ListBooking = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        id: id_user,
+        id_user: id_user,
         message: "Booking anda sukses, silahkan cek tiket anda di profile",
       }),
     };
@@ -90,6 +90,8 @@ const ListBooking = () => {
       })
       .then(() => window.location.reload());
   };
+
+
   const handleRejectNotif = (id_user) => {
     var method = {
       method: "POST",
@@ -98,7 +100,7 @@ const ListBooking = () => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        id: id_user,
+        id_user: id_user,
         message: "Booking anda gagal, silahkan booking ulang!",
       }),
     };
