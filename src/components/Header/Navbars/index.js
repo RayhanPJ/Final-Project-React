@@ -205,27 +205,19 @@ function NavbarHeader() {
                     <Modal.Header closeButton>
                       <Modal.Title>Notification</Modal.Title>
                     </Modal.Header>
-                    {notif.length > 0 ? (
+                    {countNotif > 0 ? (
                       notif
                         .filter((item) => item.id_user == idUser)
-                        .map((item) => {
-                          if (item.length > 0) {
-                            return (
-                              <Modal.Body key={item.id}>
-                                {item.message}
-                                <button onClick={() => handleDelete(item.id)}>
-                                  delete
-                                </button>{" "}
-                                <hr />
-                              </Modal.Body>
-                            );
-                          } else {
-                            return (
-                              <div className="text-center">
-                                <h1>Notifikasi Kosong</h1>
-                              </div>
-                            );
-                          }
+                        .map((items) => {
+                          return (
+                            <Modal.Body key={items.id}>
+                              {items.message}
+                              <button onClick={() => handleDelete(items.id)}>
+                                delete
+                              </button>{" "}
+                              <hr />
+                            </Modal.Body>
+                          );
                         })
                     ) : (
                       <div className="text-center">
@@ -296,7 +288,7 @@ function NavbarHeader() {
                     <Box sx={{ flexGrow: 0 }}>
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                          {user.address && (
+                          {/* {user.address && ( */}
                             <div className="d-flex">
                               <Avatar
                                 className="me-2 ms-4"
@@ -305,13 +297,13 @@ function NavbarHeader() {
                               />
                               <p className="fs-6 mt-2">Hi {user.name}</p>
                             </div>
-                          )}
-                          {user.address === null && (
+                          {/* )} */}
+                          {/* {user.address === null && (
                             <Avatar
                               alt="Profile"
                               src="assets/img/profile1.png"
                             />
-                          )}
+                          )} */}
                         </IconButton>
                       </Tooltip>
                       <Menu
