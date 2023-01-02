@@ -159,25 +159,25 @@ function NavbarHeader() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
                   <Nav.Link
-                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/"
+                    href="https://final-project-react-eight.vercel.app/"
                     className="text-dark"
                   >
                     Beranda
                   </Nav.Link>
                   <Nav.Link
-                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Booking"
+                    href="https://final-project-react-eight.vercel.app/#Booking"
                     className="text-dark list_nav_main"
                   >
                     Books
                   </Nav.Link>
                   <Nav.Link
-                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#aboutUs"
+                    href="https://final-project-react-eight.vercel.app/#aboutUs"
                     className="text-dark list_nav_main"
                   >
                     About Us
                   </Nav.Link>
                   <Nav.Link
-                    href="https://final-project-react-9w6623ic9-rayhanpj.vercel.app/#Testimonial"
+                    href="https://final-project-react-eight.vercel.app/#Testimonial"
                     className="text-dark list_nav_main"
                   >
                     Testimonial
