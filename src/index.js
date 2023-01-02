@@ -27,6 +27,7 @@ import {
   UpdateAirport,
   ListPlane,
   UpdatePlane,
+  ProtectedAdmin,
 } from "./components";
 import reducers from "./reducers";
 
@@ -95,17 +96,95 @@ root.render(
           </Protected>
         }
       />
-      <Route path="/listbooking" element={<ListBooking />} /> // admin
-      <Route path="/listflight" element={<ListFlight />} /> //admin
-      <Route path="/updateflight" element={<UpdateFlight />} /> //admin
-      <Route path="/listbooking" element={<ListBooking />} /> //admin
-      <Route path="/listairport" element={<ListAirport />} /> //admin
-      <Route path="/updateairport" element={<UpdateAirport />} /> //admin
-      <Route path="/listplane" element={<ListPlane />} /> //admin
-      <Route path="/updateplane" element={<UpdatePlane />} /> //admin
-      <Route path="/inputplane" element={<InputPlane />} /> //admin
-      <Route path="/inputflight" element={<InputFlight />} /> //admin
-      <Route path="/inputairport" element={<InputAirport />} /> //admin
+      <Route
+        path="/listbooking"
+        element={
+          <ProtectedAdmin>
+            <ListBooking />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/listflight"
+        element={
+          <ProtectedAdmin>
+            <ListFlight />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/updateflight"
+        element={
+          <ProtectedAdmin>
+            <UpdateFlight />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/listbooking"
+        element={
+          <ProtectedAdmin>
+            <ListBooking />
+          </ProtectedAdmin>
+        }
+      />
+
+      <Route
+        path="/listairport"
+        element={
+          <ProtectedAdmin>
+            <ListAirport />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/updateairport"
+        element={
+          <ProtectedAdmin>
+            <UpdateAirport />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/listplane"
+        element={
+          <ProtectedAdmin>
+            <ListPlane />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/updateplane"
+        element={
+          <ProtectedAdmin>
+            <UpdatePlane />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/inputplane"
+        element={
+          <ProtectedAdmin>
+            <InputPlane />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/inputflight"
+        element={
+          <ProtectedAdmin>
+            <InputFlight />
+          </ProtectedAdmin>
+        }
+      />
+      <Route
+        path="/inputairport"
+        element={
+          <ProtectedAdmin>
+            <InputAirport />
+          </ProtectedAdmin>
+        }
+      />
     </Routes>
   </BrowserRouter>
 );

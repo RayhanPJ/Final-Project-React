@@ -19,6 +19,7 @@ import ListPlane from "./listPlane";
 import UpdateFlight from "./updateDataFlight";
 import UpdateAirport from "./updateDataAirport";
 import UpdatePlane from "./updateDataPlane";
+import ProtectedAdmin from "./ProtectedAdmin";
 
 export {
   LandingPage,
@@ -41,5 +42,6 @@ export {
   ListAirport,
   UpdateAirport,
   ListPlane,
-  UpdatePlane
+  UpdatePlane,
+  ProtectedAdmin
 };
