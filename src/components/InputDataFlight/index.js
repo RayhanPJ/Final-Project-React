@@ -66,15 +66,6 @@ const InputFlight = () => {
 
   const [planes, setPlanes] = useState([]);
   const [penerbangan, setPenerbangan] = useState([]);
-  console.log(penerbangan,
-    bandara,
-    bandara2,
-    capacity,
-    price,
-    time,
-    time2,
-    date,
-    kelas,);
 
   // Function to get data airport
   useEffect(() => {
@@ -82,7 +73,6 @@ const InputFlight = () => {
       .then((response) => response.json())
       .then((data) => {
         setAirports(data.data.airports);
-        console.log(data.data.airports);
       })
       .catch((err) => {
         console.log("err", err);
@@ -92,7 +82,6 @@ const InputFlight = () => {
       .then((response) => response.json())
       .then((data) => {
         setPlanes(data.data.planes);
-        console.log(data.data.planes);
       })
       .catch((err) => {
         console.log("err", err);

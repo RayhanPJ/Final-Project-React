@@ -72,7 +72,6 @@ function Register() {
 
   const haldleSuccessGoogle = (response) => {
     const userData = jwtDecode(response.credential);
-    // const response = await fetch("https://challenge-8-be-fsw-production.up.railway.app/api/v1/google"
     if (response.credential) {
       doLoginGoogle(response.credential, userData.email)
         .then((token) => {
@@ -83,14 +82,6 @@ function Register() {
         .finally(() => setIsLoading(false));
     }
   };
-
-  // function handleLogout(e) {
-  //   setIsLoading(true);
-  //   e.preventDefault();
-  //   localStorage.removeItem("token");
-  //   setIsLoggedIn(false);
-  //   setIsLoading(false);
-  // }
 
   return (
     <div className="bgLogin">

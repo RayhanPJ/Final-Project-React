@@ -42,60 +42,7 @@ const FormTiket = () => {
       .catch((err) => {
         console.log("err", err);
       });
-    // getListUser()
   }, []);
-  console.log(flight);
-
-  // const populateCars = (cars) => {
-  //   return cars.map((car) => {
-  //     const isPositive = getRandomInt(0, 1) === 1;
-  //     const timeAt = new Date();
-  //     const mutator = getRandomInt(1000000, 100000000);
-  //     const availableAt = new Date(timeAt.getTime() + (isPositive ? mutator : -1 * mutator))
-
-  //     return {
-  //       ...car,
-  //       availableAt,
-  //     };
-  //   })
-  // }
-
-  // const handleSearchCar = () => {
-  //   // const carsPopulate = populateCars(cars);
-  //   // console.log(carsPopulate);
-  //   // const newDateTime = new Date(`${date}`);
-
-  //   // if (bandara === "") {
-  //   //   alert("Please select driver type");
-  //   //   return;
-  //   // } else if (!date) {
-  //   //   alert("Please select date");
-  //   //   return;
-  //   // } else if (newDateTime < today) {
-  //   //   alert("Dont select past time");
-  //   //   return;
-  //   // }
-
-  //   console.log(date);
-  //   console.log(bandara);
-  //   console.log(bandara2);
-  //   console.log(capacity);
-  //   console.log(kelas);
-  //   const filterCars = flight.filter(
-  //     (item) =>
-  //       item.FromAirport.name == bandara &&
-  //       item.ToAirport.name == bandara2 &&
-  //       item.kelas == kelas
-  //   );
-  //   console.log(filterCars);
-  //   setdisplayFlight(filterCars);
-  // };
-
-  // const handleReset = () => {
-  //   setdisplayFlight([]);
-  //   setbandara("");
-  //   setDate("");
-  // };
 
   return (
     <div className="bgForm" id="Booking">
@@ -275,52 +222,6 @@ const FormTiket = () => {
               </div>
             </div>
           </div>
-          {/* <div className="mt-5">
-            {displayFlight.length > 0 ? (
-              displayFlight.map((item) => (
-                <div className="col-md-12 mb-3" key={item.id}>
-                  <div className="card d-grid gap-2 text-start bg-light border-0">
-                    <img
-                      src="assets/img/list.png"
-                      className="card-img-top"
-                      alt="Gambar Garuda"
-                    />
-                    <div className="card-body">
-                      <div className="card-body p-0 row justify-content-between">
-                        <div className="col-auto">
-                          <a
-                            href="#/"
-                            title="Jakarta (JKT) - Bali (DPS)"
-                            className="link-dark-card"
-                          >
-                            <h4 className="fw-bolder">
-                              {item.FromAirport.city} - {item.ToAirport.city}
-                            </h4>
-                          </a>
-                          <ul className="list-unstyled mb-0">
-                            <li>
-                              {item.arrival_time} - {item.departure_time}
-                            </li>
-                            <li>Class : {item.kelas}</li>
-                          </ul>
-                        </div>
-                        <div className="col-auto my-auto">
-                          <span className="text-muted">
-                            {day}, {date}
-                          </span>
-                          <h3 className="fw-bolder mb-0">Rp{item.price}</h3>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center">
-                <h1>Penerbangan Kosong</h1>
-              </div>
-            )}
-          </div> */}
         </Container>
       </main>
     </div>

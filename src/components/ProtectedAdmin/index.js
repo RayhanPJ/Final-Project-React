@@ -16,7 +16,6 @@ function ProtectedAdmin({ children }) {
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log("err", err);

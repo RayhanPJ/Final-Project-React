@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 const BayarTiket = () => {
   const location = useLocation();
   const dataBooking = location.state;
-  console.log(dataBooking);
 
   const token = localStorage.getItem("token");
   const [itemBooking, setItemBooking] = useState("");
@@ -66,7 +65,6 @@ const BayarTiket = () => {
       .then((response) => response.json())
       .then((data) => {
         setItemBooking(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log("err", err);

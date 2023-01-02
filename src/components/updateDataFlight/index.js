@@ -61,18 +61,8 @@ const UpdateFlight = () => {
   const [kelas, setKelas] = useState(data.kelas);
   const [isLoading, setIsLoading] = useState(false);
   const [issetRegisterd, setRegisterd] = useState(false);
-
   const [planes, setPlanes] = useState([]);
   const [penerbangan, setPenerbangan] = useState(data.Plane.id);
-  console.log(penerbangan,
-    bandara,
-    bandara2,
-    capacity,
-    price,
-    time,
-    time2,
-    date,
-    kelas,);
 
   // Function to get data airport
   useEffect(() => {
@@ -95,7 +85,6 @@ const UpdateFlight = () => {
       .catch((err) => {
         console.log("err", err);
       });
-    // getListUser()
   }, []);
 
   function handleSubmit(e) {

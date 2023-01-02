@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
-// import { useLocation } from "react-router-dom";
-// import { Link } from "react-router-dom";
 import Header from "../Header";
 import Footer from "../Footer";
 
 const Wishlist = () => {
-  // const location = useLocation();
   const [airports, setAirports] = useState([]);
   const [flight, setflight] = useState([]);
   const [displayFlight, setdisplayFlight] = useState([]);
@@ -15,14 +12,6 @@ const Wishlist = () => {
   const [bandara2, setbandara2] = useState("");
   const [date, setDate] = useState("");
   const [flightId, setFlightId] = useState("");
-  
-  // const [flightId2, setFlightId2] = useState("");
-  // const dataForm = location.state;
-
-  // const roundTrip = dataForm.roundTrip;
-
-
-
   const [user, setUser] = useState("");
   const token = localStorage.getItem("token");
 
@@ -49,19 +38,11 @@ const Wishlist = () => {
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log("err", err);
       }); 
   }, []);
-
-  const getId =  () =>{
-    const idFlight = flight.id;
-    const idUser = user.id;
-    console.log(idFlight);
-    console.log(idUser);
-  }
 
   async function getWishlist() {
     // Gunakan endpoint-mu sendiri
@@ -84,7 +65,6 @@ const Wishlist = () => {
     
    
     const data = await response.json();
-    console.log(data);
     return data;
     
 }
@@ -116,16 +96,6 @@ const Wishlist = () => {
       <section className="container-fluid px-0 py-5 my-5">
         <div className="container mt-10">
           <div className="row">
-            {/* <div className="col-12 text-center">
-              <img
-                src="assets/img/profile1.png"
-                alt="Profile 1"
-                className="rounded-circle"
-                height="125"
-              />
-            </div> */}
-
-          
               <div className="row justify-content-between">
                 <div className="col-md-6 my-auto">
                   <h3 className="fw-bolder">Wishlist</h3>

@@ -27,35 +27,9 @@ const Profile = () => {
   });
   const [datebirth, setDatebirth] = useState("");
   const [noktp, setKtp] = useState("");
-
-  // const [upImg, setUpImg] = useState("");
-
   const [user, setUser] = useState({});
   const token = localStorage.getItem("token");
-
   const [payImg, setPayImg] = useState("");
-
-  // const num = dataBooking.itemBooking.data.id;
-  // console.log(num);
-
-  // const upload = () => {
-  //     const formData = new FormData();
-  //     formData.append("file", payImg);
-
-  //     var config = {
-  //         method: 'put',
-  //         url: `https://gotravel-ilms4lrona-as.a.run.app/api/v1/updateProfileUser`,
-  //         headers: {
-  //             'Authorization': `Bearer ${token}`,
-  //         },
-  //         data: formData
-  //     };
-
-  //     axios(config).then((response) => {
-  //         console.log(response);
-  //     })
-  // };
-  // console.log(payImg);
 
   async function editProfile() {
     // Gunakan endpoint-mu sendiri
@@ -148,9 +122,6 @@ const Profile = () => {
         console.log(data);
       });
   }, []);
-  console.log(user);
-  console.log(listBooking);
-  console.log(whislist);
 
   return (
     <div>

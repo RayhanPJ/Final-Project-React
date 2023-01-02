@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import Tooltip from "@mui/material/Tooltip";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -21,19 +20,6 @@ import { Link } from "react-router-dom";
 
 const settings = ["Profile", "Wishlist", "Logout"];
 
-// const endpoint = "https://gotravel-production.up.railway.app/api/v1/profile"
-// fetch("https://gotravel-production.up.railway.app/api/v1/profile/")
-// .then((response)=>response.text())
-// .then((json)=>console.log(json))
-
-// fetch('https://gotravel-production.up.railway.app/api/v1/profile', {
-//     method: 'GET',
-//     headers: {
-//         'Content-Type': 'application/json',
-//     },
-// })
-// .then(response => response.json())
-// .then(response => console.log(JSON.stringify(response)))
 
 function simulateNetworkRequest() {
   return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -48,9 +34,6 @@ function NavbarHeader() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [showNav, setShowNav] = useState(false);
-  const handleCloseNav = () => setShowNav(false);
-  const handleShowNav = () => setShowNav(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -69,7 +52,7 @@ function NavbarHeader() {
       .then((response) => response.json())
       .then((data) => {
         setUser(data);
-        console.log(data);
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -81,7 +64,7 @@ function NavbarHeader() {
       .then((response) => response.json())
       .then((data) => {
         setNotif(data.data.notifications);
-        console.log(data);
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -89,15 +72,13 @@ function NavbarHeader() {
 
     user.role === "admin" ? setShownotif(false) : setShownotif(true);
   }, [user.role]);
-  console.log(user);
+
   const idUser = user.id;
   let countNotif = 0;
   for (let i = 0; i < notif.length; i++) {
     if (notif[i].id_user == idUser) countNotif++;
   }
-  console.log(countNotif);
-  console.log(idUser);
-  console.log(notif);
+
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -139,31 +120,6 @@ function NavbarHeader() {
 
   return (
     <div>
-      {/* <Navbar bg="light" expand="lg" >
-        <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar> */}
       {["md"].map((expand) => (
         <Navbar key={expand} bg="transparent" expand={expand} className="mb-3 navbar_main">
           <Container>

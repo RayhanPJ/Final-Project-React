@@ -12,8 +12,6 @@ const PemilihanTiket = () => {
   const [flight, setflight] = useState([]);
   const [getItemId, setgetItemId] = useState("");
   const [getItemId2, setgetItemId2] = useState("");
-  // const [show, setShow] = useState(true);
-  // const [flightId, setflightId] = useState([]);
   const roundTrip = dataForm.roundTrip;
 
   // Function to get data airport
@@ -29,14 +27,6 @@ const PemilihanTiket = () => {
       });
   }, []);
 
-  // function DateTime(hasil) {
-  //   const t = new Date();
-  //   let minutes = t.getUTCMinutes();
-  //   let hour = t.getUTCHours();
-  //   hasil = new Date(hour + ":" + minutes + " WIB");
-  //   return hasil;
-  // };
-
   //Get Name Day
   const weekday = [
     "Minggu",
@@ -49,18 +39,6 @@ const PemilihanTiket = () => {
   ];
   const d = new Date(dataForm.date);
   let day = weekday[d.getDay()];
-
-  // const handleGetitem = () => {
-  //   const filteritems = flightId
-  //     .filter(
-  //       (item) =>
-  //         item.FromAirport.name === dataForm.bandara &&
-  //         item.ToAirport.name === dataForm.bandara2 &&
-  //         item.kelas === dataForm.kelas && item.id === 7
-  //     )
-  //     .map((item) => item.id);
-  //   console.log(filteritems);
-  // };
 
   return (
     <div>

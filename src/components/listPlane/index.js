@@ -9,11 +9,6 @@ import { Link } from "react-router-dom";
 const ListPlane = () => {
   const [listPlane, setListPlane] = useState({});
   const token = localStorage.getItem("token");
-  // const [approve, setApprove] = useState({
-  //   true : true,
-  //   false : false
-  //  });
-  const [ukuran, setUkuran] = useState({ width: "100px", height: "100px" });
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,13 +25,11 @@ const ListPlane = () => {
       .then((response) => response.json())
       .then((data) => {
         setListPlane(data.data.planes);
-        console.log(data.data.planes);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, []);
-  console.log(listPlane);
 
   //fungsi delete
   const handleDelete = (id) => {
@@ -61,72 +54,6 @@ const ListPlane = () => {
         return item;
       })
     );
-  };
-
-  // // fungsi konfirmasi pembayaran
-  // const handleConfirmPayment = (paymentId) => {
-  //   setListFlight(
-  //     listFlight.map((item) => {
-  //       if (item.id === paymentId) {
-  //         var method = {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           body: JSON.stringify({
-  //             approved: true,
-  //           }),
-  //         };
-
-  //         fetch(
-  //           `https://gotravel-ilms4lrona-as.a.run.app/api/v1/Flight/${paymentId}`,
-  //           method
-  //         ).then((data) => {
-  //           console.log(data);
-  //         });
-  //         return { ...item, approved: true };
-  //       }
-  //       return item;
-  //     })
-  //   );
-  // };
-  // // fungsi tolak pembayaran
-  // const handleRejectPayment = (paymentId) => {
-  //   setListFlight(
-  //     listFlight.map((item) => {
-  //       if (item.id === paymentId) {
-  //         var method = {
-  //           method: "PUT",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //           body: JSON.stringify({
-  //             approved: false,
-  //           }),
-  //         };
-
-  //         fetch(
-  //           `https://gotravel-ilms4lrona-as.a.run.app/api/v1/Flight/${paymentId}`,
-  //           method
-  //         ).then((data) => {
-  //           console.log(data);
-  //         });
-  //         return { ...item, approved: false };
-  //       }
-  //       return item;
-  //     })
-  //   );
-  // };
-
-  // fungsi untuk mengubah ukuran gambar menjadi besar dan kecil
-  const ubahUkuran = () => {
-    if (ukuran.width === "100px") {
-      setUkuran({ width: "600px", height: "300px" });
-    } else {
-      setUkuran({ width: "100px", height: "100px" });
-    }
   };
 
   return (

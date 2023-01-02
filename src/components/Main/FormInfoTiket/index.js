@@ -9,8 +9,6 @@ const FormInfoTiket = () => {
   const [bandara, setbandara] = useState("");
   const [bandara2, setbandara2] = useState("");
   const [date, setDate] = useState("");
-
-
     
   // Function to get data airport
   useEffect(() => {
@@ -46,48 +44,13 @@ const FormInfoTiket = () => {
   const d = new Date(date);
   let day = weekday[d.getDay()];
 
-  // const populateCars = (cars) => {
-  //   return cars.map((car) => {
-  //     const isPositive = getRandomInt(0, 1) === 1;
-  //     const timeAt = new Date();
-  //     const mutator = getRandomInt(1000000, 100000000);
-  //     const availableAt = new Date(timeAt.getTime() + (isPositive ? mutator : -1 * mutator))
-
-  //     return {
-  //       ...car,
-  //       availableAt,
-  //     };
-  //   })
-  // }
-
   const handleSearchCar = () => {
-    // const carsPopulate = populateCars(cars);
-    // console.log(carsPopulate);
-    // const newDateTime = new Date(`${date}`);
-
-    // if (bandara === "") {
-    //   alert("Please select driver type");
-    //   return;
-    // } else if (!date) {
-    //   alert("Please select date");
-    //   return;
-    // } else if (newDateTime < today) {
-    //   alert("Dont select past time");
-    //   return;
-    // }
-
     const filterCars = flight.filter(
       (item) =>
         item.FromAirport.name === bandara && item.ToAirport.name === bandara2 
     );
     setdisplayFlight(filterCars);
   };
-
-  // const handleReset = () => {
-  //   setdisplayFlight([]);
-  //   setbandara("");
-  //   setDate("");
-  // };
 
   return (
     <div className="bgFormInfo" id="infoTiket">

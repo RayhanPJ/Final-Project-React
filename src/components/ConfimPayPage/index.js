@@ -10,12 +10,10 @@ import axios from "axios";
 const ConfirmPay = () => {
   const location = useLocation();
   const dataBooking = location.state;
-  console.log(dataBooking);
 
   const [payImg, setPayImg] = useState("");
   const token = localStorage.getItem("token");
   const num = dataBooking.itemBooking.data.id;
-  console.log(num);
 
   const upload = () => {
     const formData = new FormData();
@@ -34,7 +32,6 @@ const ConfirmPay = () => {
       console.log(response);
     });
   };
-  console.log(payImg);
 
   return (
     <div className="bayarTiket">

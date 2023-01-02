@@ -31,14 +31,11 @@ const ListBooking = () => {
       .then((response) => response.json())
       .then((data) => {
         setListBooking(data.data.bookings);
-        console.log(data.data.bookings);
       })
       .catch((err) => {
         console.log("err", err);
       });
   }, []);
-
-  console.log(listBooking);
 
   // fungsi konfirmasi pembayaran
   const handleConfirmPayment = (paymentId) => {
