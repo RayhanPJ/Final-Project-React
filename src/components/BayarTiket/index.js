@@ -50,6 +50,7 @@ const BayarTiket = () => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
+      booking_date : `${dataBooking.data.dataForm.date}`, 
       id_flight: `${dataBooking.data.item.id_plane}`,
       baggage: `${dataBooking.baggageWeight}`,
       food: `${dataBooking.typeFood}`,

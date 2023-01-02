@@ -25,9 +25,28 @@ const PesanTiket = () => {
   const [email, setEmail] = useState("");
   const [homePhone, setHomePhone] = useState("");
   const [mobilePhone, setMobilePhone] = useState("");
+  const [name2, setName2] = useState("");
+  const [typeFood2, setTypeFood2] = useState({
+    anak: true,
+    dewasa: false,
+  });
+  const [baggageWeight2, setBaggageWeight2] = useState({
+    w5: "5",
+    w10: "10",
+    w15: "15",
+    w20: "20",
+    w25: "25",
+    w30: "30",
+    w35: "35",
+    w40: "40",
+  });
+  const [email2, setEmail2] = useState("");
+  const [homePhone2, setHomePhone2] = useState("");
+  const [mobilePhone2, setMobilePhone2] = useState("");
   const location = useLocation();
   const data = location.state;
   console.log(data);
+  const capacity = parseInt(data.dataForm.capacity);
 
   const [flight, setflight] = useState([]);
 
@@ -43,7 +62,6 @@ const PesanTiket = () => {
         console.log("err", err);
       });
   }, []);
-
 
   return (
     <div style={{ backgroundColor: "#F0F0F0" }} className="pesanTiket">
@@ -163,10 +181,6 @@ const PesanTiket = () => {
                 <div className="col-lg-6">
                   <label>Email</label>
                   <br />
-                  {/* <input
-                    type={"email"}
-                    style={{ backgroundColor: "#ffff" }}
-                  ></input> */}
                   <input
                     type="email"
                     id="email"
@@ -178,10 +192,6 @@ const PesanTiket = () => {
                 <div className="col-lg-6">
                   <label>Mobile Phone</label>
                   <br />
-                  {/* <input
-                    type={"tel"}
-                    style={{ backgroundColor: "#ffffff" }}
-                  ></input> */}
                   <input
                     type="number"
                     id="homeph"
@@ -192,10 +202,6 @@ const PesanTiket = () => {
                   <br />
                   <label>Home Phone</label>
                   <br />
-                  {/* <input
-                    type={"tel"}
-                    style={{ backgroundColor: "#ffffff" }}
-                  ></input> */}
                   <input
                     type="number"
                     id="mobileph"
@@ -257,9 +263,7 @@ const PesanTiket = () => {
                           <p>Arrival Time :</p>
                         </div>
                         <div className="col-6">
-                          <p>
-                            {item.arrival_time}
-                          </p>
+                          <p>{item.arrival_time}</p>
                         </div>
                         <div className="col-6">
                           <p>Class Booking :</p>
@@ -277,7 +281,7 @@ const PesanTiket = () => {
                           <p>Total</p>
                         </div>
                         <div className="col-6">
-                          <p>Rp {item.price}</p>
+                          <p>Rp {item.price * data.dataForm.capacity}</p>
                         </div>
                       </div>
                     );
@@ -293,6 +297,12 @@ const PesanTiket = () => {
                       homePhone,
                       typeFood,
                       baggageWeight,
+                      name2,
+                      email2,
+                      mobilePhone2,
+                      homePhone2,
+                      typeFood2,
+                      baggageWeight2,
                     }}
                     to="/bayar"
                   >
@@ -302,6 +312,118 @@ const PesanTiket = () => {
               </div>
             </div>
           </div>
+          {capacity > 1 && (
+            <div className="col-lg-8 mt-2">
+              <form
+                style={{
+                  borderStyle: "solid",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "6px",
+                  padding: "50px",
+                }}
+              >
+                <h3>Data Diri</h3>
+                <div className="col-lg-12 nama_lengkap">
+                  <label>Nama Lengkap</label>
+                  <br />
+                  <input
+                    type="text"
+                    id="nama_lengkap"
+                    placeholder="Nama lengkap"
+                    className="form-control "
+                    style={{ width: "300px" }}
+                    value={name2}
+                    onChange={(e) => setName2(e.target.value)}
+                  />
+                </div>
+                <div className="row" style={{ marginTop: "10px" }}>
+                  <div className="col-lg-6">
+                    <label>Makanan</label>
+                    <br />
+                    <select
+                      className="form-select"
+                      id="pilih-makanan"
+                      onChange={(e) => setTypeFood2(e.target.value)}
+                    >
+                      <option value="">Pilih Tipe Makanan</option>
+                      <option value={typeFood2.anak}>Anak</option>
+                      <option value={typeFood2.dewasa}>Dewasa</option>
+                    </select>
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Bagasi</label>
+                    <br />
+                    {/* <input
+                    type={"text"}
+                    style={{ width: "140px", backgroundColor: "#ffff" }}
+                  ></input> */}
+                    <select
+                      className="form-select"
+                      id="kapasitas-bagasi"
+                      onChange={(e) => setBaggageWeight2(e.target.value)}
+                    >
+                      <option value="">Kapasitas bagasi</option>
+                      <option value={baggageWeight2.w5}>5 KG</option>
+                      <option value={baggageWeight2.w10}>10 KG</option>
+                      <option value={baggageWeight2.w15}>15 KG</option>
+                      <option value={baggageWeight2.w20}>20 KG</option>
+                      <option value={baggageWeight2.w25}>25 KG</option>
+                      <option value={baggageWeight2.w30}>30 KG</option>
+                      <option value={baggageWeight2.w35}>35 KG</option>
+                      <option value={baggageWeight2.w40}>40 KG</option>
+                    </select>
+                  </div>
+                </div>
+                <h3 style={{ marginTop: "30px" }}>Informasi Kontak</h3>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>Email</label>
+                    <br />
+                    {/* <input
+                    type={"email"}
+                    style={{ backgroundColor: "#ffff" }}
+                  ></input> */}
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-control "
+                      value={email2}
+                      onChange={(e) => setEmail2(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Mobile Phone</label>
+                    <br />
+                    {/* <input
+                    type={"tel"}
+                    style={{ backgroundColor: "#ffffff" }}
+                  ></input> */}
+                    <input
+                      type="number"
+                      id="homeph"
+                      className="form-control "
+                      value={mobilePhone2}
+                      onChange={(e) => setMobilePhone2(e.target.value)}
+                    />
+                    <br />
+                    <label>Home Phone</label>
+                    <br />
+                    {/* <input
+                    type={"tel"}
+                    style={{ backgroundColor: "#ffffff" }}
+                  ></input> */}
+                    <input
+                      type="number"
+                      id="mobileph"
+                      className="form-control "
+                      value={homePhone2}
+                      onChange={(e) => setHomePhone2(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          )}
         </div>
       </Container>
       {/* footer */}

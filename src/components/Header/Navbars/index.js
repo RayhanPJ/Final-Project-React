@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Tooltip from "@mui/material/Tooltip";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -47,6 +48,9 @@ function NavbarHeader() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showNav, setShowNav] = useState(false);
+  const handleCloseNav = () => setShowNav(false);
+  const handleShowNav = () => setShowNav(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -134,9 +138,34 @@ function NavbarHeader() {
   };
 
   return (
-    <>
+    <div>
+      {/* <Navbar bg="light" expand="lg" >
+        <Container>
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar> */}
       {["md"].map((expand) => (
-        <Navbar key={expand} expand={expand} className="mb-3 navbar_main">
+        <Navbar key={expand} bg="transparent" expand={expand} className="mb-3 navbar_main">
           <Container>
             <Navbar.Brand href="/">
               <img
@@ -145,45 +174,45 @@ function NavbarHeader() {
                 alt="React Bootstrap logo"
               />
             </Navbar.Brand>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
             >
-              {/* {console.log(Login)} */}
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                   GoTravel
                 </Offcanvas.Title>
               </Offcanvas.Header>
-              <Offcanvas.Body>
+              <Offcanvas.Body className="justify-content-center text-center">
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_side_bar">
                   <Nav.Link
                     href="https://final-project-react-eight.vercel.app/"
-                    className="text-dark"
+                    className="text-dark list_nav_main my-2"
                   >
                     Beranda
                   </Nav.Link>
                   <Nav.Link
                     href="https://final-project-react-eight.vercel.app/#Booking"
-                    className="text-dark list_nav_main"
+                    className="text-dark list_nav_main my-2"
                   >
                     Books
                   </Nav.Link>
                   <Nav.Link
                     href="https://final-project-react-eight.vercel.app/#aboutUs"
-                    className="text-dark list_nav_main"
+                    className="text-dark list_nav_main my-2"
                   >
                     About Us
                   </Nav.Link>
                   <Nav.Link
                     href="https://final-project-react-eight.vercel.app/#Testimonial"
-                    className="text-dark list_nav_main"
+                    className="text-dark list_nav_main my-2"
                   >
                     Testimonial
                   </Nav.Link>
                   <Button
-                    className="btn btn-transparent"
+                    className="btn btn-transparent my-2"
                     variant="btn btn-lg btn-outline-dark"
                     onClick={handleShow}
                   >
@@ -192,7 +221,7 @@ function NavbarHeader() {
                       width="16"
                       height="16"
                       fill="currentColor"
-                      class="bi bi-bell-fill"
+                      className="bi bi-bell-fill"
                       viewBox="0 0 16 16"
                     >
                       <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
@@ -242,6 +271,7 @@ function NavbarHeader() {
                         id="dropdown-basic-button"
                         title="CRUD"
                         variant="transparent"
+                        className="mt-2 list_nav_main"
                       >
                         <Dropdown.Item
                           href="/listflight"
@@ -285,18 +315,18 @@ function NavbarHeader() {
                       </Button>
                     </Nav.Link>
                   ) : (
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0 }} >
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                           {/* {user.address && ( */}
-                            <div className="d-flex">
-                              <Avatar
-                                className="me-2 ms-4"
-                                src={user.image}
-                                alt="Profile"
-                              />
-                              <p className="fs-6 mt-2">Hi {user.name}</p>
-                            </div>
+                          <div className="d-flex">
+                            <Avatar
+                              className="me-2 ms-4"
+                              src={user.image}
+                              alt="Profile"
+                            />
+                            <p className="fs-6 mt-2">Hi {user.name}</p>
+                          </div>
                           {/* )} */}
                           {/* {user.address === null && (
                             <Avatar
@@ -346,7 +376,29 @@ function NavbarHeader() {
           </Container>
         </Navbar>
       ))}
-    </>
+      {/* <Navbar expand="md" className="mb-3 navbar_main">
+        <Container>
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={handleShowNav}
+          />
+          <Offcanvas
+            placement="end"
+            name="end"
+            show={showNav}
+            onHide={handleCloseNav}
+            backdrop="static"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              
+            </Offcanvas.Body>
+          </Offcanvas>
+        </Container>
+      </Navbar> */}
+    </div>
   );
 }
 
